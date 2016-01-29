@@ -1,0 +1,165 @@
+\documentclass[english]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{babel,textcomp,csquotes,ifimasterforside,varioref,graphicx}
+\usepackage[T1]{fontenc}
+\usepackage[hyphens]{url} % deler lange url-er
+
+% biblatex-pakka med opsjoner
+\usepackage[backend=biber,%
+%style=numeric,%
+backref,%
+sortcites,%
+defernumbers=true,%
+style=authoryear%
+%style=alphabetic%
+%sorting=none,% eller nty, nyt o.a
+%date=long,% eller short, terse, comp, iso8601
+]{biblatex}
+
+% må opplyse om bib-filen
+% ved flere bib-filer gjentas kommandoen
+\addbibresource{bibliography.bib}
+
+% denne kommandoen er for reftex som ikke forstår BibLaTeX
+%\bibliography{referanser}
+
+% noen mulige lokale biblatex tilpasninger
+%\DefineBibliographyStrings{norsk}{%
+%   urlseen={Sett: },
+%   bibliography = {Bibliografi},
+%   references = {Referanser},
+%   editor = {redaktør},
+%   translator={oversetter},
+   %page={side},
+   %pages={sidene},
+%   and={og}
+%}
+
+\DeclareFieldFormat{url}{\url{#1}} % fjerner hardkodet "URL: " foran url
+
+\DeclareUrlCommand\url{\def\UrlLeft{\newline}\def\UrlRight{\newline}%
+\urlstyle{sf}} % setter inn passende linjeskift
+
+% biblatex anbefaler at hyperref blir lastet inn etter biblatex
+\usepackage{hyperref}
+
+\title{}
+% Sett inn ditt eget navn her:
+\author{Johannes Akse}
+
+\begin{document}
+\maketitle{}
+%Example of siting: their jobs, rather than the programmer's \parencite {shneiderman1983}\parencite{stephenson1999,hutchins1986},.
+\tableofcontents
+\nocite{*}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Introduction %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Introduction}
+
+\subsection{Goal}
+
+\subsection{Development in a real time setting}
+Even though the functionality looks easy, the development has not been trivial. 
+
+\subsection{Gsuite - A need to simplify the UI}
+
+\subsection{Requirement specifications}
+
+\subsection{Design choices}
+
+\subsection{Challenges}
+
+\subsection{Problem statement}
+
+\subsection{Terminology}
+\subsubsection{Acronyms}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Background %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Background}
+
+\subsection{Web clients}
+
+\subsection{Anticipated behavior in a web application}
+
+\subsection{Single page application on top of server heavy page - A hack?}
+
+\subsection{Storing state in the browser}
+
+\subsection{Location.hash or models as driving appliBehaviourcation state}
+
+\subsection{Communicating with the DOM}
+
+\subsection{Strictly objects vs class structures} (Discussion?)
+\subsubsection{ECMA 5 vs ECMA 6} (Discussion?)
+
+\subsection{Using third party libraries or design from scratch?} (Discussion?)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Methodology %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Methodology}
+Why local testing has been crucial to development 
+
+\subsection{Behavior driven development}
+Find source.
+
+\subsubsection{Jasmine}
+Using Jasmine as integration testing tool
+
+\subsection{Modularity}
+For modularity and encapsulation. (Discussion?)
+\subsubsection{Browserify, taking Nodejs NPM module loading technology to the browser}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Development %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Development}
+\subsection{Building blocks / Objects}
+\subsubsection{Main}
+ModeApp
+ToolApp
+\subsubsection{Prototypes}
+Model prototype
+View prototype
+Controller prototype
+History prototype
+Dispatcher prototype
+Observer
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Discussion %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Discussion}
+\subsection{Specific or broad approach}
+* Code for the future ie pushState
+* Both setHistory and changeHistory
+c - More work. More mess
+p - Faster refactoring when new specifications
+
+* uriAnchor vs. own development
+* How to handle bugs in third party plugins?
+* Using framework or library vs creating from scratch (Introduced in the background).
+* Local storage vs simple
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Conclusion %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Conclusion}
+
+\subsection{Thoughts on future development}
+
+
+
+\newpage
+% The headline of the bibliography (the document class article)
+\renewcommand{\refname}{Bibliography}
+
+% redefiner \bibname ved bruk av dokumentklassen book
+
+% Litteraturlista inn i innholdsfortegnelsen
+\addcontentsline{toc}{section}{\refname}
+
+\printbibheading
+\printbibliography[type=book, title={Books}]
+\printbibliography[type=article, title={Articles}]
+\printbibliography[type=manual, title={Manuals}]
+\printbibliography[nottype=book, nottype=article,%
+nottype=manual, title={Other documents}]
+
+\end{document}
