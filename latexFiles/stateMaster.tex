@@ -1,20 +1,12 @@
-\documentclass[english]{article}
+\documentclass[english]{ifimaster}
 \usepackage[utf8]{inputenc}
-\usepackage{babel,textcomp,csquotes,ifimasterforside,varioref,graphicx}
+\usepackage{babel,textcomp,csquotes,ifikompendiumforside,varioref,graphicx}
 \usepackage[T1]{fontenc}
 \usepackage[hyphens]{url} % deler lange url-er
 
 % biblatex-pakka med opsjoner
-\usepackage[backend=biber,%
-%style=numeric,%
-backref,%
-sortcites,%
-defernumbers=true,%
-style=authoryear%
-%style=alphabetic%
-%sorting=none,% eller nty, nyt o.a
-%date=long,% eller short, terse, comp, iso8601
-]{biblatex}
+\usepackage[backend=biber, style=numeric-comp,%
+defernumbers=true, style=authoryear, backref,sortcites]{biblatex}
 
 % må opplyse om bib-filen
 % ved flere bib-filer gjentas kommandoen
@@ -34,6 +26,13 @@ style=authoryear%
    %pages={sidene},
 %   and={og}
 %}
+%\reg{fig:picture8}
+% /begin{figure}[htbp]
+%\centering
+%\includegraphics[scale=0.6]{imgName.png}
+%\caption{Bla bla}
+%\label{fig:picture8}
+%\end{figure}
 
 \DeclareFieldFormat{url}{\url{#1}} % fjerner hardkodet "URL: " foran url
 
@@ -43,106 +42,136 @@ style=authoryear%
 % biblatex anbefaler at hyperref blir lastet inn etter biblatex
 \usepackage{hyperref}
 
-\title{}
+\title{Applying browser side state management on server rendered web pages}
+\subtitle{} 
 % Sett inn ditt eget navn her:
 \author{Johannes Akse}
+\date{2016}
 
 \begin{document}
+%\ififorside
 \maketitle{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Abstract %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter*{Abstract}
 %Example of siting: their jobs, rather than the programmer's \parencite {shneiderman1983}\parencite{stephenson1999,hutchins1986},.
 \tableofcontents
 \nocite{*}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Preface %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter*{Preface}
+"Personal" motivation for writing the thesis, the changing of focus from wizard to state (basic/advanced) and lastly adding history functionality. Write the main portion of the thesis as if history management was a specification all the way or integrating the addition of this in the introduction?
+
+These features, even though not part of the original requirement specifications for this master thesis, has after implementation been received with some expectations from in-house users of the system. 
+
+No expert supervisor on javaScript and main supervisor on paternity leave I have been quite alone when making design decisions.  
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Introduction %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Introduction}
+\section{State, what is it and why is it important?}
+As the Internet has matured on us, we the users of the World Wide Web have started to expect certain behaviour from a web page\parencite[p.85]{mik}. Whether the web site is about displaying dynamically rendered news articles or as is the case of "The Genomic HyperBrowser" doing statistical analyzes on a genome, the users expect to be able to use the built in actions most browsers provide. Going back and forth using the navigation arrows on the top left side of the page or bookmarking a page for later reference or even sending a link to a friend or colleague is build in functionality I claim every site should strive to provide for its users. 
 
-\section{Introduction}
+Up til now this has not been the case for the Genomic HyperBrowser, hereafter called just the HyperBrowser. To be fair, going back and forth is features that has already been offered by the HyperBrowser. The fact that every selection done in a tool has re-render the mainFrame, that is gotten a whole new page from the server, the native functionality of the browser still works as expected. Saving the selections or sending a specific selection to a co-worker or other scientist has however not been possible.
 
-\subsection{Goal}
 
-\subsection{Development in a real time setting}
-Even though the functionality looks easy, the development has not been trivial. 
+Explanation of state? What is state. Why is it important?
+(Entice the reader)
+\section{Goals}
+This thesis will try to show why the implementation of a simple feature like a button changing between basic and advanced mode, even though sounding like a simple task, is far from being trivial.
+\begin{itemize}
+  \item The first item
+  \item The second item
+  \item The third etc \ldots
+\end{itemize}
+\section{Development in a real time setting}
+%Even though the functionality looks easy, the development has not been trivial\parencite {gk}\parencite{}. 
 
-\subsection{Gsuite - A need to simplify the UI}
+\section{Gsuite - A need to simplify the UI}
 
-\subsection{Requirement specifications}
+\section{Requirement specifications}
+Users expect certain behaviour from a web site \parencite{mik}.
+\subsection{A use case}
 
-\subsection{Design choices}
 
-\subsection{Challenges}
 
-\subsection{Problem statement}
 
-\subsection{Terminology}
-\subsubsection{Acronyms}
+\section{Challenges}
+
+\section{Problem statement}
+How to apply state management for predefined server rendered pages in a web browser.
+\section{Overview}
+\section{Terminology}
+\subsection{Acronyms}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Background %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Background}
+\chapter{Background}
 
-\subsection{Web clients}
+\section{Web clients}
 
-\subsection{Anticipated behavior in a web application}
+\section{Anticipated behavior in a web application}
 
-\subsection{Single page application on top of server heavy page - A hack?}
+\section{Single page application on top of server heavy page - A hack?}
 
-\subsection{Storing state in the browser}
+\section{Storing state in the browser}
 
-\subsection{Location.hash or models as driving appliBehaviourcation state}
+\section{Location.hash or models as driving appliBehaviourcation state}
 
-\subsection{Communicating with the DOM}
+\section{Communicating with the DOM}
 
-\subsection{Strictly objects vs class structures} (Discussion?)
-\subsubsection{ECMA 5 vs ECMA 6} (Discussion?)
+\section{Strictly objects vs class structures} (Discussion?)
+\subsection{ECMA 5 vs ECMA 6} (Discussion?)
 
-\subsection{Using third party libraries or design from scratch?} (Discussion?)
+\section{Using third party libraries or design from scratch?} (Discussion?)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Methodology %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Methodology}
+\chapter{Methodology}
 Why local testing has been crucial to development 
 
-\subsection{Behavior driven development}
+\section{Behavior driven development}
 Find source.
 
-\subsubsection{Jasmine}
+\subsection{Jasmine}
 Using Jasmine as integration testing tool
 
-\subsection{Modularity}
+\section{Modularity}
 For modularity and encapsulation. (Discussion?)
-\subsubsection{Browserify, taking Nodejs NPM module loading technology to the browser}
+\subsection{Browserify, taking Nodejs NPM module loading technology to the browser}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Development %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Development}
-\subsection{Building blocks / Objects}
-\subsubsection{Main}
-ModeApp
-ToolApp
-\subsubsection{Prototypes}
-Model prototype
-View prototype
-Controller prototype
-History prototype
-Dispatcher prototype
-Observer
+\chapter{Development}
+\section{Design choices}
+\section{Building blocks / Objects}
+\subsection{Main}
+\subsubsection{ModeApp}
+\subsubsection{ToolApp}
+
+\subsection{Prototypes}
+\subsubsection{Model prototype}
+\subsubsection{View prototype}
+\subsubsection{Controller prototype}
+\subsubsection{History prototype}
+\subsubsection{Dispatcher prototype}
+\subsubsection{Observer}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Discussion %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Discussion}
-\subsection{Specific or broad approach}
-* Code for the future ie pushState
-* Both setHistory and changeHistory
-c - More work. More mess
-p - Faster refactoring when new specifications
-
-* uriAnchor vs. own development
-* How to handle bugs in third party plugins?
-* Using framework or library vs creating from scratch (Introduced in the background).
-* Local storage vs simple
+\chapter{Discussion}
+\section{Specific or broad approach}
+\subsubsection{Code for the future ie pushState} {}
+\subsubsection{Both setHistory and changeHistory} {}
+ - More work. More mess.
+ - Faster refactoring when new specifications
+\subsubsection{uriAnchor vs. own development} 
+\subsubsection{How to handle bugs in third party plugins?} 
+\subsubsection{Using framework or library vs creating from scratchd}  (Introduced in the background).
+\subsubsection{Local storage vs simple storage} 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Conclusion %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Conclusion}
+\chapter{Conclusion}
 
-\subsection{Thoughts on future development}
+\section{Thoughts on future development}
 
 
 
@@ -163,3 +192,4 @@ p - Faster refactoring when new specifications
 nottype=manual, title={Other documents}]
 
 \end{document}
+
