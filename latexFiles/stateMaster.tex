@@ -63,27 +63,32 @@ defernumbers=true, style=authoryear, backref,sortcites]{biblatex}
 
 These features, even though not part of the original requirement specifications for this master thesis, has after implementation been received with some expectations from in-house users of the system. 
 
-No expert supervisor on javaScript and main supervisor on paternity leave I have been quite alone when making design decisions.  
+No expert supervisor on javaScript and main supervisor on paternity leave I have been quite alone when making design decisions. 
+\chapter{Notes. Must be deleted upon due date}
+
+   
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Introduction %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Introduction}
-\section{State, what is it and why is it important?}
-As the Internet has matured on us, we the users of the World Wide Web have started to expect certain behaviour from a web page\parencite[p.85]{mik}. Whether the web site is about displaying dynamically rendered news articles or as is the case of "The Genomic HyperBrowser" doing statistical analyzes on a genome, the users expect to be able to use the built in actions most browsers provide. Going back and forth using the navigation arrows on the top left side of the page or bookmarking a page for later reference or even sending a link to a friend or colleague is build in functionality I claim every site should strive to provide for its users. 
+\section{Motivation}
+%Why there is a need for the product I have made
+The Genomic Hyperbrowser, a public web-based collection of tools for performing advanced statistical analysis, has been reported to be difficult to understand and use. Especially for new users and users with little or no mathematics or statistical background the HyperBrowser has proven difficult. With the emergence of epigenome-wide data a new suite of software, the G suite, is under development by the "Research Group for Biomedical Informatics" at the University of Oslo\parencite{gsuite}. They have taken into account some of the usability problems by providing separate interfaces for basic and advanced use. The different interfaces are generated server side when asked for from within the new tools. They also offer a basic and advanced step wise guide on how to and in what sequence the different tools could be used together. My contribution has been to offer a generic button for all basic/advanced state management.
 
-Up til now this has not been the case for the Genomic HyperBrowser, hereafter called just the HyperBrowser. To be fair, going back and forth is features that has already been offered by the HyperBrowser. The fact that every selection done in a tool has re-render the mainFrame, that is gotten a whole new page from the server, the native functionality of the browser still works as expected. Saving the selections or sending a specific selection to a co-worker or other scientist has however not been possible.
 
-
-Explanation of state? What is state. Why is it important?
-(Entice the reader)
 \section{Goals}
-This thesis will try to show why the implementation of a simple feature like a button changing between basic and advanced mode, even though sounding like a simple task, is far from being trivial.
+%(Entice the reader, what are they about to spend time reading, why would they?)
+In this thesis I will try to show why implementing a simple feature like a button changing between basic and advanced mode, even though sounding like an easy task, is far from trivial when done on an already existing web page. 
+
+I will also show that the underlying structure needed to build such a seemingly simple feature facilitates faster and easier development of other state dependent functionality.
 \begin{itemize}
   \item The first item
   \item The second item
   \item The third etc \ldots
 \end{itemize}
+\section{Limitations/boundaries of the thesis (avgrensning)}
+
 \section{Development in a real time setting}
-%Even though the functionality looks easy, the development has not been trivial\parencite {gk}\parencite{}. 
+
 
 \section{Gsuite - A need to simplify the UI}
 
@@ -105,14 +110,25 @@ How to apply state management for predefined server rendered pages in a web brow
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Background %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \chapter{Background}
+\section{State management, what is it and why is it important?}
+As the Internet has matured on us, we the users of the World Wide Web have started to expect certain behaviour from a web page\parencite[p.85]{mik}. Whether the web site is about displaying dynamically rendered news articles or, as is the case of "The Genomic HyperBrowser", doing statistical analyzes on a genome, the users expect to be able to use the built in actions most browsers provide. Going back and forth using the navigation arrows on the top left side of the page or bookmarking a page for later reference or even sending a link to a friend or colleague is build in functionality I claim every site should strive to provide for its users. 
 
-\section{Web clients}
+Up til now this has not been the case for the Genomic HyperBrowser. To be fair, going back and forth is features that has already been offered by the HyperBrowser. The fact that every selection done in a tool has re-render the mainFrame, that is gotten a whole new page from the server, the native functionality of the browser still works as expected. Saving the selections or sending a specific selection to a co-worker or other scientist has however not been possible.
+
+State
+
+
+Explanation of state? What is state. Why is it important?
+\subsection{The statelessness of REST}
+
+\subsection{State management in web clients}
+\paragraph{Storing state in the browser}
 
 \section{Anticipated behavior in a web application}
 
 \section{Single page application on top of server heavy page - A hack?}
 
-\section{Storing state in the browser}
+
 
 \section{Location.hash or models as driving appliBehaviourcation state}
 
