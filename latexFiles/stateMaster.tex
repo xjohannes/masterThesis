@@ -51,8 +51,10 @@ defernumbers=true, style=authoryear, backref,sortcites]{biblatex}
 \begin{document}
 %\ififorside
 \maketitle{}
+\pagenumbering{roman}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Abstract %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter*{Abstract}
+
 %Example of siting: their jobs, rather than the programmer's \parencite {shneiderman1983}\parencite{stephenson1999,hutchins1986},.
 \tableofcontents
 \nocite{*}
@@ -64,17 +66,18 @@ defernumbers=true, style=authoryear, backref,sortcites]{biblatex}
 These features, even though not part of the original requirement specifications for this master thesis, has after implementation been received with some expectations from in-house users of the system. 
 
 No expert supervisor on javaScript and main supervisor on paternity leave I have been quite alone when making design decisions. 
-\chapter{Notes. Must be deleted upon due date}
+\chapter*{Notes. Must be deleted upon due date}
 
    
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Introduction %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \chapter{Introduction}
+\pagenumbering{arabic}
 This thesis is all about state and how to manage state in a browser.
-The intention of the web to augment the human brain, From Doug Engelbart to Sir Tim Bernes-Lee, has been leading. Thy hyperbrowsers intention is to provide the possibility to help researchers do reaserch communicate(Howard Rheingold). The galaxy platform facilitates sharing results, my app gives the opportunity to share research questions.  
+The intention of the web to augment the human brain, From Doug Engelbart to Sir Tim Bernes-Lee, has been leading bla bla. Thy hyperbrowsers intention is to provide the possibility to help researchers do research(Howard Rheingold). The galaxy platform facilitates sharing results, my app gives the opportunity to share research questions.  
 \section{Motivation}%Move to preface?
 %Why there is a need for the product I have made
-
 
 
 \section{Goals}
@@ -135,9 +138,8 @@ How to apply state management for predefined server rendered pages in a web brow
 \section{State management}
 \subsection{What is state?}
 
-As the Internet has matured on us, we the users of the World Wide Web have started to expect certain behaviour from a web page\parencite[p.85]{mikowski}. Whether the web site is about displaying dynamically rendered news articles or, as is the case of "The Genomic HyperBrowser", doing statistical analyzes on a genome, the users expect to be able to use the built in actions most browsers provide. Going back and forth using the navigation arrows on the top left side of the page or bookmarking a page for later reference or even sending a link to a friend or colleague is build in functionality I claim every site should strive to provide for its users. \newline
-
-\noindent iUp til now this has not been the case for the Genomic HyperBrowser. To be fair, going back and forth is features that has already been offered by the HyperBrowser. The fact that every selection done in a tool has re-render the mainFrame, that is gotten a whole new page from the server, the native functionality of the browser still works as expected. Saving the selections or sending a specific selection to a co-worker or other scientist has however not been possible.
+As the Internet has matured, we, the users of the World Wide Web, have started to expect certain behaviour from a web page\parencite[p.85]{mikowski}. Whether the web site is about displaying dynamically rendered news articles or, as is the case of "The Genomic HyperBrowser", doing statistical analyzes on a genome, the users expect to be able to use the built in actions most browsers provide. Going back and forth using the navigation arrows on the top left side of the page or bookmarking a page for later reference or even sending a link to a friend or colleague is build in functionality I claim every site should strive to provide for its users.\newline
+\noindent Up til now this has not been the case for the Genomic HyperBrowser. To be fair, going back and forth is features that has already been offered by the HyperBrowser. The fact that every selection done in a tool has re-render the mainFrame, that is gotten a whole new page from the server, the native functionality of the browser still works as expected. Saving the selections or sending a specific selection to a co-worker or other scientist has however not been possible.
 
 State
 
@@ -150,8 +152,8 @@ State
 
 \section{Anticipated behavior in a web application}
 
-
-\section{Location.hash or models as driving appliBehaviourcation state}
+\section{The MVC controversy}
+\section{Location hash or models as driving application state}
 
 \section{Communicating with the DOM}
 
@@ -179,20 +181,69 @@ For modularity and encapsulation. (Discussion?)
 In this chapter I describe what have been done. I also try to reason why I have done as I have.
 
 \section{The web client}
-The modern web client or web browser is no longer just a reader of static information in interlinked web pages. It is better described as a simplified OS \parencite[p.310]{flanagan}. The browsers provide a way to organize web documents and web applications in folder structures much like a regular OS does. It also allows for running multiple discrete applications like in the browser tabs. Thirdly web browsers define low-level apis for activities such as networking and saving data both of which will be discussed thoroughly in the following sections.
+"The web browser is perhaps the most widely used software application in history.
+It has evolved significantly over the past twenty years; today, web browsers
+run on diverse types of hardware, from cell phones and tablet PCs to desktop
+computers"\parencite[p. 2]{gross}. We even have iWatches and Google glasses. The web client is no longer just a reader of static information browsing interlinked web pages. Now it is better described as a simplified OS\parencite[p.310]{flanagan}. The browsers provide ways to organize web documents and web applications in folder structures. As is the case for the current state app, it allows for organization of statistical analysis questions and hypothesises. It also allows for running multiple discrete applications much like an OS. The state app consists of two distinct applications, one that handles tool state and one that synchronizes mode between frames. Thirdly web browsers define low-level API's for activities such as networking and saving data. 
+
+The Genomic HyperBrowser use some of these new technologies. It does rely on jQuerys Ajax suite to do some of the communication with the server. They have even started using one of the HTML5 specifications, the localStorage API, which they have entrusted to a third party plugin, JStorage. 
+
+While utilizing new web standards on some parts of the page they also rely heavily on the somewhat discouraged technique of using iFrames for separating content on a page..%Why is this discouraged. Source?% They could have used components, widgets and plain css.
+The usage of iFrames stems from the fact that the HyperBrowser is an extension of an other open source, web-based platform for data intensive biomedical research, namely the Galaxy platform and is by that dependent on how the Galaxy project was originally implemented. The consequences of having to deal with iFrames for the state app will be discussed later in this chapter but will here only function as an introduction to .
+
+As might be demanded of post modern information technology the web client can mash together information from several different sources and by that create information and express novel ideas to the users/world. The HyperBrowsers new state functionality utilizes the web client letting scientists share their scientific questions and hypothesises which not only facilitate reproducibility but also promote augmenting the human intellect. Aka the series silicon valley - All apps try to make the world a better place.
+
+
+
+
+
+The goal for the state app has been
+This latter point will be discussed thoroughly in the coming sections.
+
 
 For a program to manage state within a browser context it needs some way to interact with the HTML elements displayed on the page. The standard programming language for all modern browsers, Javascript, provides such and entry point. When the server returns the requested page the browser creates a plain javascript object, called the document object, and uses it as the root of a tree like structure. It then parses the received HTML. For every HTML element it creates a responding javascript object and adds it to the document tree. This tree is often referred to as the DOM. All of these javascript objects have fields that correspond to all the HTML element attributes. The elements most interesting to the discussions of this thesis are the iFrame element and the form element. These have such a central place in the development that they deserve a whole section each. For now  
 
-The web browser is perhaps the most widely used software application in history.
-It has evolved significantly over the past fifteen years; today, web browsers
-run on diverse types of hardware, from cell phones and tablet PCs to desktop
-computers.\parencite[p. 2]{gross}
 
-/subsection{JQuery}
-One of the challenges of writing nontrivial JavaScript client-side programs is to ensure they run correctly on the wide variety of different browser implementations we have to day\parencite[p. 325]{flanagan}. One example this is Microsofts reluctance to implement the DOM Level 2 Events specification which includes crucial events such as AddEventListener. 
+\subsection{JQuery}
+One of the challenges of writing nontrivial JavaScript client-side programs is to ensure they run correctly on the wide variety of different browser implementations we have to day\parencite[p. 325]{flanagan}. One example of the discrepancy between browser vendors JavaScript implementation is Microsofts reluctance to implement the DOM Level 2 Events specification which is The World Wide Web Consortium (W3C) recommended standard\parencite{w3c}. This specification includes crucial functionality such as the AddEventListener which is paramount to most interaction with a web page. To accommodate for these differences the programmer need to write a lot of extra boilerplate code if the use of natively supported JavaScript is important. What many chooses to do in stead, is to use an external, third-party library to query the DOM. 
+
+With the plethora of JavaScript libraries available, jQuery is the most widely used according to the libscore search engine\parencite{infoWorld}. The ease of use and the great amount of functionality besides querying the DOM, most significantly their handling of Ajax calls has been the leading reasons why I have chosen jQuery over other libraries such as Motools and Dojo. 
+
+Since the release of Internet Explorer 9, however, Microsoft finally decided to implement the decade old W3C standardizations and as a result most of the browser differences disappeared. One might think that this would be the end of the widespread use of JavaScript libraries but that has not been the case. A quick google search on jQuery usage statistics showed that between 60 and 70\% of the top 10k web sites still rely on jQuery \parencite{jQueryWiki} \parencite{jQueryW3Tech}\parencite{builtWith}. A natural explanation for the continuing popularity of jQuery is the need for many web sites to provide satisfactory service to legacy browsers such as Microsofts Internet Explorer 8 and beyond. This also applies to The HyperBrowser. The goal of being a service available to the public leaves no choice but to cater for the communities where replacing the computer every second new release of software is unaffordable. 
+
+\subsection{The iFrame}
+%What is jQuery? And why is this important for this thesis?
+
+%css selectors
+
+\subsection{Module based code}
+Browserify.
 
 \subsection{Thr URI and the location object}
 \section{Design choices}
+At the core of the program lies two well known design patterns: "The Model View Controller" might better be described as an architecture than and design pattern as discussed in the previous chapter. "The Observer pattern" on the other hand is a fully fledged classical design pattern.
+
+\subsection{Classical design patterns}
+Classical design patterns carry a double meaning. On the one side "classical" design patterns refer to well established and thoroughly tested coding practices\parencite[p. 12]{gamma}. On the other side "classical" design patterns refer to object-oriented programming where classes act as a template for object production\parencite[p. 115]{stefanov}. The "classical" and highly influential book "Design patterns: Elements of Reusable Object-Oriented Software" suggests as a starting point twenty three named object oriented design patterns. The "main goals of the book was to capture and record experience on design in a form that people can use effectively"\parencite[p. 12]{gamma}. Good design patterns with thereto thoughtful and descriptive names can both establish a vocabulary that can ease communication between experienced programmers, assist in faster comprehension of object oriented programming principles and function as cognitive aids for junior programmers and programming students.
+
+\paragraph{The observer pattern}
+The intent of the Observer pattern is to “define a one-to-many dependency between objects so that when one object changes state, all its dependents are notified and updated automatically”\parencite[p. 9]{gamma}. It is often described as a publish-subscriber relationship where the observers subscribe to events and the observable "publishes" events to the subscribers letting them know there is a new "publication" ready. The "publication" can for instance be a state change in the publisher or other related code. Following the publisher-subscriber metaphor a little further; when a newspaper is ready for publication there has usually been two ways for news readers to obtain an exemplar of the paper, one by going to a news stand buying it there, the other to subscribe and thereby get it delivered to the front door.
+
+As goes for all design patterns, every implementation needs to tweak the original to fit the problem at hand. When used with "classical" programming languages this notion of a subscriber is somewhat misleading. Its more often implemented as a notification system where the observers gets notified and only then decides if they want or need the update. Usually the observable maintain a list or so of pointers to the observers and run through this list calling the observers notify method. The notify method is either called with a pointer to the the observable or every observer keeps a pointer to the observable them self. They then call the update method of the observable when and if needed.
+
+"Classical" object-oriented programming languages provide constructs like interfaces, that acts as contracts guaranteeing that certain methods exist. This is how the observables can maintain a unified list of observers and at the same time let the observers implementation be heterogeneous. 
+
+Since JavaScript is a loosely typed programming language, meaning that it does not contain classes in the real sense and thereby do not differentiate between types of objects, it does not provide the programmer with interface like constructs either.  
+
+Javascript does not need to do it this way, 
+
+
+When the Subject changes state all registered observers are notified. The observers may then ask the subject for its new state.
+\subsection{
+
+
+goal is to capture design experience in a form that people can use effectively.
+
 \section{Building blocks / Objects}
 \subsection{Main}
 \subsubsection{ModeApp}
@@ -247,3 +298,4 @@ nottype=manual, title={Other documents}]
 
 \end{document}
 
+ 
