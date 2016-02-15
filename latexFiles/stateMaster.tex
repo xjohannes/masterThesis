@@ -1,6 +1,6 @@
 \documentclass[english]{ifimaster}
 \usepackage[utf8]{inputenc}
-\usepackage{babel,textcomp,csquotes,ifikompendiumforside,varioref,graphicx}
+\usepackage{babel,textcomp,csquotes,,varioref,graphicx}% ifikompendiumforside Remember to ads
 \usepackage[T1]{fontenc}
 \usepackage[hyphens]{url} % deler lange url-er
 
@@ -66,6 +66,8 @@ defernumbers=true, style=authoryear, backref,sortcites]{biblatex}
 These features, even though not part of the original requirement specifications for this master thesis, has after implementation been received with some expectations from in-house users of the system. 
 
 No expert supervisor on javaScript and main supervisor on paternity leave I have been quite alone when making design decisions. 
+
+Open the eyes of the university for JavaScript.
 \chapter*{Notes. Must be deleted upon due date}
 
    
@@ -172,19 +174,23 @@ Find source.
 \subsection{Jasmine}
 Using Jasmine as integration testing tool
 
-\section{Modularity}
-For modularity and encapsulation. (Discussion?)
-\subsection{Browserify, taking Nodejs NPM module loading technology to the browser}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Development %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Development}
-In this chapter I describe what have been done. I also try to reason why I have done as I have.
+In this chapter I describe what have been done. I also try to reason why I have done as I have. To let the reader get a full understanding of the following sections I start of by giving a brief overview of JavaScript.
+
+\section{JavaScript}
+
+\begin{quotation}
+\noindent JavaScript is ”[…] clearly a grossly substandard language by modern
+standards and thus can be legitimately described as a toy language.” —
+\parencite{arno}
+\end{quotation}
+
+Even though some people still have problems recognising JavaScript as more than a toy programing language JavaScript has had a rapid evolution the last 10 years. The emergence of  big JavaScript libraries and frameworks like Backbonejs and Angularjs can be seen as a direct consequence of what has been coined the second browser war\parencite{Yule2013}. Especially after Google launched their Chrome browser in 2008 and the JavaScript runtime Nodejs was build on top of chromes V8 engine, the speed of interpreting JavaScript has increased enormously. Other JavaScript engines now uses dynamic compilation, also called "Just in time" technology and the V8 compiles directly to byte code which make them even faster\parencite{anand}. JavaScript is also the standard programing language of the "World Wide Web"\parencite[p. 1]{flanagan} and is thereby one of the most used programing languages.
+
 
 \section{The web client}
-"The web browser is perhaps the most widely used software application in history.
-It has evolved significantly over the past twenty years; today, web browsers
-run on diverse types of hardware, from cell phones and tablet PCs to desktop
-computers"\parencite[p. 2]{gross}. We even have iWatches and Google glasses. The web client is no longer just a reader of static information browsing interlinked web pages. Now it is better described as a simplified OS\parencite[p.310]{flanagan}. The browsers provide ways to organize web documents and web applications in folder structures. As is the case for the current state app, it allows for organization of statistical analysis questions and hypothesises. It also allows for running multiple discrete applications much like an OS. The state app consists of two distinct applications, one that handles tool state and one that synchronizes mode between frames. Thirdly web browsers define low-level API's for activities such as networking and saving data. 
+"The web browser is perhaps the most widely used software application in history. It has evolved significantly over the past twenty years; today, web browsers run on diverse types of hardware, from cell phones and tablet PCs to desktop computers"\parencite[p. 2]{gross}. We even have iWatches and Google glasses. The web client is no longer just a reader of static information browsing interlinked web pages. Now it is better described as a simplified OS\parencite[p.310]{flanagan}. The browsers provide ways to organize web documents and web applications in folder structures. As is the case for the current state app, it allows for organization of statistical analysis questions and hypothesises. It also allows for running multiple discrete applications much like an OS. The state app consists of two distinct applications, one that handles tool state and one that synchronizes mode between frames. Thirdly web browsers define low-level API's for activities such as networking and saving data. 
 
 The Genomic HyperBrowser use some of these new technologies. It does rely on jQuerys Ajax suite to do some of the communication with the server. They have even started using one of the HTML5 specifications, the localStorage API, which they have entrusted to a third party plugin, JStorage. 
 
@@ -193,16 +199,7 @@ The usage of iFrames stems from the fact that the HyperBrowser is an extension o
 
 As might be demanded of post modern information technology the web client can mash together information from several different sources and by that create information and express novel ideas to the users/world. The HyperBrowsers new state functionality utilizes the web client letting scientists share their scientific questions and hypothesises which not only facilitate reproducibility but also promote augmenting the human intellect. Aka the series silicon valley - All apps try to make the world a better place.
 
-
-
-
-
-The goal for the state app has been
-This latter point will be discussed thoroughly in the coming sections.
-
-
 For a program to manage state within a browser context it needs some way to interact with the HTML elements displayed on the page. The standard programming language for all modern browsers, Javascript, provides such and entry point. When the server returns the requested page the browser creates a plain javascript object, called the document object, and uses it as the root of a tree like structure. It then parses the received HTML. For every HTML element it creates a responding javascript object and adds it to the document tree. This tree is often referred to as the DOM. All of these javascript objects have fields that correspond to all the HTML element attributes. The elements most interesting to the discussions of this thesis are the iFrame element and the form element. These have such a central place in the development that they deserve a whole section each. For now  
-
 
 \subsection{JQuery}
 One of the challenges of writing nontrivial JavaScript client-side programs is to ensure they run correctly on the wide variety of different browser implementations we have to day\parencite[p. 325]{flanagan}. One example of the discrepancy between browser vendors JavaScript implementation is Microsofts reluctance to implement the DOM Level 2 Events specification which is The World Wide Web Consortium (W3C) recommended standard\parencite{w3c}. This specification includes crucial functionality such as the AddEventListener which is paramount to most interaction with a web page. To accommodate for these differences the programmer need to write a lot of extra boilerplate code if the use of natively supported JavaScript is important. What many chooses to do in stead, is to use an external, third-party library to query the DOM. 
@@ -211,39 +208,57 @@ With the plethora of JavaScript libraries available, jQuery is the most widely u
 
 Since the release of Internet Explorer 9, however, Microsoft finally decided to implement the decade old W3C standardizations and as a result most of the browser differences disappeared. One might think that this would be the end of the widespread use of JavaScript libraries but that has not been the case. A quick google search on jQuery usage statistics showed that between 60 and 70\% of the top 10k web sites still rely on jQuery \parencite{jQueryWiki} \parencite{jQueryW3Tech}\parencite{builtWith}. A natural explanation for the continuing popularity of jQuery is the need for many web sites to provide satisfactory service to legacy browsers such as Microsofts Internet Explorer 8 and beyond. This also applies to The HyperBrowser. The goal of being a service available to the public leaves no choice but to cater for the communities where replacing the computer every second new release of software is unaffordable. 
 
-\subsection{The iFrame}
 %What is jQuery? And why is this important for this thesis?
 
 %css selectors
+\subsection{The iFrame}
+pros and cons. Consequences for the state app.k
 
-\subsection{Module based code}
-Browserify.
 
 \subsection{Thr URI and the location object}
+\section{Design principles}
+Javascript as spagetti.
+\section{Modularity}
+Encapsulation.
+Modules
+
+npm
+browserify
+
 \section{Design choices}
+
 At the core of the program lies two well known design patterns: "The Model View Controller" might better be described as an architecture than and design pattern as discussed in the previous chapter. "The Observer pattern" on the other hand is a fully fledged classical design pattern.
 
+Design choices also comprise of other constructs than pure patterns.
+
+
+For modularity and encapsulation. (Discussion?)
+\subsection{Browserify, taking Nodejs NPM module loading technology to the browser}
+
+the overall structure of the state app.
+pdf overview of object interaction/object diagram
+
 \subsection{Classical design patterns}
-Classical design patterns carry a double meaning. On the one side "classical" design patterns refer to well established and thoroughly tested coding practices\parencite[p. 12]{gamma}. On the other side "classical" design patterns refer to object-oriented programming where classes act as a template for object production\parencite[p. 115]{stefanov}. The "classical" and highly influential book "Design patterns: Elements of Reusable Object-Oriented Software" suggests as a starting point twenty three named object oriented design patterns. The "main goals of the book was to capture and record experience on design in a form that people can use effectively"\parencite[p. 12]{gamma}. Good design patterns with thereto thoughtful and descriptive names can both establish a vocabulary that can ease communication between experienced programmers, assist in faster comprehension of object oriented programming principles and function as cognitive aids for junior programmers and programming students.
+Classical design patterns carry a double meaning. On the one hand "classical" design patterns refer to well established and thoroughly tested coding practices\parencite[p. 12]{gamma}. On the other hand "classical" design patterns refer to object-oriented programming where classes act as a template for object production\parencite[p. 115]{stefanov}. The "classical" and highly influential book "Design patterns: Elements of Reusable Object-Oriented Software" suggests as a starting point twenty three named object oriented design patterns. The "main goals of the book was to capture and record experience on design in a form that people can use effectively"\parencite[p. 12]{gamma}. Good design patterns with thereto thoughtful and descriptive names can both establish a vocabulary that can ease communication between experienced programmers, assist in faster comprehension of object oriented programming principles and function as cognitive aids for junior programmers and programming students.
 
-\paragraph{The observer pattern}
-The intent of the Observer pattern is to “define a one-to-many dependency between objects so that when one object changes state, all its dependents are notified and updated automatically”\parencite[p. 9]{gamma}. It is often described as a publish-subscriber relationship where the observers subscribe to events and the observable "publishes" events to the subscribers letting them know there is a new "publication" ready. The "publication" can for instance be a state change in the publisher or other related code. Following the publisher-subscriber metaphor a little further; when a newspaper is ready for publication there has usually been two ways for news readers to obtain an exemplar of the paper, one by going to a news stand buying it there, the other to subscribe and thereby get it delivered to the front door.
+\subsubsection{The observer pattern.}
+The intent of the Observer pattern is to “define a one-to-many dependency between objects so that when one object changes state, all its dependents are notified and updated automatically”\parencite[p. 9]{gamma}. It is often described as a publish-subscriber relationship where the observers subscribe to events and the observable "publishes" events to the subscribers letting them know there is a new "publication" ready. The "publication" can for instance be a state change in the publisher or other related code. Following the publisher-subscriber metaphor a little further; when a newspaper is ready for publication there has usually been two ways for news readers to obtain an exemplar of the paper, one by going to a news stand buying it there, the other to subscribe and thereby get it delivered to the front door\parencite[p. 171-174]{stefanov}.
 
-As goes for all design patterns, every implementation needs to tweak the original to fit the problem at hand. When used with "classical" programming languages this notion of a subscriber is somewhat misleading. Its more often implemented as a notification system where the observers gets notified and only then decides if they want or need the update. Usually the observable maintain a list or so of pointers to the observers and run through this list calling the observers notify method. The notify method is either called with a pointer to the the observable or every observer keeps a pointer to the observable them self. They then call the update method of the observable when and if needed.
+As goes for all design patterns, every implementation needs to tweak the original to fit the problem at hand. When used with "classical" programming languages this notion of a subscriber is somewhat misleading. Its more often implemented as a notification system where the observers gets notified and only then decides if they want or need the update. Usually the observable maintain a list or so of pointers to the observers and run through this list calling the observers notify method. The observers then call the update method of the observable when and if needed.
 
-"Classical" object-oriented programming languages provide constructs like interfaces, that acts as contracts guaranteeing that certain methods exist. This is how the observables can maintain a unified list of observers and at the same time let the observers implementation be heterogeneous. 
+"Classical" object-oriented programming languages provide constructs like interfaces, that acts as contracts guaranteeing that certain methods exist. Interfaces does not contain any code. Other often completely different classes implement the interface. This is how the observables can maintain a unified list of observers and at the same time let the observers implementation be heterogeneous.They don't need to extend the same class as long as they implement the methods described in the observer interface. 
 
-Since JavaScript is a loosely typed programming language, meaning that it does not contain classes in the real sense and thereby do not differentiate between types of objects, it does not provide the programmer with interface like constructs either.  
+Since JavaScript is a loosely typed programming language, meaning that it does not contain classes in the real sense and thereby do not differentiate between types of objects, it does not provide the programmer with interface like constructs.  
 
-Javascript does not need to do it this way, 
+\begin{quotation}
+“The thing about design patterns in relation to JavaScript is that, although language-independent, the design patterns were mostly studied from the perspective of strongly typed languages, such as C++ and Java. Sometimes it doesn’t necessarily make sense to apply them verbatim in a loosely typed dynamic language such as JavaScript. Sometimes these patterns are workarounds that deal with the strongly typed nature of the languages and the class-based inheritance. In JavaScript there might be simpler alternatives” \parencite[s. 2]{stefanov}.
+\end{quotation}
 
+The dispatcher object in the state app is an example of an observable but implemented differently from the "classical" approach. The dispatcher will be discussed in due time. As for now it suffices to say that instead of maintaining a list of interface pointers to observers, the observers, when registering to the observable, leave a pointer directly to the function that needs to be called. When the dispatcher is prompted to trigger or dispatch an event it goes through the lists of functions and calls them directly without the need of a specific type interface. An attached context pointer is registered together with the function and it is this context pointer that represents the object the functions "this" keyword points to.
 
-When the Subject changes state all registered observers are notified. The observers may then ask the subject for its new state.
-\subsection{
+Should I explain the use of "this" here or when talking about the prototype chain. The latter. But may be this is a good place to start the focus on the code
 
-
-goal is to capture design experience in a form that people can use effectively.
-
+\subsection{}
 \section{Building blocks / Objects}
 \subsection{Main}
 \subsubsection{ModeApp}
@@ -255,7 +270,10 @@ goal is to capture design experience in a form that people can use effectively.
 \subsubsection{Controller prototype}
 \subsubsection{History prototype}
 \subsubsection{Dispatcher prototype}
-\subsubsection{Observer}
+\subsubsection{Dispatcher prototype}
+The naming is not 100 \% consistent with the metaphor of a dispatcher. 
+
+The Dispatcher prototype is inspired by the Observer pattern. It provides the methods for listening to dispatched events, for triggering events and for stop listening to events. It is a utility object that all the models, views, controllers and the history object listens to. The events are then dispatched to all listening objects. As discussed in the opening of the chapter the implementation for the state application has some differences from the observer pattern described by Gamma et al. Instead of registering with a pointer to an object such that the observable can iterate the list of object pointers and call their update method, the observers leaves with the observable the function to be called. It also leaves a pointer to it self. This is possible because functions in JavaScript are considered as objects and as any objects functions can have methods.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Discussion %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
