@@ -70,23 +70,28 @@ No expert supervisor on javaScript and main supervisor on paternity leave I have
 Open the eyes of the university for JavaScript.
 \chapter*{Notes. Must be deleted upon due date}
 
-   
+ Tell, don't ask https://pragprog.com/articles/tell-dont-ask
+
+ Does the getting of the state of the mode object to set the isBasic element in the gsuite tools break with the principle of Telling, not asking?
+
+ Are the JavaScript nature of functions, ie apply, call and bind, ways of breaking with good OOP practices? Does cohesion suffer when passing functionality around without an object controlling it?
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Introduction %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \chapter{Introduction}
 \pagenumbering{arabic}
-This thesis is all about state and how to manage state in a browser.
-The intention of the web to augment the human brain, From Doug Engelbart to Sir Tim Bernes-Lee, has been leading bla bla. Thy hyperbrowsers intention is to provide the possibility to help researchers do research(Howard Rheingold). The galaxy platform facilitates sharing results, my app gives the opportunity to share research questions.  
+The intention of the web to augment the human brain, From Doug Engelbart to Sir Tim Bernes-Lee, has been the motivation behind many a web project(Howard Rheingold). This is also the grounds on which the hyperbrowsers was born, to help researchers do better research on genomic data. The hyperBrowsers provide tools to aid researchers in defining advanced statistical hypothesises on genomic data. The galaxy platform, on which the Hyperbrowser is built, facilitates sharing results, "the state app", the application under scrutiny, gives the opportunity to share research questions. It also enables information hiding. Users not familiar with the user interface or with making complex statistical hypothesis based on genome data may be overloaded with the amount of choices and of the information presented by the Hyperbrowser. The hiding and revealing of information in a basic or advanced mode is the second specification the state app has brought to the Hyperbrowser.
+
 \section{Motivation}%Move to preface?
 %Why there is a need for the product I have made
+Drill in to the motivation. Bring up the need to adopt, adhere to the anticipated behavior of web applications in general. 
 
 
 \section{Goals}
 %(Entice the reader, what are they about to spend time reading, why would they?)
 My first goal is to show why implementing a simple feature like a button changing between basic and advanced mode, even though sounding like an easy task, is far from trivial when done on an already existing web page. 
 
-Secondly I show that the underlying structure needed to build such a seemingly simple feature facilitates faster and easier development of other state dependent functionality.
+Secondly I show that the underlying structure needed to build such a seemingly simple feature facilitates faster and easier development of other state dependent functionality. This structure is provided by following certain principles for good coding practices, such as encapsulation and loose coupling which provide (reliability, maintainability, usability)
 
 The programatic contribution to the thesis has two parts:
 \begin{itemize}
@@ -269,25 +274,50 @@ Should I explain the use of "this" here or when talking about the prototype chai
 \subsubsection{View prototype}
 \subsubsection{Controller prototype}
 \subsubsection{History prototype}
-\subsubsection{Dispatcher prototype}
-\subsubsection{Dispatcher prototype}
-The naming is not 100 \% consistent with the metaphor of a dispatcher. 
 
-The Dispatcher prototype is inspired by the Observer pattern. It provides the methods for listening to dispatched events, for triggering events and for stop listening to events. It is a utility object that all the models, views, controllers and the history object listens to. The events are then dispatched to all listening objects. As discussed in the opening of the chapter the implementation for the state application has some differences from the observer pattern described by Gamma et al. Instead of registering with a pointer to an object such that the observable can iterate the list of object pointers and call their update method, the observers leaves with the observable the function to be called. It also leaves a pointer to it self. This is possible because functions in JavaScript are considered as objects and as any objects functions can have methods.
 
+
+\subsubsection{Dispatcher prototype}
+
+\paragraph{Naming conventions}
+The Dispatcher prototype is inspired by the Observer pattern. It provides the methods for registering, for unregistering and for notifying as was originally proposed by Gamma et al. However, one of the main features of a pattern is the choice of name\parencite[p. 3]{gamma} so I will spend some time clarifying my motives for choosing the names I have. 
+
+Since the state application is web based I have chosen to use a naming convention frequently used when dealing with events in web client applications. The state applications corresponding methods are listenTo, stopListening and triggerEvent. The names are borrowed from Backbonejs events object except for the trigger method which have been named triggerEvent. The reason for the latter is to avoid confusion with the jQuery object that already has a method called trigger.
+
+The name of the object itself also differ from that of Backbonejs. To better convey the understanding of the object as a central unit for distributing actions to its listeners it has been called the Dispatcher. The notion of a dispatcher is also used in the browser implementations of the observer pattern, the dispatchEvent() method. 
+
+The other corresponding methods in the browser are called addEventListener and removeEventListerner. The indication of adding something that the browsers naming introduces is somewhat lost with the listening name schema. 
+%By calling this object the Dispatcher instead of the Event object I try to compensate for the lost meaning of adding something, which is what is actually done with the implementations both by the browsers and by the state applications as I will show in the following.
+
+\paragraph{Loose coupling} Instead of registering with a pointer to an object such that the observable can iterate the list of object pointers and call their respective update methods, the observers leave with the observable the function to be called. The advantage of leaving a pointer to the function and letting the dispatcher call it directly is that of loose coupling.
+
+The observable does not need to know about a specific method, like the update method in the original observer pattern. It can just call the function oblivious to who owns it and what it does. This is the first principle of loose coupling%\parencite{Fowler} 
+Since JavaScript is a loosely typed language and does not offer safety constructs ensuring that interfaces and the implementing classes maintains the contract of providing certain methods, implementing the suggestions by the observer pattern  
+
+The dispatcher just calls some function with the attached context pointer and goes on being observable. 
+
+ I call this pointer to the listening object the "context". This is possible because functions in JavaScript are considered as objects and as any JavaScript objects functions can have methods.
+The Function.prototype has three methods: bind, apply and call that can be used to make any function as if it was a method of any object. The dispatcher uses the latter to call the functions left to the observable. The call method of the function uses the "context" and thereby calls the function as a method of the context.
+
+It is a utility object that all the models, views, controllers and the history object listens to. The events are then dispatched to all listening objects. 
+
+Push vs pull.
+
+The main purpose of the dispatcher is providing a system for communicating state change in the participating objects. Every 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Discussion %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \chapter{Discussion}
 \section{Single page application on top of server heavy page - A hack?}
 \section{Specific or broad approach}
+\section{Using the native observer implementation from the new ECMA 6 Object}
 \subsubsection{Code for the future ie pushState} {}
 \subsubsection{Both setHistory and changeHistory} {}
  - More work. More mess.
  - Faster refactoring when new specifications
 \subsubsection{uriAnchor vs. own development} 
 \subsubsection{How to handle bugs in third party plugins?} 
-\subsubsection{Using framework or library vs creating from scratchd}  (Introduced in the background).
+\subsubsection{Using framework or library vs creating from scratch}  (Introduced in the background).
 \subsubsection{Local storage vs simple storage} 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Conclusion %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
