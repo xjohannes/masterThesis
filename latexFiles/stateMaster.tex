@@ -42,7 +42,7 @@ defernumbers=true, style=authoryear, backref,sortcites]{biblatex}
 % biblatex anbefaler at hyperref blir lastet inn etter biblatex
 \usepackage{hyperref}
 
-\title{Applying browser side state management on server rendered web pages}
+\title{Applying client side state management on server rendered web pages}
 \subtitle{} 
 % Sett inn ditt eget navn her:
 \author{Johannes Akse}
@@ -95,16 +95,15 @@ Secondly I show that the underlying structure needed to build such a seemingly s
 
 The programatic contribution to the thesis has two parts:
 \begin{itemize}
-  \item Providing a generic basic/advanced button to accomodate state changes for all state dependent functionality.
+  \item Providing a generic basic /advanced button to accommodate state changes for all state dependent functionality.
   \item Handling state within tools. 
 \end{itemize}
 
 
 \section{Overview}
 \subsection{Background}
-After introducing the main topics of the thesis, this introduction, I explain what "the Genomic Hyperbrowser" is and discuss some of its reported problems concerning usability. The g-suite project addresses some of these problems but does so server side. The program behind this thesis does so client side and has been included in the g-suite.
-
-The next few section will discuss different aspects of state management. 
+After introducing the main topics of the thesis, this introduction, I explain what "the Genomic Hyperbrowser" is and discuss some of its reported problems concerning usability. The G-suite project addresses some of these problems but do so server side. The State application has been integrated with the G-suite to address these problems on the client side. The aspects of the G-suite that relate to usability will be laid out before I give an overview of client side programing and the client side issues concerning this paper. 
+The next few sections will discuss different aspects of state management. 
 
 Lastly I give the reader a short introduction to certain aspects of Javascript. I do this to introduce an ongoing discussion and of which I will join in the thesis discussion.
 \subsection{Methodology}
@@ -113,22 +112,29 @@ This section will concern explanations on test driven development an module base
 In this section I will discuss the important details of the implementation of the program under scrutiny. There will be no discussion in this section only an account on what has actually been done.
 
 \subsection{Discussion}
-Here I will pick up the discussion from the background concerning state management and bring in the insight gatherd from the developement.
-\section{Limitations/boundaries of the thesis (avgrensning)}
+Here I will pick up the discussion from the background concerning state management and bring in the insight gathered from the development.
+\section{Limitations /boundaries of the thesis (avgrensning)}
 
 \section{Development in a real time setting}
 
 
+\section{Challenges (Justifications)}
+Explain how easy the problem could have been if I was to make the application from scratch, tweaking specifications as I met problems.
 
+The challenges of working with a web client, sIfferent browsers, different standards HTML5(pushState), the server that could not be set up for pushState.
+
+Working with frames, communication over boundaries.
+
+Challenges of working with an unstructured programming language like JavaScript compared to Java.
 
 \section{Requirement specifications}
-Users expect certain behaviour from a web site \parencite{mikowski}.
+Users expect certain behavior from a web site \parencite{mikowski}.
 \subsection{A use case}
 
 
 
 
-\section{Challenges}
+
 
 \section{Problem statement}
 How to apply state management for predefined server rendered pages in a web browser.
@@ -142,6 +148,7 @@ How to apply state management for predefined server rendered pages in a web brow
 \section{A real world use case}
 \subsection{The Genomic HyperBrowser}
 \subsection{the G-suite - A need to simplify the UI}
+The intention of "the State application", the program that acts as the empirical material for this thesis, does so client side. It has been merged with the G-suite and has become .
 \section{State management}
 \subsection{What is state?}
 
