@@ -8,6 +8,8 @@
 \usepackage[backend=biber, style=numeric-comp,%
 defernumbers=true, style=authoryear, backref,sortcites]{biblatex}
 
+\usepackage[normalem]{ulem} %enables strike through
+
 % må opplyse om bib-filen
 % ved flere bib-filer gjentas kommandoen
 \addbibresource{bibliography.bib}
@@ -43,7 +45,7 @@ defernumbers=true, style=authoryear, backref,sortcites]{biblatex}
 \usepackage{hyperref}
 
 \title{Applying client side state management on server rendered web pages}
-\subtitle{} 
+%\subtitle{} 
 % Sett inn ditt eget navn her:
 \author{Johannes Akse}
 \date{2016}
@@ -54,8 +56,10 @@ defernumbers=true, style=authoryear, backref,sortcites]{biblatex}
 \pagenumbering{roman}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Abstract %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter*{Abstract}
+As might be demanded of post modern information technology the web client can mash together information from several different sources and by that create information and express novel ideas to the users and the world. The HyperBrowsers new state functionality utilizes the web client letting scientists share their scientific questions and hypothesises which not only facilitate reproducibility but also promote augmenting the human intellect.
 
-%Example of siting: their jobs, rather than the programmer's \parencite {shneiderman1983}\parencite{stephenson1999,hutchins1986},.
+Applying state management, however simple that sound ... 
+
 \tableofcontents
 \nocite{*}
 
@@ -77,14 +81,21 @@ Open the eyes of the university for JavaScript.
  Are the JavaScript nature of functions, ie apply, call and bind, ways of breaking with good OOP practices? Does cohesion suffer when passing functionality around without an object controlling it?
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Introduction %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+\part{Introduction}
 \chapter{Introduction}
 \pagenumbering{arabic}
-The intention of the web to augment the human brain, From Doug Engelbart to Sir Tim Bernes-Lee, has been the motivation behind many a web project(Howard Rheingold). This is also the grounds on which the hyperbrowsers was born, to help researchers do better research on genomic data. The hyperBrowsers provide tools to aid researchers in defining advanced statistical hypothesises on genomic data. The galaxy platform, on which the Hyperbrowser is built, facilitates sharing results, "the state app", the application under scrutiny, gives the opportunity to share research questions. It also enables information hiding. Users not familiar with the user interface or with making complex statistical hypothesis based on genome data may be overloaded with the amount of choices and of the information presented by the Hyperbrowser. The hiding and revealing of information in a basic or advanced mode is the second specification the state app has brought to the Hyperbrowser.
+The intention of the web to augment the human brain, From Doug Engelbart to Sir Tim Bernes-Lee, has been the motivation behind many a web project(Howard Rheingold). This is also the grounds on which the Hyperbrowsers was born, to help researchers do better research on genomic data. The HyperBrowser provide tools to aid researchers in defining advanced statistical hypothesises on genomic data. The galaxy platform, on which the Hyperbrowser is built, facilitates sharing results, "the state app", the application under scrutiny, gives the opportunity to share research questions. It also enables information hiding. Users not familiar with the user interface or with making complex statistical hypothesis based on genome data may be overloaded with the amount of choices and of the information presented by the Hyperbrowser. The hiding and revealing of information in a basic or advanced mode is the second specification the state app has brought to the Hyperbrowser.
 
 \section{Motivation}%Move to preface?
 %Why there is a need for the product I have made
-Drill in to the motivation. Bring up the need to adopt, adhere to the anticipated behavior of web applications in general. 
+
+%Drill in to the motivation. Bring up the need to adopt, adhere to the anticipated behavior of web applications in general. 
+
+As the Internet has matured, we, the users of the World Wide Web, have started to expect certain behavior from a web page\parencite[p.85]{mikowski}. Whether the web site is about displaying dynamically rendered news articles or, as is the case of "The Genomic HyperBrowser", doing statistical analyzes on a genome, the users expect to be able to use the built in actions most browsers provide. Going back and forth using the navigation arrows on the top left side of the page or bookmarking a page for later reference or even sending a link to a friend or colleague is build in functionality every site should strive to provide for its users.
+
+Because of the inner workings of most browsers the back and forward functionality works as expected for the Hyperbrowser, but saving the state in a bookmark for later retrieval or for the purpose of sending the state to a co-worker or other scientist has however not been possible and is one of the main focus of this thesis.
+
+The other main focus has been that of concealing information...
 
 
 \section{Goals}
@@ -101,14 +112,23 @@ The programatic contribution to the thesis has two parts:
 
 \section{Overview}
 \subsection{Background}
-After introducing the main topics of the thesis, this introduction, I explain what "the Genomic Hyperbrowser" is and discuss some of its reported problems concerning usability. The G-suite project addresses some of these problems but do so server side. The State application has been integrated with the G-suite to address these problems on the client side. The aspects of the G-suite that relate to usability will be laid out before I give an overview of client side programing and the client side issues concerning this paper. 
-The next few sections will discuss different aspects of state management. 
+After introducing the main topics of the thesis, this introduction, I explain what "the Genomic Hyperbrowser" is and discuss some of its reported problems concerning usability. The G-suite project addresses some of these problems but do so server side. 
 
-Lastly I give the reader a short introduction to certain aspects of Javascript. I do this to introduce an ongoing discussion and of which I will join in the thesis discussion.
+The State application has been integrated with the G-suite to address these problems on the client side. The aspects of the G-suite that relate to usability will be laid out before I give a short explanations on state, what it is and why it matters. 
+
+The next few sections will discuss different aspects of the web client, the DOM and give a general overview of certain aspects of JavaScript necessary to follow the main part of this thesis, the discussion. 
+
+Lastly I give the reader a short introduction to design patterns. I do this to introduce an ongoing discussion of which I will join later.
+
 \subsection{Methodology}
-This section will concern explanations on test driven development an module based implementation provided by browserify.
+This section will concern explanations on behavior driven development and module based implementation provided by browserify. Why and how has behavior driven development made the implementation faster and easier.
 \subsection{Development}
-In this section I will discuss the important details of the implementation of the program under scrutiny. As a means to guide the discussion in the wanted direction I promote three overarching assertions. These assertions will be followed by more fine grained statements supporting or contradicting the main assertions. 
+In this section I will discuss the important details of the implementation of the program under scrutiny. 
+These assertions will act  
+
+
+\subsection{Discussion}
+As a means to guide the discussion in the wanted direction I promote three overarching assertions (sub theses). These assertions will be followed by more fine grained statements supporting or contradicting the main assertions. 
 
 The three main assertions are:
 \begin{enumerate}
@@ -116,39 +136,41 @@ The three main assertions are:
   \item Structuring complex code using an unstructured, dynamic scripting language like java script can be challenging.
   \item With structured code, new functionality comes easier. 
 \end{enumerate}
-These assertions will act  
 
-
-\subsection{Discussion}
-Here I will pick up the discussion from the background concerning state management and bring in the insight gathered from the development.
 \section{Limitations /boundaries of the thesis (avgrensning)}
 
 \section{Development in a real time setting}
 
 
 \section{Challenges (Justifications)}
-Explain how easy the problem could have been if I was to make the application from scratch, tweaking specifications as I met problems.
+\sout{Explain how easy the problem could have been if I was to make the application from scratch, tweaking specifications as I met problems.}
 
-The challenges of working with a web client, sIfferent browsers, different standards HTML5(pushState), the server that could not be set up for pushState.
+\sout{The challenges of working with a web client, in different browsers, different standards HTML5(pushState), the server that could not be set up for pushState.}
 
-Working with frames, communication over boundaries.
+\sout{Working with frames, communication over boundaries.}
 
-Challenges of working with an unstructured programming language like JavaScript compared to Java.
+\sout{Challenges of working with an unstructured programming language like JavaScript compared to Java.}
 
 \section{Requirement specifications}
+\begin{enumerate}
+\item A basic / advanced mode should be able to be set from one button placed in the main navigation, from a small triangle on the border between the tools and the main iFrame, with tabs within the main iFrame when available and from within certain G suite tools. When setting mode in one place, the mode should be updated all the other relevant places.
+
+\item Implement bookmarkable state.
+
+\end{enumerate}
+
 The first specification concern hiding information. The Hyperbrowser offers a vast amount of tools and every tool provide a lot of possible choices. From psychological experiments to web usability gurus such as Steve Kruge and Jakob Nielsen we have learned that to many choices makes us unhappy\parencite{schwartz2004paradox} \parencite{krug2005don} \parencite{nielsen1997user}. This well known web design / UX principle state that unexperienced users easily get confused when there is to much information to take in at on time.
 
-The proposed solution to help new and unexperienced users is to present two "versions" of the site, a basic and an advanced mode. The advanced version will display the page as it is today, that is it will stay unchanged. The basic user mode will conceal the tool list and only present guide to some basic tools. This specification is part of the G suite and will also offer less choices within a set of G suite specific tools.
-
-Create a button.
+The proposed solution to help new and unexperienced users is to present two "versions" of the site, a basic and an advanced mode. The advanced version will display the page as it is today, that is it will stay unchanged. The basic user mode will conceal the tool list and only present a guide to some basic tools. The guide is contained within the G suite and will not be a part of the specification for this thesis. The G suite also offer tools with the basic/ advanced distinction where tools presented in basic mode will have less choices than those in advanced mode. 
+Relevant to this thesis is the integration of the G suite basic / advanced mode to the user interface of the Genomic Hyperbrowser. 
 
 The second specification will deal with the fact that users expect certain behavior from a web site \parencite{mikowski} \parencite{nielsen1997user}. The current implementation of the Hyperbrowser does not adhere to the expected feature of bookmarking the state. 
 
-The ability to save state will not only enable the researcher to come back and work with a research question at a later time, more importantly it promotes reproducibility. By letting researchers share their research questions and hypothesis the transparency of their research will increase. 
+The ability to save state will not only enable the researcher to come back and work with a research question at a later time, more importantly it promotes reproducibility. By letting researchers easily share their research questions and hypothesis the transparency of research can be increased. 
 
 
 \section{Problem statement}
-How to apply state management for predefined server rendered pages in a web browser.
+\sout{How to apply state management for predefined server rendered pages in a web browser}
 
 \section{Terminology}
 \subsection{Acronyms}
@@ -159,50 +181,28 @@ How to apply state management for predefined server rendered pages in a web brow
 \section{A real world use case}
 \subsection{The Genomic HyperBrowser}
 \subsection{the G-suite - A need to simplify the UI}
-The intention of "the State application", the program that acts as the empirical material for this thesis, does so client side. It has been merged with the G-suite and has become .
+
 \section{State management}
 \subsection{What is state?}
-
-As the Internet has matured, we, the users of the World Wide Web, have started to expect certain behaviour from a web page\parencite[p.85]{mikowski}. Whether the web site is about displaying dynamically rendered news articles or, as is the case of "The Genomic HyperBrowser", doing statistical analyzes on a genome, the users expect to be able to use the built in actions most browsers provide. Going back and forth using the navigation arrows on the top left side of the page or bookmarking a page for later reference or even sending a link to a friend or colleague is build in functionality I claim every site should strive to provide for its users.\newline
-\noindent Up til now this has not been the case for the Genomic HyperBrowser. To be fair, going back and forth is features that has already been offered by the HyperBrowser. The fact that every selection done in a tool has re-render the mainFrame, that is gotten a whole new page from the server, the native functionality of the browser still works as expected. Saving the selections or sending a specific selection to a co-worker or other scientist has however not been possible.
-
-State
 
 \subsection{Why is state important?}
 
 \subsection{The statelessness of REST}
 
-\subsection{State management in web clients}
-\paragraph{Storing state in the browser}
+\section{The web client}
+"The web browser is perhaps the most widely used software application in history. It has evolved significantly over the past twenty years; today, web browsers run on diverse types of hardware, from cell phones and tablet PCs to desktop computers"\parencite[p. 2]{gross}. We even have iWatches and Google glasses. The web client is no longer just a reader of static information browsing interlinked web pages. Now it is better described as a simplified OS\parencite[p.310]{flanagan}. The browsers provide ways to organize web documents and web applications in folder structures. As is the case for the current state app, it allows for organization of statistical analysis questions and hypothesises. Web browsers also allows for running multiple discrete applications much like an OS. The state app consists of two distinct applications, one that handles tool state and one that synchronizes mode between frames. Thirdly web browsers define low-level API's for activities such as networking and saving data. 
 
-\section{Anticipated behavior in a web application}
+The Genomic HyperBrowser use some of these new technologies. It does rely on jQuerys Ajax suite to do some of the communication with the server. It also relies on one of the new HTML5 specifications, the localStorage API, which it has entrusted to a third party plugin, JStorage. 
 
-\section{The MVC controversy}
-\section{Location hash or models as driving application state}
+While utilizing new web standards on some parts of the page the Hyperbrowser also rely heavily on the somewhat discouraged technique of using iFrames for separating content on a page. Using frames is the first mistake web designers do according to usability guru Jacob Nilsen. "It brakes the fundamental user model of the web page. All of a sudden, you cannot bookmark the current page and return to it \parencite{nielsen1997user}.
 
-\section{Communicating with the DOM}
+The usage of iFrames stems from the fact that the HyperBrowser is an extension of an other open source, web-based platform for data intensive biomedical research, namely the Galaxy platform and is by that dependent on how the Galaxy project was originally implemented. The consequences of having to deal with iFrames for the state app will be discussed later in this chapter.
 
-\section{Strictly objects vs class structures} (Discussion?)
-\subsection{ECMA 5 vs ECMA 6} (Discussion?)
+\subsection{The DOM}
+For a program to manage state within a browser context it needs some way to interact with the HTML elements displayed on the page. The standard programming language for all modern browsers, Javascript, provides such an entry point. When the server returns the requested page the browser creates a plain javascript object, called the document object, and uses it as the root of a tree like structure. It then parses the received HTML. For every HTML element it creates a responding javascript object and adds it to the document tree. This tree is often referred to as the DOM. All of these javascript objects have fields that correspond to all the HTML element attributes. The elements most interesting to the discussions of this thesis are the iFrame element and the form element. These have such a central place in the development that they deserve a whole section each.
 
-\section{Using third party libraries or design from scratch?} (Discussion?)
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Methodology %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Methodology}
-Why local testing has been crucial to development 
-
-\section{Behavior driven development}
-Find source.
-
-\subsection{Jasmine}
-Using Jasmine as integration testing tool
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Development %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Development}
-In this chapter I describe what have been done. I also try to reason why I have done as I have. To let the reader get a full understanding of the following sections I start of by giving a brief overview of JavaScript.
 
 \section{JavaScript}
-
 \begin{quotation}
 \noindent JavaScript is ”[…] clearly a grossly substandard language by modern
 standards and thus can be legitimately described as a toy language.” —
@@ -212,65 +212,24 @@ standards and thus can be legitimately described as a toy language.” —
 Even though some people still have problems recognizing JavaScript as more than a toy programing language JavaScript has had a rapid evolution the last 10 years. The emergence of  big JavaScript libraries and frameworks like Backbonejs and Angularjs can be seen as a direct consequence of what has been coined the second browser war\parencite{Yule2013}. Especially after Google launched their Chrome browser in 2008 and the JavaScript runtime Nodejs was build on top of chromes V8 engine, the speed of interpreting JavaScript has increased enormously. Other JavaScript engines now uses dynamic compilation, also called "Just in time" technology and the V8 compiles directly to byte code which make them even faster\parencite{anand}. JavaScript is also the standard programing language of the "World Wide Web"\parencite[p. 1]{flanagan} and is thereby one of the most used programing languages.
 
 
-\section{The web client}
-The nature of web clients create some challenges of its own when developing client side applications. I will first give a short introduction to web browsers in general before I approach the difficulties associated with client side development.
 
-"The web browser is perhaps the most widely used software application in history. It has evolved significantly over the past twenty years; today, web browsers run on diverse types of hardware, from cell phones and tablet PCs to desktop computers"\parencite[p. 2]{gross}. We even have iWatches and Google glasses. The web client is no longer just a reader of static information browsing interlinked web pages. Now it is better described as a simplified OS\parencite[p.310]{flanagan}. The browsers provide ways to organize web documents and web applications in folder structures. As is the case for the current state app, it allows for organization of statistical analysis questions and hypothesises. It also allows for running multiple discrete applications much like an OS. The state app consists of two distinct applications, one that handles tool state and one that synchronizes mode between frames. Thirdly web browsers define low-level API's for activities such as networking and saving data. 
-
-The Genomic HyperBrowser use some of these new technologies. It does rely on jQuerys Ajax suite to do some of the communication with the server. They have even started using one of the HTML5 specifications, the localStorage API, which they have entrusted to a third party plugin, JStorage. 
-
-While utilizing new web standards on some parts of the page they also rely heavily on the somewhat discouraged technique of using iFrames for separating content on a page. Using frames is the first mistake web designers do according to usability guru Jacob Nilsen. "It brakes the fundamental user model of the web page. All of a sudden, you cannot bookmark the current page and return to it \parencite{nielsen1997user}.
-
-The usage of iFrames stems from the fact that the HyperBrowser is an extension of an other open source, web-based platform for data intensive biomedical research, namely the Galaxy platform and is by that dependent on how the Galaxy project was originally implemented. The consequences of having to deal with iFrames for the state app will be discussed later in this chapter but will here only function as an introduction to .
-
-As might be demanded of post modern information technology the web client can mash together information from several different sources and by that create information and express novel ideas to the users/world. The HyperBrowsers new state functionality utilizes the web client letting scientists share their scientific questions and hypothesises which not only facilitate reproducibility but also promote augmenting the human intellect. Aka the series silicon valley - All apps try to make the world a better place.
-
-For a program to manage state within a browser context it needs some way to interact with the HTML elements displayed on the page. The standard programming language for all modern browsers, Javascript, provides such an entry point. When the server returns the requested page the browser creates a plain javascript object, called the document object, and uses it as the root of a tree like structure. It then parses the received HTML. For every HTML element it creates a responding javascript object and adds it to the document tree. This tree is often referred to as the DOM. All of these javascript objects have fields that correspond to all the HTML element attributes. The elements most interesting to the discussions of this thesis are the iFrame element and the form element. These have such a central place in the development that they deserve a whole section each. For now  
-
-\subsection{JQuery}
-One of the challenges of writing nontrivial JavaScript client-side programs is to ensure they run correctly on the wide variety of different browser implementations we have to day\parencite[p. 325]{flanagan}. One example of the discrepancy between browser vendors JavaScript implementation is Microsofts reluctance to implement the DOM Level 2 Events specification which is The World Wide Web Consortium (W3C) recommended standard\parencite{w3c}. This specification includes crucial functionality such as the AddEventListener which is paramount to most interaction with a web page. To accommodate for these differences the programmer need to write a lot of extra boilerplate code if the use of natively supported JavaScript is important. What many chooses to do in stead, is to use an external, third-party library to query the DOM. 
-
-With the plethora of JavaScript libraries available, jQuery is the most widely used according to the libscore search engine\parencite{infoWorld}. The ease of use and the great amount of functionality besides querying the DOM, most significantly their handling of Ajax calls has been the leading reasons why I have chosen jQuery over other libraries such as Motools and Dojo. 
-
-Since the release of Internet Explorer 9, however, Microsoft finally decided to implement the decade old W3C standardizations and as a result most of the browser differences disappeared. One might think that this would be the end of the widespread use of JavaScript libraries but that has not been the case. A quick google search on jQuery usage statistics showed that between 60 and 70\% of the top 10k web sites still rely on jQuery \parencite{jQueryWiki} \parencite{jQueryW3Tech}\parencite{builtWith}. 
-
-A natural explanation for the continuing popularity of jQuery is the need for many web sites to provide satisfactory service to legacy browsers such as Microsofts Internet Explorer 8 and beyond. This also applies to The HyperBrowser. The goal of being a service available to the public leaves no choice but to cater for the communities where replacing the computer every second new release of software is unaffordable.There is still a vast amount of users using old web browsers like IE8 
-
-
-%css selectors
-\subsection{The iFrame}
-pros and cons. Consequences for the state app.k
-
-
-\subsection{Thr URI and the location object}
 \section{Design principles}
-Javascript as spagetti.
-\section{Modularity}
-Encapsulation.
-Modules
-
-npm
-browserify
-
-\section{Design choices}
-
-At the core of the program lies two well known design patterns: "The Model View Controller" might better be described as an architecture than and design pattern as discussed in the previous chapter. "The Observer pattern" on the other hand is a fully fledged classical design pattern.
-
-Design choices also comprise of other constructs than pure patterns.
-
-
-For modularity and encapsulation. (Discussion?)
-\subsection{Browserify, taking Nodejs NPM module loading technology to the browser}
-
-the overall structure of the state app.
-pdf overview of object interaction/object diagram
+\subsection{Open/closed principle}
+Robert Martin (SOLID);
+\subsection {Loose coupling}
+Martin Fowler
 
 \subsection{Classical design patterns}
 Classical design patterns carry a double meaning. On the one hand "classical" design patterns refer to well established and thoroughly tested coding practices\parencite[p. 12]{gamma}. On the other hand "classical" design patterns refer to object-oriented programming where classes act as a template for object production\parencite[p. 115]{stefanov}. The "classical" and highly influential book "Design patterns: Elements of Reusable Object-Oriented Software" suggests as a starting point twenty three named object oriented design patterns. The "main goals of the book was to capture and record experience on design in a form that people can use effectively"\parencite[p. 12]{gamma}. Good design patterns with thereto thoughtful and descriptive names can both establish a vocabulary that can ease communication between experienced programmers, assist in faster comprehension of object oriented programming principles and function as cognitive aids for junior programmers and programming students.
 
-\subsubsection{The observer pattern.}
+
+\subsection{The MVC controversy}
+How to implement the MVC pattern with JavaScipt. Different angles seen through the eyes of JavaScript frameworks such as Angularjs and backbone. This is done because the role of the model and the controller has been difficult to decide when developing the state app.
+
+\subsubsection{The observer pattern}
 The intent of the Observer pattern is to “define a one-to-many dependency between objects so that when one object changes state, all its dependents are notified and updated automatically”\parencite[p. 9]{gamma}. It is often described as a publish-subscriber relationship where the observers subscribe to events and the observable "publishes" events to the subscribers letting them know there is a new "publication" ready. The "publication" can for instance be a state change in the publisher or other related code. Following the publisher-subscriber metaphor a little further; when a newspaper is ready for publication there has usually been two ways for news readers to obtain an exemplar of the paper, one by going to a news stand buying it there, the other to subscribe and thereby get it delivered to the front door\parencite[p. 171-174]{stefanov}.
 
+\section{JavaScript meets classical design patterns}
 As goes for all design patterns, every implementation needs to tweak the original to fit the problem at hand. When used with "classical" programming languages this notion of a subscriber is somewhat misleading. Its more often implemented as a notification system where the observers gets notified and only then decides if they want or need the update. Usually the observable maintain a list or so of pointers to the observers and run through this list calling the observers notify method. The observers then call the update method of the observable when and if needed.
 
 "Classical" object-oriented programming languages provide constructs like interfaces, that acts as contracts guaranteeing that certain methods exist. Interfaces does not contain any code. Other often completely different classes implement the interface. This is how the observables can maintain a unified list of observers and at the same time let the observers implementation be heterogeneous.They don't need to extend the same class as long as they implement the methods described in the observer interface. 
@@ -281,11 +240,37 @@ Since JavaScript is a loosely typed programming language, meaning that it does n
 “The thing about design patterns in relation to JavaScript is that, although language-independent, the design patterns were mostly studied from the perspective of strongly typed languages, such as C++ and Java. Sometimes it doesn’t necessarily make sense to apply them verbatim in a loosely typed dynamic language such as JavaScript. Sometimes these patterns are workarounds that deal with the strongly typed nature of the languages and the class-based inheritance. In JavaScript there might be simpler alternatives” \parencite[s. 2]{stefanov}.
 \end{quotation}
 
-The dispatcher object in the state app is an example of an observable but implemented differently from the "classical" approach. The dispatcher will be discussed in due time. As for now it suffices to say that instead of maintaining a list of interface pointers to observers, the observers, when registering to the observable, leave a pointer directly to the function that needs to be called. When the dispatcher is prompted to trigger or dispatch an event it goes through the lists of functions and calls them directly without the need of a specific type interface. An attached context pointer is registered together with the function and it is this context pointer that represents the object the functions "this" keyword points to.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Methodology %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Methodology}
+Why local testing has been crucial to developing the state application. Also to describe how I have moved forward developing the app.
 
-Should I explain the use of "this" here or when talking about the prototype chain. The latter. But may be this is a good place to start the focus on the code
+\section{Behavior driven development}
+Find source.
 
-\subsection{}
+\subsection{Jasmine}
+Using Jasmine as integration testing tool
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Development %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Development}
+In this chapter I describe what have been done. 
+Moved to discussion: \sout{I also try to reason why I have done as I have.}
+
+\section{Modularity}
+\subsection{Browserify, taking Nodejs NPM module loading technology to the browser}
+Move to background?
+Moved to discussion: \sout {Encapsulation}.
+Modules
+npm
+browserify
+
+%the overall structure of the state app.
+%pdf overview of object interaction/object diagram
+
+\section{The JavaScript prototype chain}
+
+\section{Design choices}
 \section{Building blocks / Objects}
 \subsection{Main}
 \subsubsection{ModeApp}
@@ -300,6 +285,9 @@ Should I explain the use of "this" here or when talking about the prototype chai
 
 
 \subsubsection{Dispatcher prototype}
+At the core of the program lies two well known design patterns: "The Model View Controller" might better be described as an architecture than and design pattern as discussed in the previous chapter. "The Observer pattern" on the other hand is a fully fledged classical design pattern.
+
+The dispatcher object in the state app is an example of an observable but implemented differently from the "classical" approach. The dispatcher will be discussed in due time. As for now it suffices to say that instead of maintaining a list of interface pointers to observers, the observers, when registering to the observable, leave a pointer directly to the function that needs to be called. When the dispatcher is prompted to trigger or dispatch an event it goes through the lists of functions and calls them directly without the need of a specific type interface. An attached context pointer is registered together with the function and it is this context pointer that represents the object the functions "this" keyword points to.
 
 \paragraph{Naming conventions}
 The Dispatcher prototype is inspired by the Observer pattern. It provides the methods for registering, for unregistering and for notifying as was originally proposed by Gamma et al. However, one of the main features of a pattern is the choice of name\parencite[p. 3]{gamma} so I will spend some time clarifying my motives for choosing the names I have. 
@@ -313,34 +301,181 @@ The other corresponding methods in the browser are called addEventListener and r
 
 \paragraph{Loose coupling} Instead of registering with a pointer to an object such that the observable can iterate the list of object pointers and call their respective update methods, the observers leave with the observable the function to be called. The advantage of leaving a pointer to the function and letting the dispatcher call it directly is that of loose coupling.
 
-The observable does not need to know about a specific method, like the update method in the original observer pattern. It can just call the function oblivious to who owns it and what it does. This is the first principle of loose coupling%\parencite{Fowler} 
+The observable does not need to know about a specific method, like the update method in the original observer pattern. It can just call the function oblivious to who owns it and what it does. This is the first principle of loose coupling.
+
 Since JavaScript is a loosely typed language and does not offer safety constructs ensuring that interfaces and the implementing classes maintains the contract of providing certain methods, implementing the suggestions by the observer pattern  
 
 The dispatcher just calls some function with the attached context pointer and goes on being observable. 
 
- I call this pointer to the listening object the "context". This is possible because functions in JavaScript are considered as objects and as any JavaScript objects functions can have methods.
+I call this pointer to the listening object the "context". This is possible because functions in JavaScript are considered as objects and as any JavaScript objects functions can have methods.
 The Function.prototype has three methods: bind, apply and call that can be used to make any function as if it was a method of any object. The dispatcher uses the latter to call the functions left to the observable. The call method of the function uses the "context" and thereby calls the function as a method of the context.
 
 It is a utility object that all the models, views, controllers and the history object listens to. The events are then dispatched to all listening objects. 
 
 Push vs pull.
 
-The main purpose of the dispatcher is providing a system for communicating state change in the participating objects. Every 
+The main purpose of the dispatcher is providing a system for communicating state change in the participating objects.  
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Discussion %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\part{Discussion}
 
-\chapter{Discussion}
-\section{Single page application on top of server heavy page - A hack?}
-\section{Specific or broad approach}
-\section{Using the native observer implementation from the new ECMA 6 Object}
+This discussion will follow three distinct paths as proposed in the claims section of the introduction.
+
+\chapter{}
+"A simple task like a basic advanced button applied client side on top of an existing server rendered web page is not trivial"
+
+%%%%%%%%%%%%%%%%%%%%%%%%% P1 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Applied client side:
+\section{The nature of web clients create hurdles}
+The nature of web clients create some challenges of its own when developing client side applications. 
+
+\subsection{p1P1: The browser implementations of javaScript and the DOM differ}
+One of the challenges of writing nontrivial JavaScript client-side programs is to ensure they run correctly on the wide variety of different browser implementations we have to day\parencite[p. 325]{flanagan}. One example of the discrepancy between browser vendors JavaScript implementation is Microsofts reluctance to implement the DOM Level 2 Events specification which is The World Wide Web Consortium (W3C) recommended standard\parencite{w3c}. This specification includes crucial functionality such as the AddEventListener which is paramount to most interaction with a web page. To accommodate for these differences the programmer need to write a lot of extra boilerplate code if the use of natively supported JavaScript is important. What many chooses to do in stead, is to use an external, third-party library to query the DOM. 
+
+\subsubsection{c1p1P1: JQuery to the rescue}
+With the plethora of JavaScript libraries available, jQuery is the most widely used according to the libscore search engine\parencite{infoWorld}. The ease of use and the great amount of functionality besides querying the DOM, most significantly their handling of Ajax calls has been the leading reasons why I have chosen jQuery over other libraries such as Motools and Dojo. 
+
+\subsubsection{c2p1P2:The browser implementations of javaScript is not a big problem with modern browsers}
+Since the release of Internet Explorer 9, however, Microsoft finally decided to implement the decade old W3C standardizations and as a result most of the browser differences disappeared. One might think that this would be the end of the widespread use of JavaScript libraries but that has not been the case. A quick google search on jQuery usage statistics showed that between 60 and 70\% of the top 10k web sites still rely on jQuery \parencite{jQueryWiki} \parencite{jQueryW3Tech}\parencite{builtWith}. 
+
+\subsubsection{c1c2p1P2: The need to support legacy browsers}
+An other natural explanation for the continuing popularity of jQuery is the need for many web sites to provide satisfactory service to legacy browsers such as Microsofts Internet Explorer 8 and beyond. This also applies to The HyperBrowser. The goal of being a service available to the public leaves no choice but to cater for the communities where replacing the computer every second new release of software is unaffordable.There is still a vast amount of users using old web browsers like IE8 (source). 
+
+\subsubsection{c2c2p1P2: New features still have different implementations in different browsers}
+The vast amount of mobile and tablet browsers running on different software does not implement new features consistently or at the same time.
+
+
+
+\subsection{p2P2: The Uniform Resource Identifier, a source to headaches}
+Hashchange events vs pushState events. Server not ready for pushState. Parsing the url. uriAnchor plugin to the rescue? Dependent properties.
+
+%%%%%%%%%%%%%%%%%%%%%%%%% P2 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Existing page: Combining P2 and P3 to Adding state management on an existing page is challenging?
+\section{The hyper browsers use of iFrame creates an extra challenge}
+\subsection{p1P2: Every iFrame is a separate window, with its separate DOM tree}
+Functionality put in an iFrame is not reachable until the iFrame is fully loaded.
+
+Not possible to depend fully on functionality being present all the time.
+
+Some hyper browser navigation reloads versions of the page without iFrames and thereby does not provide the previously available functionality. Ex: Shared data.
+
+C: Do not relay on previously available functionality. Create the functionality from scratch.
+
+Recreating all functionality does not adhere to the open/closed principal (Robert Martin).
+
+Time consuming.
+
+But it enables creation of better code. No need to hack the code like my solution when redesigning.
+
+%%%%%%%%%%%%%%%%%%%%%%%%% P3 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Existing page:
+\section{Maintaining state in the location.hash over requests is impossible. (Bring in the ideas from SPA book)}
+\subsection{The main iFrame is reloaded for every state change, thus clearing the location.hash}
+\subsection{Let the native history management remember state. That enables back and forward buttons. (Present the History API)}
+
+Native history management saves the url with post data, letting you go back and forward but does not save post data in bookmarks, and also only fires get requests when loading a bookmark, so state needs to be embedded in the url to be able to be bookmarked. All state change are post oriented with the Hyperbrowser.  Why would one want to bookmark? To be able to share the research questions.
+
+%%%%%%%%%%%%%%%%%%%%%%%%% P4 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Server rendered page:
+\section{The state needs to be captured and saved on the client}
+\subsection{Every state change generates a new page reload by the server}
+\subsection{The server does not maintain state over requests}
+\subsubsection{The server acts as if it was RESTfull, Every post request gives a unique response}
+
+%%%%%%%%%%%%%%%%%%%%%%%%% C1 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{The server can be rewritten for handling state}
+\subsection{Letting the server handle state, conflict with the idea of a RESTfull server in that it will not be stateless}
+\subsection{This leads to slower server, etc, etc.}
+\subsection{And is slower due to Speed of light}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%% C2 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Can’t one just use a global boolean that all objects can relate to?}
+Save the mode state in a global variable on the browsers localStorage makes for a simple program.
+
+Elements in need of staying synchronised with the mode state will have no means to get updated when the mode changes.
+
+The localStorage does not allow for emitting events when updated.
+
+Saving state in the localStorage forces every element of the page that needs the mode state to constantly call the localStorage to get synchronised with the current state.
+
+\subsection{Solution to } Disable the basic/advanced app, and present a new button in place of the old one providing a link back to the state management app.
+
+
+\chapter{}
+"Structuring complex code using an unstructured, dynamic scripting language like java script can be challenging"
+%%%%%%%%%%%%%%%%%%%%%%%%% C1 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{C1: A plethora of frameworks to the rescue?}
+Hard to integrate with existing design
+\subsection{c1C1:Backbone to the rescue?}
+The state app is based on some backbone principles. But the history object is hard to make compatible with the state app. 
+\subsection{c1C1: Angular to the rescue?}
+The pre-project. Learning and then tweaking not very easy.
+\subsection{p1C1: UriAnchor makes the development easier?}
+\subsubsection{c1p1C1: Bug when sending web address}
+\subsubsection{p1p1C1: Simplifies dependent properties in the uri}
+\subsubsection{c1p1C1: SetAnchor as a false prophet} SetAnchor reloads page, which must not be propagated back to the model. This has caused a lot of problems and has been time consuming. Because setting the location.hash by default does not trigger a hash change, but the SetAnchor does causes a triggering of a hashchange event, which caused me to doubt my self and my program. It made me create a lot of safety measures and unnecessary conditional code to account for the faulty triggering of the hash change.
+%%%%%%%%%%%%%%%%%%%%%%%%% P1 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{P1: Classical design patterns are misleading when used with JavaScript}
+Keeping a model representation on the client, the M in MVC, is unnecessary when the URI can be used to convey state between states. The URI is needed to talk to the server anyway?  Pick up on the MVC controversy from the background.
+\subsection{p1P1:Use the anchor as storage for state}
+Claimed by UriAnchor author.
+
+\subsubsection{c1p1P1: Using the location is not feasible with the Hyperbrowser}
+Not possible because hash is emptied on every call to the server. Argument to an existing application?
+\subsection{p1P1: Use LocalStorage as model?}
+
+\subsubsection{c1p1P2: LocalStorage can not emit events}
+P: When setting model state, how to inform other objects of the change?
+
+\subsection{c1P1: Using the model as a driver of application state causes a bidirectional problem}
+
+C: Current state is always available. Same if I had used LocalStorage.
+%%%%%%%%%%%%%%%%%%%%%%%%% P2 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{P2: Bad practice to pollute the global object with custom functionality}
+\subsection{p1P2: Better to use closures and modules}
+\subsubsection{Browserify is polluting the index.js file}
+Have I overbrowserified my code?
+
+Where should event listeners live? In the same objects that initialise other objects or in views, or even other specialised objects.
+
+\chapter{}
+"With structured code, new functionality comes easier"
+\section{P1: Hooking the G-suite to the basic/advanced model was easy}
+\section{C1: The need to differentiate what state type was changed, separate events triggered for separate models. Dependant properties of a model}
+\section{C2: Encapsulation and loose coupling makes the code more complex}
+Encapsulation and loose coupling between objects, ie the history object, makes the code more complex. If the history object listens for specific mode changes, the coupling tightens. If it listens to general model:change it needs to extract which model triggered the event change
+\section{C3: Unnecessary generalisations make code more complex and harder to test}
+ie differentiating between set and change events
+
+
+
+
+% Moved from background. These sections has probably been handled already.
+\subsection{State management in web clients}
+\paragraph{Storing state in the browser}
+
+\section{Anticipated behavior in a web application}
+\section{Location hash or models as driving application state}
+
+\section{Communicating with the DOM}
+
+\section{Strictly objects vs class structures} (Discussion?)
+\subsection{ECMA 5 vs ECMA 6} (Discussion?)
+
+\section{Using third party libraries or design from scratch?} (Discussion?)
+
+\subsection{Single page application on top of server heavy page - A hack?}
+\subsection{Specific or broad approach}
+\subsection{Using the native observer implementation from the new ECMA 6 Object}
 \subsubsection{Code for the future ie pushState} {}
 \subsubsection{Both setHistory and changeHistory} {}
  - More work. More mess.
  - Faster refactoring when new specifications
 \subsubsection{uriAnchor vs. own development} 
 \subsubsection{How to handle bugs in third party plugins?} 
-\subsubsection{Using framework or library vs creating from scratch}  (Introduced in the background).
-\subsubsection{Local storage vs simple storage} 
+\paragraph{Using framework or library vs creating from scratch}  (Introduced in the background).
+\paragraph{Local storage vs simple storage} 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Conclusion %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
