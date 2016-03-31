@@ -1,6 +1,6 @@
-\documentclass[english]{ifimaster}
+ \documentclass[english]{ifimaster}
 \usepackage[utf8]{inputenc}
-\usepackage{babel,textcomp,csquotes,,varioref,graphicx}% ifikompendiumforside Remember to ads
+\usepackage{babel,textcomp,csquotes,varioref,graphicx}% ifikompendiumforside Remember to ads
 \usepackage[T1]{fontenc}
 \usepackage[hyphens]{url} % deler lange url-er
 
@@ -9,6 +9,43 @@
 defernumbers=true, style=authoryear, backref,sortcites]{biblatex}
 
 \usepackage[normalem]{ulem} %enables strike through
+% To enable code with correct indentation for JavaScript
+\usepackage{listings}
+\usepackage{color}
+\definecolor{lightgray}{rgb}{.9,.9,.9}
+\definecolor{darkgray}{rgb}{.4,.4,.4}
+\definecolor{purple}{rgb}{0.65, 0.12, 0.82}
+
+\lstdefinelanguage{JavaScript}{
+  keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+  keywordstyle=\color{blue}\bfseries,
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  ndkeywordstyle=\color{darkgray}\bfseries,
+  identifierstyle=\color{black},
+  sensitive=false,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  commentstyle=\color{purple}\ttfamily,
+  stringstyle=\color{red}\ttfamily,
+  morestring=[b]',
+  morestring=[b]"
+}
+
+\lstset{
+   language=JavaScript,
+   backgroundcolor=\color{lightgray},
+   extendedchars=true,
+   basicstyle=\footnotesize\ttfamily,
+   showstringspaces=false,
+   showspaces=false,
+   numbers=left,
+   numberstyle=\footnotesize,
+   numbersep=9pt,
+   tabsize=2,
+   breaklines=true,
+   showtabs=false,
+   captionpos=b
+}
 
 % må opplyse om bib-filen
 % ved flere bib-filer gjentas kommandoen
@@ -80,23 +117,39 @@ Open the eyes of the university for JavaScript.
 
  Are the JavaScript nature of functions, ie apply, call and bind, ways of breaking with good OOP practices? Does cohesion suffer when passing functionality around without an object controlling it?
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Introduction %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\part{Introduction}
-\chapter{Introduction}
-\pagenumbering{arabic}
+\section{Discarded}
+
+\subsection{Intro}
 The intention of the web to augment the human brain, From Doug Engelbart to Sir Tim Bernes-Lee, has been the motivation behind many a web project(Howard Rheingold). This is also the grounds on which the Hyperbrowsers was born, to help researchers do better research on genomic data. The HyperBrowser provide tools to aid researchers in defining advanced statistical hypothesises on genomic data. The galaxy platform, on which the Hyperbrowser is built, facilitates sharing results, "the state app", the application under scrutiny, gives the opportunity to share research questions. It also enables information hiding. Users not familiar with the user interface or with making complex statistical hypothesis based on genome data may be overloaded with the amount of choices and of the information presented by the Hyperbrowser. The hiding and revealing of information in a basic or advanced mode is the second specification the state app has brought to the Hyperbrowser.
 
-\section{Motivation}%Move to preface?
-%Why there is a need for the product I have made
-
-%Drill in to the motivation. Bring up the need to adopt, adhere to the anticipated behavior of web applications in general. 
-
+\subsection{Motivation}
 As the Internet has matured, we, the users of the World Wide Web, have started to expect certain behavior from a web page\parencite[p.85]{mikowski}. Whether the web site is about displaying dynamically rendered news articles or, as is the case of "The Genomic HyperBrowser", doing statistical analyzes on a genome, the users expect to be able to use the built in actions most browsers provide. Going back and forth using the navigation arrows on the top left side of the page or bookmarking a page for later reference or even sending a link to a friend or colleague is build in functionality every site should strive to provide for its users.
 
 Because of the inner workings of most browsers the back and forward functionality works as expected for the Hyperbrowser, but saving the state in a bookmark for later retrieval or for the purpose of sending the state to a co-worker or other scientist has however not been possible and is one of the main focus of this thesis.
 
 The other main focus has been that of concealing information...
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Introduction %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\listoffigures
+\part{Introduction}
+\chapter{Introduction}
+\pagenumbering{arabic}
+\section{Background}
+% Get the reader up to speed on terminology and the field.
+\section{Rationale (Motivation)}
+%Why there is a need for a product to do what i propose to do
+
+%Expectations to be able to save state, but no explicit recipes. There exists a lot of frameworks but no obvious how and which ones that will give the best help. Many different solutions, store in cash, local storage, location.hash but which is better?
+
+% There is insecurities, so its important that someone explores the solutions. But I don't explore the solutions?
+
+\section{Purpose}
+Google search supports a basic and advanced mode. From neuro science\parencite{maldjian2003automated} tools to google search provides basic.
+
+% Explore state, the meaning of state. This is what I have wanted to investigate. How state can be in a situation where it is both on the client and on the server.
+
+%State is important. How to handle state client side when generated server side? Where is the state supposed to reside? Explore this dilemma.
 
 \section{Goals}
 %(Entice the reader, what are they about to spend time reading, why would they?)
@@ -112,20 +165,24 @@ The programatic contribution to the thesis has two parts:
 
 \section{Overview}
 \subsection{Background}
-After introducing the main topics of the thesis, this introduction, I explain what "the Genomic Hyperbrowser" is and discuss some of its reported problems concerning usability. The G-suite project addresses some of these problems but do so server side. 
 
-The State application has been integrated with the G-suite to address these problems on the client side. The aspects of the G-suite that relate to usability will be laid out before I give a short explanations on state, what it is and why it matters. 
 
 The next few sections will discuss different aspects of the web client, the DOM and give a general overview of certain aspects of JavaScript necessary to follow the main part of this thesis, the discussion. 
 
 Lastly I give the reader a short introduction to design patterns. I do this to introduce an ongoing discussion of which I will join later.
 
 \subsection{Methodology}
-This section will concern explanations on behavior driven development and module based implementation provided by browserify. Why and how has behavior driven development made the implementation faster and easier.
-\subsection{Development}
-In this section I will discuss the important details of the implementation of the program under scrutiny. 
-These assertions will act  
+How did I go about exploring the questions at hand?
 
+%The pre-project with Angularjs. State was explored as every page was a different state as in a state machine. The history object acts as a state machine.
+
+This section will concern explanations on behavior driven development and module based implementation provided by browserify. Why and how has behavior driven development made the implementation faster and easier.
+\subsection{Empirical - Development}
+The hyperbrowser is an interesting case.
+I will start this section with an explanation of what "the Genomic Hyperbrowser" is and discuss some of its reported problems concerning usability. The G-suite project addresses some of these problems but do so server side. 
+
+The State application has been integrated with the G-suite to address these problems on the client side. The aspects of the G-suite that relate to usability will be laid out before I give a short explanations on state, what it is and why it matters. 
+In this section I will discuss the important details of the implementation of the program under scrutiny. 
 
 \subsection{Discussion}
 As a means to guide the discussion in the wanted direction I promote three overarching assertions (sub theses). These assertions will be followed by more fine grained statements supporting or contradicting the main assertions. 
@@ -143,7 +200,9 @@ The three main assertions are:
 
 
 \section{Challenges (Justifications)}
-\sout{Explain how easy the problem could have been if I was to make the application from scratch, tweaking specifications as I met problems.}
+Short introduction to the some of the main arguments of the discussion: 
+
+How easy the problem could have been if I was to make the application from scratch, tweaking specifications as I met problems.
 
 \sout{The challenges of working with a web client, in different browsers, different standards HTML5(pushState), the server that could not be set up for pushState.}
 
@@ -153,7 +212,7 @@ The three main assertions are:
 
 \section{Requirement specifications}
 \begin{enumerate}
-\item A basic / advanced mode should be able to be set from one button placed in the main navigation, from a small triangle on the border between the tools and the main iFrame, with tabs within the main iFrame when available and from within certain G suite tools. When setting mode in one place, the mode should be updated all the other relevant places.
+\item A basic / advanced mode should be able to be set from one button placed in the main navigation, from a small triangle on the border between the tools and the main iframe, with tabs within the main iframe when available and from within certain G suite tools. When setting mode in one place, the mode should be updated all the other relevant places.
 
 \item Implement bookmarkable state.
 
@@ -173,7 +232,11 @@ The ability to save state will not only enable the researcher to come back and w
 \sout{How to apply state management for predefined server rendered pages in a web browser}
 
 \section{Terminology}
+
 \subsection{Acronyms}
+URI - Uniform Recourse Identifier.
+URL - Uniform Recourse Locator. 
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Background %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -184,7 +247,7 @@ The ability to save state will not only enable the researcher to come back and w
 
 \section{State management}
 \subsection{What is state?}
-
+\label{sec:state}
 \subsection{Why is state important?}
 
 \subsection{The statelessness of REST}
@@ -194,12 +257,12 @@ The ability to save state will not only enable the researcher to come back and w
 
 The Genomic HyperBrowser use some of these new technologies. It does rely on jQuerys Ajax suite to do some of the communication with the server. It also relies on one of the new HTML5 specifications, the localStorage API, which it has entrusted to a third party plugin, JStorage. 
 
-While utilizing new web standards on some parts of the page the Hyperbrowser also rely heavily on the somewhat discouraged technique of using iFrames for separating content on a page. Using frames is the first mistake web designers do according to usability guru Jacob Nilsen. "It brakes the fundamental user model of the web page. All of a sudden, you cannot bookmark the current page and return to it \parencite{nielsen1997user}.
+While utilizing new web standards on some parts of the page the Hyperbrowser also rely heavily on the somewhat discouraged technique of using iframes for separating content on a page. Using frames is the first mistake web designers do according to usability guru Jacob Nilsen. "It brakes the fundamental user model of the web page. All of a sudden, you cannot bookmark the current page and return to it \parencite{nielsen1997user}.
 
-The usage of iFrames stems from the fact that the HyperBrowser is an extension of an other open source, web-based platform for data intensive biomedical research, namely the Galaxy platform and is by that dependent on how the Galaxy project was originally implemented. The consequences of having to deal with iFrames for the state app will be discussed later in this chapter.
+The usage of iframes stems from the fact that the HyperBrowser is an extension of an other open source, web-based platform for data intensive biomedical research, namely the Galaxy platform and is by that dependent on how the Galaxy project was originally implemented. The consequences of having to deal with iframes for the state app will be discussed later in this chapter.
 
 \subsection{The DOM}
-For a program to manage state within a browser context it needs some way to interact with the HTML elements displayed on the page. The standard programming language for all modern browsers, Javascript, provides such an entry point. When the server returns the requested page the browser creates a plain javascript object, called the document object, and uses it as the root of a tree like structure. It then parses the received HTML. For every HTML element it creates a responding javascript object and adds it to the document tree. This tree is often referred to as the DOM. All of these javascript objects have fields that correspond to all the HTML element attributes. The elements most interesting to the discussions of this thesis are the iFrame element and the form element. These have such a central place in the development that they deserve a whole section each.
+For a program to manage state within a browser context it needs some way to interact with the HTML elements displayed on the page. The standard programming language for all modern browsers, JavaScript, provides such an entry point. When the server returns the requested page the browser creates a plain JavaScript object, called the document object, and uses it as the root of a tree like structure. It then parses the received HTML. For every HTML element it creates a responding JavaScript object and adds it to the document tree. This tree is often referred to as the DOM. All of these JavaScript objects have fields that correspond to all the HTML element attributes. The elements most interesting to the discussions of this thesis are the iframe element and the form element. These have such a central place in the development that they deserve a whole section each.
 
 
 \section{JavaScript}
@@ -319,45 +382,229 @@ The main purpose of the dispatcher is providing a system for communicating state
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Discussion %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \part{Discussion}
 
-This discussion will follow three distinct paths as proposed in the claims section of the introduction.
+This discussion will follow three distinct paths as proposed in the claims section of the introduction. Just as a reminder; the goal is to get a clearer understanding of how to handle state in a context of an existing web page. The empirical foundation for the discussion is "The Genomic Hyperbrowser", the existing application, and "The state management application", the state handling program. In the remaining discussion I will refer to the former as just the Hyperbrowser and the latter as the StateApp.
 
-\chapter{}
-"A simple task like a basic advanced button applied client side on top of an existing server rendered web page is not trivial"
+\chapter{On applying state management}
 
+"A simple task like implementing a basic/advanced button, distingushing between a basic and advanced part of a web site, applied client side on top of an existing server rendered web page is not trivial"
 %%%%%%%%%%%%%%%%%%%%%%%%% P1 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Applied client side:
 \section{The nature of web clients create hurdles}
 The nature of web clients create some challenges of its own when developing client side applications. 
 
-\subsection{p1P1: The browser implementations of javaScript and the DOM differ}
-One of the challenges of writing nontrivial JavaScript client-side programs is to ensure they run correctly on the wide variety of different browser implementations we have to day\parencite[p. 325]{flanagan}. One example of the discrepancy between browser vendors JavaScript implementation is Microsofts reluctance to implement the DOM Level 2 Events specification which is The World Wide Web Consortium (W3C) recommended standard\parencite{w3c}. This specification includes crucial functionality such as the AddEventListener which is paramount to most interaction with a web page. To accommodate for these differences the programmer need to write a lot of extra boilerplate code if the use of natively supported JavaScript is important. What many chooses to do in stead, is to use an external, third-party library to query the DOM. 
+\subsection{The browsers implementation of javaScript and the DOM differ}
+One of the challenges of writing nontrivial JavaScript client-side programs is to ensure they run correctly on the wide variety of different browser implementations we have to day\parencite[p. 325]{flanagan}. One example of the discrepancy between browser vendors JavaScript implementation is Microsofts reluctance to implement the DOM Level 2 Events specification which is The World Wide Web Consortium (W3C) recommended standard\parencite{w3c}. This specification includes crucial functionality such as the AddEventListener which is paramount to most interaction with a web page. 
 
-\subsubsection{c1p1P1: JQuery to the rescue}
+To accommodate for these differences the programmer need to write a lot of extra boilerplate code if the use of natively supported JavaScript is important. What many chooses to do in stead, is to use an external, third-party library to query the DOM. 
+
+\subsubsection{JQuery to the rescue}
 With the plethora of JavaScript libraries available, jQuery is the most widely used according to the libscore search engine\parencite{infoWorld}. The ease of use and the great amount of functionality besides querying the DOM, most significantly their handling of Ajax calls has been the leading reasons why I have chosen jQuery over other libraries such as Motools and Dojo. 
 
-\subsubsection{c2p1P2:The browser implementations of javaScript is not a big problem with modern browsers}
-Since the release of Internet Explorer 9, however, Microsoft finally decided to implement the decade old W3C standardizations and as a result most of the browser differences disappeared. One might think that this would be the end of the widespread use of JavaScript libraries but that has not been the case. A quick google search on jQuery usage statistics showed that between 60 and 70\% of the top 10k web sites still rely on jQuery \parencite{jQueryWiki} \parencite{jQueryW3Tech}\parencite{builtWith}. 
+\subsubsection{The browser implementations of javaScript is not a big problem with modern browsers}
+Since the release of Internet Explorer 9, however, Microsoft finally decided to implement the decade old W3C standardizations and as a result most of the browser differences disappeared. 
 
-\subsubsection{c1c2p1P2: The need to support legacy browsers}
-An other natural explanation for the continuing popularity of jQuery is the need for many web sites to provide satisfactory service to legacy browsers such as Microsofts Internet Explorer 8 and beyond. This also applies to The HyperBrowser. The goal of being a service available to the public leaves no choice but to cater for the communities where replacing the computer every second new release of software is unaffordable.There is still a vast amount of users using old web browsers like IE8 (source). 
+One might think that this would be the end of the widespread use of JavaScript libraries but that has not been the case. A quick google search on jQuery usage statistics showed that between 60 and 70\% of the top 10k web sites still rely on jQuery \parencite{jQueryWiki} \parencite{jQueryW3Tech}\parencite{builtWith}. 
 
-\subsubsection{c2c2p1P2: New features still have different implementations in different browsers}
-The vast amount of mobile and tablet browsers running on different software does not implement new features consistently or at the same time.
+\subsubsection{The need to support legacy browsers}
+A natural explanation for the continuing popularity of jQuery is the need for many web sites to provide satisfactory service to legacy browsers such as Microsofts Internet Explorer 8 and before. This also applies when developing new functionality to The HyperBrowser. The goal of being a service available to the public leaves no choice but to cater for the communities where replacing the computer for every third release of new software is unaffordable. 
 
+\subsubsection{New features still have different implementations in different browsers}
+The vast amount of mobile and tablet browsers running on different software but also regular browsers for desktop computers does not implement new features consistently or at the same time. New HTML5 technologies such as Server-sent events and the file API are still not implemented by the newest Microsoft layout engine, the EdgeHTML\parencite{comparison_of_layout_engines}. Since the mentioned technologies does not affect the implementation of the stateApp, this is not a problem and will be left as it is.
 
+%NB!!! This must be discussed further later since it is not answered for here. Jquery does not remedy this problem.
+An other crucial functionality that is implemented differently in a wide variety of browsers is the native back button. Do they utilize the browsers cache or do they reload the page from the server? This problem is not remedied by jQuery or any of the other JavaScript frameworks. This problem will be brought back to the discussion as it closes in on the difficulties experienced with the concrete implementation of state management. 
 
-\subsection{p2P2: The Uniform Resource Identifier, a source to headaches}
-Hashchange events vs pushState events. Server not ready for pushState. Parsing the url. uriAnchor plugin to the rescue? Dependent properties.
+\subsection{The Uniform Resource Identifier, a source to headaches}
+\subsubsection{The distinction between a URI and a URL is confusing}
+%To formal and hard to read. Needs a short and easy intro to the issues
+The URI scheme is meant to be a way of uniquely identifying representations of resources in a network. The URI is a string of characters, formed in a well defined manner, specifying the rules for obtaining a resource. A URI can be classified as a locator specifying the access mechanism of a resource. When used as a locator it is called a Uniform Resource Locator (URL). It can also be classified as a name representing globally unique resources. When used as a name it is called a Unifrom Recourse Name (URN). Combining the two can also be classified as a valid URI\parencite{rfc_URI}.
+
+The partitioning of URI space into URL's and URN's have caused some confusion in the web community\parencite{w3c_URI}. Both URL's and URN's are subsets of URI's. For simplicity one can say that a URL is used to identify the location of a resource in time. The URN is the unique name independent of the location of the resource and its primary purpose is to maintain a persistent labeling of a resources also when the resource no longer exists or becomes unavailable. 
+
+Both URL's and URN's need to conform to strict rules to be valid URI's. The hyperbrowser does not define named resources (URN) in any way compliant with the rules of the generic syntax specification for URI's, hence I will not be discussing URN's any further. I will mainly concentrate the discussion on the location of a resource, the URL, but since a URI still identify a resource I will continue using the URI terminology. 
+
+\subsubsection{The syntactic rules of a URI are overwhelming}
+The paper defining the syntax of the URI, the "URI Generic Syntax" (RFC2396), encompass 40 pages of detailed descriptions, jet is only a superset of all the URI schemes available. Examples of URI schemes are ftp, http and mailto. All have their own specifications and are often to much to consider in detail for a web developer. 
+
+It should be mentioned for the record that even though many of these schemes have the names of protocols that does not imply they are the same as the protocol they are named after. It neither imply that access to the URL's recourse is only possible using that protocol. Oftentimes it requires two protocols to reach a document. When accessing the resource of a http scheme it requires both the HTTP and the DNS protocol\parencite{rfc_URI}.
+
+Since defining most of the URI schemes of the web is already done and the deciding on naming hierarchies for resources is done by those developing the server, URI grammar is not relevant for the front-end developer. The front-end developer only needs to use the predefined schemes when requesting resources. 
+
+However true this might be on a strict level, this argument might not apply equally well when considering the state of an application. Specifically when utilizing the HTML5 specifications of the History API or the fragment identifier for storing state, the rules of the URI schemes might be of some importance. For instance the use of the forward slash character "/" and the fragment identifier "\#", also called the hash, are restricted characters with special functions when used in a URI. The former divides actors in a hierarchical relationship the latter has traditionally been used to index certain parts of a document. 
+
+Servers do not interpret the part of the URI string residing after the fragment and has therefor also been used as a place to store state specific information used by the client program. Strictly speaking the fragment identifier is not an official part of a URI, but its use in conjunction with the URI and the important role it plays when handling state on a client should be enough to defend the space I have set aside to discussing the issues of the URI.
+
+The URI considerations relevant to the development of an existing web page will be elaborated in the coming sections, where I discuss the concrete problems of using the fragment identifier to store state on the "Genomic Hyperbrowser". 
 
 %%%%%%%%%%%%%%%%%%%%%%%%% P2 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Existing page: Combining P2 and P3 to Adding state management on an existing page is challenging?
-\section{The hyper browsers use of iFrame creates an extra challenge}
-\subsection{p1P2: Every iFrame is a separate window, with its separate DOM tree}
-Functionality put in an iFrame is not reachable until the iFrame is fully loaded.
+\section{Extending an existing program is not straight forward}
+In this section I will discuss the challenges of applying state management on an existing web page. More specifically I will discuss the concrete challenges I encountered when trying to apply state management on the specific case of the "Genomic Hyperbrowser". I will in the rest of the thesis call the new state management on the Genomic Hyperbrowser for the "stateApp".
+
+I will pick up the thread from the previous section by giving an account of why the URI has been considered a natural place for state associations.
+
+\subsection{Storing state in the URI}
+The state within a web page, as explained in background chapter(\ref{sec:state}), must be stored on the client for the state to be accounted for when implementing the user expected behavior of a web page, i.e. the back and forward buttons of the browser and the browsers ability to bookmark. The question is where the state should be stored on the client. Before I elaborate on this question I will give a quick account of the browsers default history management.%There are several options. 
+
+%NB!! Define what is meant by a web page opposed to web pages
+%\subsubsection{Using the URI as state storage}
+% State is explained elsewhere
+% The expected browser behavior is also explained elsewhere. Combine the two.
+\subsubsection{The history object of the window element}
+In the early days of the World Wide browsers displayed web pages containing static information with the possibility to link to other web pages. When clicking or otherwise navigating to an other page the browser added the URL of the new page onto the end of a history object. This history object was a property of the window element and contained some kind of data structure, for instance a list, on which the visited URI's were stored. When using the browsers back button the history list lets the window location property point to the previously added item. In this way the browsers enabled the user to navigate back and forward in the history lits. This was straight forward and easy to understand for most web users.
+
+The browsers also offered a way to link to a certain area of a web page. The fragment identifier was used for this purpose. Any element given an id attribute could be linked to with the fragment identifier. On the src attribute of an anchor element, which usually is used for placing URI's leading to other pages, adding a "\#" and the id of the element, the document would scroll leaving the element in question at the top of the window.
+
+Fig.
+
+\subsubsection{The web 2.0 revolution and the need for an extra layer of identification}
+When the web evolved beyond that of only being able to display static information, the web 2.0 revolution, changing only parts of a page soon became the new norm. By utilizing the new XMLHttpRequest object, the client could, asynchronously, request data from a server adding information on to an already open page. This way a single web page with one URI could be displayed with completely different data. The different data in time is what I call state.
+
+This new way of displaying dynamic information resulted in a need for an extra layer of identification. Since parts of the URI, the web address, already was used to identify a collection of resources for a certain web site, the fragment identifier seemed like a natural place to associate state specific information. The server do not interpret that part of the URI so the client-side developer is free to use it as she may see fit. 
+
+Kannan et al. proposes to use the fragment identifier as a place to put page coordinates. This enables browsers to focus on certain parts of a static display of information, thus making the Internet more dynamic\parencite{Kannan:2006:LUB:1135777.1135924}. Others has use the fragment identifier as a means to apply logical names for specific parts of a document allowing for automatic generation of web pages\parencite{Aimar199599}. This can for instance be used by semantic technologies. 
+
+\subsubsection{The promises of history management in the browsers address field}
+Using the fragment identifier as a place to store state has also been proposed by Mikowski et al.\parencite{mikowski}. In connection with their book "Single page web applications" they have developed a jQuery plugin, the URI anchor. The plugin authors state that the plugin will help you: "Make your application bookmarks, browser history, the back button, and the forward button act just as the user expects while enabling you to update only the part of the page that has changed."\parencite{urianchor}.   
+
+\paragraph{The main functionality}of the UriAnchor plugin is to stringify complex objects onto the fragment identifier part of the location string, that is to turn an object into a string representation, and vice versa to parse the location string back to a javaScript object. For instances, in relation to storing the mode state in the stateApp, the mode state can be put in an object and given to the setAnchor method of the uriAnchor plugin:
+
+\begin{lstlisting}[caption=Setting the location with the Uri Anchor plugin]
+	uriAnchor.setAnchor({mode: 'basic'}); 
+\end{lstlisting}
+
+
+The uriAnchor will set the location.hash for you. This will be reflected in the address field of the browser like so: 
+%[caption=My Javascript Example]
+\begin{lstlisting}[caption=The browsers address field after using the setAnchor 
+method of the uriAnchor plugin]
+	"https://hyperbrowser.uio.no/state/#mode=basic"
+\end{lstlisting}
+
+If other state is needed to be recorded as well, the key/value pair will be separated with an ampersand (\&):
+
+\begin{lstlisting}[caption=Standard key/value separation of the URI parameters]
+	#mode=basic&otherState=testState
+\end{lstlisting}
+
+\paragraph{To depend on the UriAnchor plugin, which add functionality already provided by other parts of the program, might seem redundant.}It leads to more complex code by adding extra variables to keep track of and it will also add to the download cost as it add to the amount of code needed to run the program on the client. For instance using the jQuery param method in combination with the default JavaScript encodeUriCompontent will cater for the stringification process. The only problem is that jQuery does not offer a method to parse a URI to an object. There exists other less official code on the World Wide Web that provides this functionality but this code is usually not maintained and might cause problems in the future. 
+
+A more significant reason for using the UriAnhor plugin is that it provide the possibility to handle complex objects. By complex I here mean that the named properties of the object to be stringified can have dependent variables associated with them. These dependent variables will be encoded on the fragment part of the URI along with all the independent variables.
+
+\begin{lstlisting}[caption=The UriAnchor plugin. Parsed complex object.]
+	$.uriAnchor.setAnchor({
+  mode  : 'advanced',
+  tool  : 'Analyze genomic tracks',
+  _tool : {
+   serializedForm   : 'dbkey=blackrust',
+   currentSelection : 'galaxy_main'
+  },
+  otherFutureProperties : 'red'
+});
+\end{lstlisting}
+
+In listing 5.4 the "mode" and "tool" properties are what has been called named, independent variables. They are named in that they have strings as values and they do not depend on any other properties. The "\_tool" property on the other hand does not have an independent string value. The value is an object and the properties of that object are associated with the "tool" object through convention. The "\_tool" property has been called the dependent variable as it represents additional properties of the associated independent property. 
+
+\begin{lstlisting}[caption=Example of a stringified complex object.]
+#mode=advanced&tool=Analyze%20genomic%20tracks:serializedForm,dbkey%3Dblackrust
+\end{lstlisting}
+
+This is a good fit for the StateApp. It provides the ability to parse and stringify a state object. The mode state only needs a string representation whereas the tool state need more complex data structures representing it. 
+
+A natural question to ask here is why couldn't the value of the independent variable just be a regular object and the string value associated with the independent variable be stored alongside the other dependent variables inside the value object like listing 5.6?
+
+\begin{lstlisting}[caption=Example of a stringified complex object.]
+ $.uriAnchor.setAnchor({
+   mode  : 'advanced',
+   tool  : {
+    toolName : 'Analyze genomic tracks',
+    serializedForm   : 'dbkey=blackrust',
+    currentSelection : 'galaxy_main'
+   },
+   otherFutureProperties : 'red'
+ });
+ \end{lstlisting}
+
+The answer is that by introducing an explicit dependency relationship like the one explained above, the association between dependent and independent variables could be visible in the URI. As shown in listing 5.5 the relationship are indicated by a colon (:). Without the visible dependency relation, the colon, it would be hard to express the relationship in the URI. 
+
+\paragraph{The decision to use the UriAnchor as a means to stringify and encode state objects on to the address field of the browser turned out to be more troublesome than anticipated.} In early stages of developing the stateApp there existed a need to retrieve a tool from the server initiated by the stateApp. This had to be done by sending a predefined property, GALAXY\_URL, attached to the search part of the URI. The value of this property should contain the full URI:
+
+\begin{lstlisting}[caption= The full URI to retrieve a hyperbrowser tool.]
+https://hyperbrowser.uio.no/state/hyper?GALAXY_URL=https%3A//hyperbrowser.uio.no/state/tool_runner&tool_id=hb_test_1
+\end{lstlisting}
+
+It turns out that the UriAnchor plugin decodes the URI before parsing it. This is problematic in relation to URI syntactics. The URI grammar restricts the use of the colon (:) as it is used to separate the protocol scheme from the rest of the URI. Two examples are http: and ftp:. Because the UriAnchor decodes the URI before parsing it and by that expose any percent-encoded characters, the colon indicating the relationship between dependent and independent variable breaks any web addresses stringified in the URI. 
+
+Percent-encoding enables the use of restricted characters in a URI. This is also called URL encoding. The percent sign is used as an escape character followed by a pair of hexadecimal digits representing the characters ASCII byte value\parencite{urlencode}. The colon is thus encoded \%3A as seen in listing 5.5.
+
+When the UriAnchor parser meets the search part of the URI where the tool address is stored in the GALAXY\_URL parameter it takes the colon in https:// to be an indicator of the dependency relationship and thus breaks the address.
+
+To remedy this problem the default dependent/ independent relationship indicator, the colon, can be changed. Strangely enough the UriAnchor plugin provides the possibility to change the default delimiters but the code that does this is disabled.The documentation outlines the default delimiters and explains how to replace them but does not mention that they are disabled and thereby does not work. To enable replacing delimiters one needs to read and understand the whole code base of the plugin. It became a challenging hunt for fixing the bug. I chose to use a dash followed by a greater than sign "->" to indicate the dependency relationship.   
+
+%Follow up on the subsubsection heading prospecting history management.
+\paragraph{Adding state to the URI does not solve history management by it self.} 
+%What is it the plugin does to provide back, forward and bookmark functionality? In a custom app vs in an existing environment.  
+
+
+
+
+instances of web pages pointing to the same resources. i.e. the HyperBrowser instances, state and dev2.
+
+%\subsection{Storing state on localStorage}
+
+%\subsection{Using the model in an MVC architecture for storing state}
+%Bring to the table and elaborate in the design pattern section.
+
+\subsection{The hyperbrowsers extended use of iframes creates a challenge}
+The HTML inline frame element or iframe is a special kind of HTML element. It allows for embedding a whole HTML page within this one element. This means the iframe will be a unique window with its own document object model and its own unique unified resource identifier. It will have a separate head and body element and all the properties of the window element will be unique and separate from the containing window element. 
+
+FIG.
+
+This implicates several challenges for the developer. 
+
+First and most importantly it brakes with the fundamental idea behind the World Wide Web; that every web resource should have a unique identifier such that it can be reached, without ambiguity, from any other document. The merging of several web sites with different URI's naturally becomes troublesome; an accurate representation of state cannot possibly contain two states at the same time.
+
+All dynamic pages brake with this principle.
+Why is this a goal to strive towards?
+
+Since the iframe represents a separate resource with its separate state (possibly) encoded in its own uniform resource identifier 
+
+The hyperbrowser GUI is build using iframes to separate content. The main window object contains the main navigation bar. Underneath the navigation bar the rest of the content is distributed into three different iframes. The first iframe consists of a list of links to genome wide analysis tools. The next iframe contains the main portion of the site and the third iframe contains the history elements. When clicking an item in the tool list the tool, represented by a form, is displayed within the middle iframe. The form consists of several select options, check boxes, text fields and buttons. The last iframe displays all the results generated by the users of this particular browser instance on this computer.
+
+\subsubsection{Several iframes as bad as the obsolete frameset element}
+The hyperbrowser has used iframes the way frames with framesets were used before.
+\subsubsection{pEvery iframe is a separate window, with its separate DOM tree}
+Functionality put in an iframe is not reachable until the iframe is fully loaded.
+
+iframes brakes generic functions in the browser like:
+bookmarking
+printing the whole page
+
+Using the URI as state driver as suggested by Mikowski (SPA) the history object will still be set twice. First when the tool returns from the server and then when setting the toolState on the fragment.
+
+reloading the page: since the URL has generally not changed, you will often be taken back to the site's homepage or default frameset; manually reloading some frames is possible, but not obvious to the user
+
+back and forward buttons are ambiguous: undo/redo the last frame change, or take you to the last time the URL bar changed? What do users expect?
 
 Not possible to depend fully on functionality being present all the time.
 
-Some hyper browser navigation reloads versions of the page without iFrames and thereby does not provide the previously available functionality. Ex: Shared data.
+C: Different global object, and can be considered a different program when coming from different servers.
+
+P: In this case this is a solvable problem since the code for the different iframes reside on the same server. Same-Origin Policy. Also different ports and different protocol ie. http vs https. Not the script in it self, but the document from which the script is embedded.
+
+
+NB! Check out the use of javascript: in the hyperbrowser.
+
+Two phased execution of client side javaScript in addition to the two phased execution of regular javascript, ie hoisting variables, declaration and instantiation.
+
+The load event of the second phase. Must be discussed to understand the problems with finding elements within iframes.
+
+Asynchronisity? 
+
+Cross-site Scripting is taken care of by the fact that everything that is sent to the server is done by the original page. Exception is the ajax call when loading a bookmark. This is actually not taken care of as of now. It is taken care of by the server hopefully. This should be checke out!!!
+
+
+Some hyper browser navigation reloads versions of the page without iframes and thereby does not provide the previously available functionality. Ex: Shared data.
 
 C: Do not relay on previously available functionality. Create the functionality from scratch.
 
@@ -366,12 +613,14 @@ Recreating all functionality does not adhere to the open/closed principal (Rober
 Time consuming.
 
 But it enables creation of better code. No need to hack the code like my solution when redesigning.
-
+\subsubsection{Hashchange events vs pushState events.}
+ Server not ready for pushState. Parsing the url. 
 %%%%%%%%%%%%%%%%%%%%%%%%% P3 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Existing page:
-\section{Maintaining state in the location.hash over requests is impossible. (Bring in the ideas from SPA book)}
-\subsection{The main iFrame is reloaded for every state change, thus clearing the location.hash}
-\subsection{Let the native history management remember state. That enables back and forward buttons. (Present the History API)}
+\subsection{p2P2: Maintaining state in the location.hash over requests is impossible}
+(Bring in the ideas from SPA book)
+\subsubsection{The main iframe is reloaded for every state change, thus clearing the location.hash}
+\subsubsection{Let the native history management remember state. That enables back and forward buttons. (Present the History API)}
 
 Native history management saves the url with post data, letting you go back and forward but does not save post data in bookmarks, and also only fires get requests when loading a bookmark, so state needs to be embedded in the url to be able to be bookmarked. All state change are post oriented with the Hyperbrowser.  Why would one want to bookmark? To be able to share the research questions.
 
@@ -388,21 +637,32 @@ Native history management saves the url with post data, letting you go back and 
 \subsection{This leads to slower server, etc, etc.}
 \subsection{And is slower due to Speed of light}
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%% C2 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Can’t one just use a global boolean that all objects can relate to?}
+\section{Use a global boolean that all objects can relate to}
+After the presentation of the State app implementation the first objection to this first sub thesis could go somewhere along the lines of: "But this should be easy, use a global variable that all other objects gets updated from." Since this, as for now, only is about the basic advanced distinction, there will only be one boolean to relate all other objects to. If they need to change, let them consult the global and ask for its state. If they need to set it, then synchronize that operation. Still easy.
+
 Save the mode state in a global variable on the browsers localStorage makes for a simple program.
 
-Elements in need of staying synchronised with the mode state will have no means to get updated when the mode changes.
+The window object?
+
+Simple storage is a minimal fork of jstorage which is already used by the hyperbrowser.
+
+Using plain window.localStorage excludes legacy browsers.
+
+Varying capacity among browsers implementation of the localStorage and webStorage.
+
+Elements in need of staying synchronized with the mode state will have no means to get updated when the mode changes.
 
 The localStorage does not allow for emitting events when updated.
 
-Saving state in the localStorage forces every element of the page that needs the mode state to constantly call the localStorage to get synchronised with the current state.
+Saving state in the localStorage forces every element of the page that needs the mode state to constantly call the localStorage to get synchronized with the current state.
 
-\subsection{Solution to } Disable the basic/advanced app, and present a new button in place of the old one providing a link back to the state management app.
+Processor expensive, not a good solution for mobile.
 
+\subsection{Solution to } 
+Disable the basic/advanced app, and present a new button in place of the old one providing a link back to the state management app.
 
-\chapter{}
+\chapter{On structuring complex code}
 "Structuring complex code using an unstructured, dynamic scripting language like java script can be challenging"
 %%%%%%%%%%%%%%%%%%%%%%%%% C1 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{C1: A plethora of frameworks to the rescue?}
@@ -414,7 +674,9 @@ The pre-project. Learning and then tweaking not very easy.
 \subsection{p1C1: UriAnchor makes the development easier?}
 \subsubsection{c1p1C1: Bug when sending web address}
 \subsubsection{p1p1C1: Simplifies dependent properties in the uri}
-\subsubsection{c1p1C1: SetAnchor as a false prophet} SetAnchor reloads page, which must not be propagated back to the model. This has caused a lot of problems and has been time consuming. Because setting the location.hash by default does not trigger a hash change, but the SetAnchor does causes a triggering of a hashchange event, which caused me to doubt my self and my program. It made me create a lot of safety measures and unnecessary conditional code to account for the faulty triggering of the hash change.
+\subsubsection{c1p1C1: SetAnchor as a false prophet} 
+SetAnchor reloads page, which must not be propagated back to the model. This has caused a lot of problems and has been time consuming. Because setting the location.hash by default does not trigger a hash change, but the SetAnchor does causes a triggering of a hashchange event, which caused me to doubt my self and my program. It made me create a lot of safety measures and unnecessary conditional code to account for the faulty triggering of the hash change. All this is not correct. The setAnchor did not set the location every time. The reason is that setting the location to the same url as it already is, does not trigger a hashchange. The solution was to set the triggerHashChange variable in the changeHistory as well as in the \_hashChange event handler.
+
 %%%%%%%%%%%%%%%%%%%%%%%%% P1 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{P1: Classical design patterns are misleading when used with JavaScript}
 Keeping a model representation on the client, the M in MVC, is unnecessary when the URI can be used to convey state between states. The URI is needed to talk to the server anyway?  Pick up on the MVC controversy from the background.
@@ -439,7 +701,7 @@ Have I overbrowserified my code?
 
 Where should event listeners live? In the same objects that initialise other objects or in views, or even other specialised objects.
 
-\chapter{}
+\chapter{On adding functionality to structured code}
 "With structured code, new functionality comes easier"
 \section{P1: Hooking the G-suite to the basic/advanced model was easy}
 \section{C1: The need to differentiate what state type was changed, separate events triggered for separate models. Dependant properties of a model}
@@ -468,13 +730,14 @@ ie differentiating between set and change events
 \subsection{Single page application on top of server heavy page - A hack?}
 \subsection{Specific or broad approach}
 \subsection{Using the native observer implementation from the new ECMA 6 Object}
-\subsubsection{Code for the future ie pushState} {}
-\subsubsection{Both setHistory and changeHistory} {}
+\subsubsection{Code for the future ie pushState} 
+\subsubsection{Both setHistory and changeHistory} 
  - More work. More mess.
  - Faster refactoring when new specifications
 \subsubsection{uriAnchor vs. own development} 
 \subsubsection{How to handle bugs in third party plugins?} 
-\paragraph{Using framework or library vs creating from scratch}  (Introduced in the background).
+\paragraph{Using framework or library vs creating from scratch}  
+(Introduced in the background).
 \paragraph{Local storage vs simple storage} 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Conclusion %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -497,10 +760,10 @@ ie differentiating between set and change events
 \printbibheading
 \printbibliography[type=book, title={Books}]
 \printbibliography[type=article, title={Articles}]
-\printbibliography[type=manual, title={Manuals}]
+
+\printbibliography[type=report, title={Technical reports}]
 \printbibliography[nottype=book, nottype=article,%
-nottype=manual, title={Other documents}]
+nottype=report, title={Web resources}]
 
 \end{document}
 
- 
