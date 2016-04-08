@@ -11,6 +11,7 @@ defernumbers=true, style=authoryear, backref,sortcites]{biblatex}
 \usepackage[normalem]{ulem} %enables strike through
 % To enable code with correct indentation for JavaScript
 \usepackage{listings}
+\renewcommand*{\lstlistlistingname}{List of Code}
 \usepackage{color}
 \definecolor{lightgray}{rgb}{.9,.9,.9}
 \definecolor{darkgray}{rgb}{.4,.4,.4}
@@ -236,6 +237,7 @@ The ability to save state will not only enable the researcher to come back and w
 \subsection{Acronyms}
 URI - Uniform Recourse Identifier.
 URL - Uniform Recourse Locator. 
+\#  - The octothorp. Within a URI als called the fragment identifier, the hash sign and the anchor. 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Background %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -255,7 +257,7 @@ URL - Uniform Recourse Locator.
 \section{The web client}
 "The web browser is perhaps the most widely used software application in history. It has evolved significantly over the past twenty years; today, web browsers run on diverse types of hardware, from cell phones and tablet PCs to desktop computers"\parencite[p. 2]{gross}. We even have iWatches and Google glasses. The web client is no longer just a reader of static information browsing interlinked web pages. Now it is better described as a simplified OS\parencite[p.310]{flanagan}. The browsers provide ways to organize web documents and web applications in folder structures. As is the case for the current state app, it allows for organization of statistical analysis questions and hypothesises. Web browsers also allows for running multiple discrete applications much like an OS. The state app consists of two distinct applications, one that handles tool state and one that synchronizes mode between frames. Thirdly web browsers define low-level API's for activities such as networking and saving data. 
 
-The Genomic HyperBrowser use some of these new technologies. It does rely on jQuerys Ajax suite to do some of the communication with the server. It also relies on one of the new HTML5 specifications, the localStorage API, which it has entrusted to a third party plugin, JStorage. 
+The Genomic HyperBrowser use some of these new technologies. It does rely on jQuerys Ajax suite to do some of the communication with the server. It also relies on one of the new HTML5 specifications, the localStorage API, which it has entrusted to a third party library, JStorage. 
 
 While utilizing new web standards on some parts of the page the Hyperbrowser also rely heavily on the somewhat discouraged technique of using iframes for separating content on a page. Using frames is the first mistake web designers do according to usability guru Jacob Nilsen. "It brakes the fundamental user model of the web page. All of a sudden, you cannot bookmark the current page and return to it \parencite{nielsen1997user}.
 
@@ -274,7 +276,7 @@ standards and thus can be legitimately described as a toy language.” —
 
 Even though some people still have problems recognizing JavaScript as more than a toy programing language JavaScript has had a rapid evolution the last 10 years. The emergence of  big JavaScript libraries and frameworks like Backbonejs and Angularjs can be seen as a direct consequence of what has been coined the second browser war\parencite{Yule2013}. Especially after Google launched their Chrome browser in 2008 and the JavaScript runtime Nodejs was build on top of chromes V8 engine, the speed of interpreting JavaScript has increased enormously. Other JavaScript engines now uses dynamic compilation, also called "Just in time" technology and the V8 compiles directly to byte code which make them even faster\parencite{anand}. JavaScript is also the standard programing language of the "World Wide Web"\parencite[p. 1]{flanagan} and is thereby one of the most used programing languages.
 
-
+\subsection{The JavaScript prototype chain}
 
 \section{Design principles}
 \subsection{Open/closed principle}
@@ -313,13 +315,6 @@ Find source.
 \subsection{Jasmine}
 Using Jasmine as integration testing tool
 
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Development %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Development}
-In this chapter I describe what have been done. 
-Moved to discussion: \sout{I also try to reason why I have done as I have.}
-
 \section{Modularity}
 \subsection{Browserify, taking Nodejs NPM module loading technology to the browser}
 Move to background?
@@ -328,16 +323,169 @@ Modules
 npm
 browserify
 
+\section{Subversion}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Development %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Results}
+In this chapter I describe the result of the state investigations done on the specific case of the Genomic Hyperbrowser. The result is a working program that adds state management to a web site where such state does not exist originally. The intention is to add details relevant for the discussion and not be a thorough review of the whole code base.
+
+I will start the chapter by describing the Graphical User Interface of the Genomic Hyperbrowser web site. This is done to give a better understanding of the use case under study and thereby build a foundation on which to better follow the discussion. 
+
+Moved to discussion: \sout{I also try to reason why I have done as I have.}
+\section{Describing the Hyperbrowser GUI}
+The Hyperbrowser GUI consists of four distinct parts. The logo and main navigation bar is located on top of the browser window. The rest of the page is split in three vertically aligned sections. The left most section consists of a list of links to genome specific tools. The next section, the middle one, is the main section of the Hyperbrowser. The right-most section consists of history elements. This thesis does not interfere with the history section and will not be discussing this any further. Clicking on one of the tools in the tool links section opens the corresponding tool in the main section. 
+
+A tool consists of a HTML form with several options to choose from and a button to send the form to the server. This button is often called execute or start analysis. The button is usually grayed out when the form is incorrect or not sufficiently filled out to be executed. When a tool is executed a confirmation notice is displayed in the main section of the site and a history element is added to the history section.
+
+Some tools has a dual appearance. These tools are part of the GSuite project. They have both a basic and an advanced representation. Only one of these appearances are sent from the server depending on the mode of the web site at the time of requesting the tool. Changing the mode of the web site request the other representation of the tool.
+
+The main section also displays the welcome page when opening the Hyperbrowser. The welcome page is one of several tabs in the main section. The two other tabs important to this thesis is the basic and the advanced tab. These tabs display guides to how to use the tools provided by the G suite. The basic tab leads the user through a simplified workflow while the advanced tab gives the user full control of the analysis workflow. In the rest of this thesis I will be calling the over described tabs the gSuite guides. Important to mention is that these tabs are not present when displaying a tool in the main frame.
+
+\section{Describing the stateApp}
+\subsection{The functionality}
+The stateApp has two main tasks. The first is to make sure that all parts of the HyperBrowser is synchronized against a "modeState". There are two modes: a basic and an advanced mode. The second is to record the state of the Hyperbrowser, the "toolState".
+
+\begin{enumerate}
+\item{ModeState:}
+ Mode is affecting tree parts of the page. Firstly, the left sidebar where the tool section is located. This should be closed when in basic mode and open when in advanced mode. 
+
+Secondly the G suite tools have two different representations delivered from the server. The stateApp need to know if the tool returned from the server is in basic or advanced mode and synchronize the rest of the application accordingly.
+
+Thirdly the gSuite guides should be synchronized with the current page mode. When mode is changed somewhere outside the gSuite guides the stateApp should display the tab corresponding to the mode. It should also toggle the mode on rest of the app when a user switches from one tab to the other. 
+
+\item{ToolState:}
+The stateApp should record the state of the HyperBrowser to enable the default behaviors of web browsers to work as expected. By storing state on the fragment identifier of the URI the stateApp can restore the application state. This enables correct behavior of the back and forward buttons. It also enables the user to save the state as a regular bookmark or send the URL of a specific tool selection to a colleague or other interested party.
+\end{enumerate}
+
+\subsection{The flow}
+As is the case for all JavaScript programs run in a web browser environment the execution of the code has two distinct phases. The initialization phase and the event phase\parencite[p.317]{flanagan}.
+
+\subsubsection{The initialization phase} 
+The initialization process starts by creating a history object. Before starting this history object the stateApp starts what I have called the modeApp. The tasks of the modeApp is to create a modeModel, a modeView and a modeController. It then sets up mode related event listeners and returns.
+
+After the modeApp has returned the toolApp is started. The toolApp creates a toolModel, a toolView and a toolController. As with the modeApp the toolApp now sets up event listeners related to record the state of the tools. Since the tools are basically HTML forms, the toolApp is set up to serialize the form and add the serialization to the toolModel. The form is serialized on every reload of the main frame. When the event listeners are all set up the program returns to the main initialization code.
+
+On returning from the toolApp the history object is started. It first checks to see if the hash part of the windows location property is set. Unless the location hash is set the program continues on to consult the browsers local storage. If no state is stored on the local storage the program sets itself with the basic mode. If local storage has mode information the history object triggers a history:change event with the state stored on local storage attached to the event object. This is also the case if the location hash is set: the program triggers a history:change event with the parsed URI object attached instead of the state object from local storage. The triggering and the initialization process is terminated. This marks the start of the second phase of the program, the event phase.
+
+\subsubsection{The event phase}
+After the initialization has terminated the app enters the event phase. All the objects created in the initialization process has been extended with a common dispatcher object allowing internal communication within the objects of the app. This internal communication is not in any way connected with the browsers event mechanism even though they are similar.
+
+The dispatcher object of the stateApp is designed as an observable and an observer in one object. By extending all the other objects with the dispatcher object, every object is made into observers observing the central dispatcher object. They still have to register to events to be "notified" when the events are triggered. The notification is put in quotes here because of the way the dispatcher is designed. JavaScripts offers functions to be passed around as objects. This way the dispatcher can receive the function to be triggered directly instead of the object within which the functionality would otherwise reside according to the Observer pattern. The event phase continue till the browser window is shut down. 
+
+When in the event phase the program will have long periods of silence where no code is run. These long stretches of no activity will be interrupted by bursts of activity when a user interacts with the site or the browsers.
+
+
+\subsection{Storing and retrieving state from the URI}
+To store state on the URI the state must be transformed to a string. The process of transforming JavaScript objects to strings is often called a stringifying process. The process of transforming the URI back to a JavaScript object is called parsing. The third-party library UriAnchor provides utility methods for parsing and stringifying the part of the URI I will refer to as the fragment identifier. See section \ref{sec:URI} for a detailed discussion on the URI and the fragment identifier. 
+
+
+\subsubsection{The uriAnchor library}
+The main functionality of the UriAnchor library is to stringify complex 
+objects onto the fragment identifier part of the location string and vice versa to parse the location string back to a javaScript object. For instances, in relation to storing the mode state in the stateApp, the mode state can be put in an object and given to the setAnchor method of the uriAnchor library:
+\label{sec:results_uriAnchor}
+\begin{lstlisting}[caption=Setting the location with the Uri Anchor library]
+  uriAnchor.setAnchor({mode: 'basic'}); 
+\end{lstlisting}
+
+
+The uriAnchor will set the location.hash for you. This will be reflected in the address field of the browser like so: 
+%[caption=My Javascript Example]
+\begin{lstlisting}[caption=The browsers address field after using the setAnchor 
+method of the uriAnchor library]
+  "https://hyperbrowser.uio.no/state/#mode=basic"
+\end{lstlisting}
+
+If other state is needed to be recorded as well, the key/value pair will be separated with an ampersand (\&):
+
+\begin{lstlisting}[caption=Standard key/value separation of the URI parameters]
+  #mode=basic&otherState=testState
+\end{lstlisting}
+
+The library also supports storing state objects within objects. It does this by associating an independent property of the state object with a dependent property. The dependent property holds the additional associated state for the independent state property:
+
+\begin{lstlisting}[caption=The UriAnchor library. Parsed complex object.]
+  $.uriAnchor.setAnchor({
+  mode  : 'advanced',
+  tool  : 'Analyze genomic tracks',
+  _tool : {
+   serializedForm   : 'dbkey=blackrust',
+   currentSelection : 'galaxy_main'
+  },
+  otherFutureProperties : 'red'
+});
+\end{lstlisting}
+
+In listing 4.4 the "mode" and "tool" properties are what has been called named, independent properties. They are named in that they have strings as values and they do not depend on any other properties. The "\_tool" property on the other hand does not have an independent string value. The value is an object and the properties of that object are associated with the "tool" object through convention. The "\_tool" property has been called the dependent variable as it represents additional properties of the associated independent property. 
+
+\begin{lstlisting}[caption=Example of a stringified complex object.]
+#mode=advanced&tool=Analyze%20genomic%20tracks:serializedForm,dbkey%3Dblackrust
+\end{lstlisting}
+
+\subsubsection{Separating state change}
+Changing the URI trigger a browser hashchange event. This event is caught by the history object. One of the many task of the history object is to trigger separate events for each state that is changed. The uriAnchor library simplifies this process of separation. As the history object loops through the state object returned from the uriAnchors makeAnchorMap() method it triggers an event specific to each independent property. If there is a dependent object associated with the property at hand the history object passes this along with the event. 
+
+\subsubsection{Make sure only changed state trigger events}
+To make sure unnecessary events are triggered the history object checks against the local storage to see what properties actually has changed since the last saved state object. The state object returned from the makeAnchorMap offers for each dependent object a string representation of that object. This simplifies the check against previous state objects.
+
 %the overall structure of the state app.
 %pdf overview of object interaction/object diagram
-
-\section{The JavaScript prototype chain}
-
 \section{Design choices}
+\subsection{Emulating certain features of Backbonejs}
 \section{Building blocks / Objects}
-\subsection{Main}
+\subsection{The modeApp and the toolApp}
 \subsubsection{ModeApp}
-\subsubsection{ToolApp}
+The first responsibility of the modeApp is to create mode specific objects: the modeModel, the modeView and the modeController. It also adds the modeView to the main navigation bar. The mode view is the basic/ advanced button with its sub menu.
+
+It also sets up the mode listeners. 
+
+\subsubsection{The responsibilities of the ToolApp}
+The toolApp has many of the same responsibilities as the modeApp. It creates tool specific objects and sets up tool specific listeners. For instance, to record a tool state the toolApp listens for the documents "ready" event. This document belongs to the middle iframe and should not be confused with the document associated with the main window of the site. After the browser has rendered a server response targeted for the middle iframe it emits a ready event which is caught by the toolApp object. 
+
+On catching the "ready" event the toolApp records the tool state by finding the form of the iframes document and then serialize the form with the jQuery serialize method. The serialization is then set on the toolModel.
+
+After setting the toolModel the toolApp is responsible for deciding if the tool is a GSuite tool and if so hide the "isBasic" check box. All GSuite tools is delivered with a "isBasic" check box for retrieving the other representation of the tool from the server. Remember all GSuite tool has a basic and an advanced representation of the tool. This is done by checking if the "isBasic" id is present. Only GSuite tools has an "isBasic" id within the document. 
+
+To account for situations where the current mode of the page is not coherent with a newly loaded tool representation the sites mode needs to be adjusted accordingly. Since this is only possible to know as the tool is done loading and the toolApp already has a "ready" listener, this responsibility is given to the toolApp. The check to decide if the tool mode is coherent with the mode of the site is done by checking the isBasic checkbox against the modeModel. This is why the toolApp needs to be injected with a modeModel upon initialization. 
+
+The situation described over can occur when rerunning a tool from the history section of the site. The history objects for GSuite tools will be in the same mode as when the tool was originally run. If the mode of the Hyperbrowsers site has changed since running the tool, rerunning it will cause a mode discrepancy. The app is set to change the mode of the site such that it is coherent with the mode of the rerun tool. It could be argued that the tool should be sett according to the mode of the site. This is a discussion outside the scope of this thesis.
+
+There are also scenarios where the tools mode state and the Hyperbrowsers state are equal when the "ready" state is emitted but the URI is out of sync. This is the last condition the toolApp is responsible to check before it returns.
+
+
+The table \ref{table:1} is a visual representation of the mode state of the Model, the GSuite tool, and the URI after clicking the change mode button. The program algorithm for a mode change gos as follows:
+
+\begin{enumerate}
+\item The base case. Site is in basic mode. No code is being executed. The program is in listening modus.
+\item A user clicks the basic/ advanced button.
+\item ModeView catches the "click" event.
+\item ModeModel is toggled to advanced mode.
+\item ModeCTRL checks the "isBasic" checkbox on the GSuite tool.
+\item Browser sets the location object of the iframe and requests the advanced representation of the tool from the server. A new item is added to the history list.
+\item Browser loads the new tool representation and emits a "ready" event.
+\item ToolApp sets toolModel when catching the "ready" event.
+\item ToolModel is set and causes a history replace. The previous "stateless" entry is overridden by this "statefull" entry.
+\item ToolApp continues and sets the modeModel with the GSuite flag to true and triggers another mode change. This time it sets the modeModel with the same mode it already has. The normal path of triggering the moving of the sidebar and checking the "isBasic" checkbox is this time derailed.
+\item The mode change is now merged with the current location hash. Then history is replaced with this new state object. 
+\end{enumerate}
+ 
+\begin{table}
+\centering
+    \begin{tabular}{rlll}
+    
+     Step    & Model    & Tool     & URI      \\ [0.5ex]\hline\\ [0.1ex]
+        1    & Basic    & Basic    & Basic    \\ 
+        4    & Advanced & Basic    & Basic    \\ 
+        7    & Advanced & Advanced & Basic    \\ 
+        11    & Advanced & Advanced & Advanced \\[1ex] 
+
+    \end{tabular}
+    \caption{The state of different parts of the program while changing mode}
+\label{table:1}
+\end{table}
+
+EXAMPLES OF USE?
 
 \subsection{Prototypes}
 \subsubsection{Model prototype}
@@ -345,8 +493,14 @@ browserify
 \subsubsection{Controller prototype}
 \subsubsection{History prototype}
 
+\subsection{Models, view and controllers} 
+
+\subsubsection{GSuite mode}
 
 
+
+
+\label{sec:models}
 \subsubsection{Dispatcher prototype}
 At the core of the program lies two well known design patterns: "The Model View Controller" might better be described as an architecture than and design pattern as discussed in the previous chapter. "The Observer pattern" on the other hand is a fully fledged classical design pattern.
 
@@ -371,6 +525,7 @@ Since JavaScript is a loosely typed language and does not offer safety construct
 The dispatcher just calls some function with the attached context pointer and goes on being observable. 
 
 I call this pointer to the listening object the "context". This is possible because functions in JavaScript are considered as objects and as any JavaScript objects functions can have methods.
+
 The Function.prototype has three methods: bind, apply and call that can be used to make any function as if it was a method of any object. The dispatcher uses the latter to call the functions left to the observable. The call method of the function uses the "context" and thereby calls the function as a method of the context.
 
 It is a utility object that all the models, views, controllers and the history object listens to. The events are then dispatched to all listening objects. 
@@ -405,16 +560,21 @@ Since the release of Internet Explorer 9, however, Microsoft finally decided to 
 
 One might think that this would be the end of the widespread use of JavaScript libraries but that has not been the case. A quick google search on jQuery usage statistics showed that between 60 and 70\% of the top 10k web sites still rely on jQuery \parencite{jQueryWiki} \parencite{jQueryW3Tech}\parencite{builtWith}. 
 
+Even though most of the implementation differences has disappeared there still exist discrepancies between the browsers as we shall see in the section \ref{sec:backButton} 
+
 \subsubsection{The need to support legacy browsers}
 A natural explanation for the continuing popularity of jQuery is the need for many web sites to provide satisfactory service to legacy browsers such as Microsofts Internet Explorer 8 and before. This also applies when developing new functionality to The HyperBrowser. The goal of being a service available to the public leaves no choice but to cater for the communities where replacing the computer for every third release of new software is unaffordable. 
+
+
 
 \subsubsection{New features still have different implementations in different browsers}
 The vast amount of mobile and tablet browsers running on different software but also regular browsers for desktop computers does not implement new features consistently or at the same time. New HTML5 technologies such as Server-sent events and the file API are still not implemented by the newest Microsoft layout engine, the EdgeHTML\parencite{comparison_of_layout_engines}. Since the mentioned technologies does not affect the implementation of the stateApp, this is not a problem and will be left as it is.
 
 %NB!!! This must be discussed further later since it is not answered for here. Jquery does not remedy this problem.
-An other crucial functionality that is implemented differently in a wide variety of browsers is the native back button. Do they utilize the browsers cache or do they reload the page from the server? This problem is not remedied by jQuery or any of the other JavaScript frameworks. This problem will be brought back to the discussion as it closes in on the difficulties experienced with the concrete implementation of state management. 
+An other crucial functionality that is implemented differently in a wide variety of browsers is the browsers caching strategies in relation to retrieving bookmarks, back and forward buttons. Do they restore pages from cache or do they reload the page from the server? This problem is not remedied by jQuery or any of the other JavaScript frameworks. Related to the same issue is the difference in implementation of the location assign and location reload functionality. These problems are fundamental to state management and will be brought back to the discussion as it closes in on the difficulties experienced with the concrete implementation of the stateApp. 
 
 \subsection{The Uniform Resource Identifier, a source to headaches}
+\label{sec:URI}
 \subsubsection{The distinction between a URI and a URL is confusing}
 %To formal and hard to read. Needs a short and easy intro to the issues
 The URI scheme is meant to be a way of uniquely identifying representations of resources in a network. The URI is a string of characters, formed in a well defined manner, specifying the rules for obtaining a resource. A URI can be classified as a locator specifying the access mechanism of a resource. When used as a locator it is called a Uniform Resource Locator (URL). It can also be classified as a name representing globally unique resources. When used as a name it is called a Unifrom Recourse Name (URN). Combining the two can also be classified as a valid URI\parencite{rfc_URI}.
@@ -430,9 +590,9 @@ It should be mentioned for the record that even though many of these schemes hav
 
 Since defining most of the URI schemes of the web is already done and the deciding on naming hierarchies for resources is done by those developing the server, URI grammar is not relevant for the front-end developer. The front-end developer only needs to use the predefined schemes when requesting resources. 
 
-However true this might be on a strict level, this argument might not apply equally well when considering the state of an application. Specifically when utilizing the HTML5 specifications of the History API or the fragment identifier for storing state, the rules of the URI schemes might be of some importance. For instance the use of the forward slash character "/" and the fragment identifier "\#", also called the hash, are restricted characters with special functions when used in a URI. The former divides actors in a hierarchical relationship the latter has traditionally been used to index certain parts of a document. 
+However true this might be on a strict level, this argument might not apply equally well when considering the state of an application. Specifically when utilizing the HTML5 specifications of the History API or the fragment identifier for storing state, the rules of the URI schemes might be of some importance. For instance the use of the forward slash character "/", the fragment identifier or hash "\#", and the colon ":"" are all restricted characters with special meaning when used in a URI.The forward slash divides actors in a hierarchical relationship, the hash has traditionally been used to index certain parts of a document and the third character plays a central part when I discuss a third party library in relation to state management. 
 
-Servers do not interpret the part of the URI string residing after the fragment and has therefor also been used as a place to store state specific information used by the client program. Strictly speaking the fragment identifier is not an official part of a URI, but its use in conjunction with the URI and the important role it plays when handling state on a client should be enough to defend the space I have set aside to discussing the issues of the URI.
+Servers do not interpret the fragment identifier part of the URI string and has therefor also been used as a place to store state specific information used by the client program. Strictly speaking the fragment identifier is not an official part of a URI, but its use in conjunction with the URI and the important role it plays when handling state on a client should be enough to defend the space I have set aside to discussing the issues of the URI.
 
 The URI considerations relevant to the development of an existing web page will be elaborated in the coming sections, where I discuss the concrete problems of using the fragment identifier to store state on the "Genomic Hyperbrowser". 
 
@@ -443,7 +603,7 @@ In this section I will discuss the challenges of applying state management on an
 
 I will pick up the thread from the previous section by giving an account of why the URI has been considered a natural place for state associations.
 
-\subsection{Storing state in the URI}
+\subsection{Storing state on the URI fragment identifier (\#)}
 The state within a web page, as explained in background chapter(\ref{sec:state}), must be stored on the client for the state to be accounted for when implementing the user expected behavior of a web page, i.e. the back and forward buttons of the browser and the browsers ability to bookmark. The question is where the state should be stored on the client. Before I elaborate on this question I will give a quick account of the browsers default history management.%There are several options. 
 
 %NB!! Define what is meant by a web page opposed to web pages
@@ -453,61 +613,26 @@ The state within a web page, as explained in background chapter(\ref{sec:state})
 \subsubsection{The history object of the window element}
 In the early days of the World Wide browsers displayed web pages containing static information with the possibility to link to other web pages. When clicking or otherwise navigating to an other page the browser added the URL of the new page onto the end of a history object. This history object was a property of the window element and contained some kind of data structure, for instance a list, on which the visited URI's were stored. When using the browsers back button the history list lets the window location property point to the previously added item. In this way the browsers enabled the user to navigate back and forward in the history lits. This was straight forward and easy to understand for most web users.
 
-The browsers also offered a way to link to a certain area of a web page. The fragment identifier was used for this purpose. Any element given an id attribute could be linked to with the fragment identifier. On the src attribute of an anchor element, which usually is used for placing URI's leading to other pages, adding a "\#" and the id of the element, the document would scroll leaving the element in question at the top of the window.
+The browsers also offered a way to link to a certain area of a web page. The fragment identifier was originally used for this purpose. Any element given an id attribute could be linked to with the fragment identifier. On the src attribute of an anchor element, which usually is used for placing URI's leading to other pages, adding a "\#" and the id of the element, the document would scroll leaving the element in question at the top of the window.
 
 Fig.
 
 \subsubsection{The web 2.0 revolution and the need for an extra layer of identification}
 When the web evolved beyond that of only being able to display static information, the web 2.0 revolution, changing only parts of a page soon became the new norm. By utilizing the new XMLHttpRequest object, the client could, asynchronously, request data from a server adding information on to an already open page. This way a single web page with one URI could be displayed with completely different data. The different data in time is what I call state.
 
+\label{sec:storingState}
 This new way of displaying dynamic information resulted in a need for an extra layer of identification. Since parts of the URI, the web address, already was used to identify a collection of resources for a certain web site, the fragment identifier seemed like a natural place to associate state specific information. The server do not interpret that part of the URI so the client-side developer is free to use it as she may see fit. 
 
 Kannan et al. proposes to use the fragment identifier as a place to put page coordinates. This enables browsers to focus on certain parts of a static display of information, thus making the Internet more dynamic\parencite{Kannan:2006:LUB:1135777.1135924}. Others has use the fragment identifier as a means to apply logical names for specific parts of a document allowing for automatic generation of web pages\parencite{Aimar199599}. This can for instance be used by semantic technologies. 
 
 \subsubsection{The promises of history management in the browsers address field}
-Using the fragment identifier as a place to store state has also been proposed by Mikowski et al.\parencite{mikowski}. In connection with their book "Single page web applications" they have developed a jQuery plugin, the URI anchor. The plugin authors state that the plugin will help you: "Make your application bookmarks, browser history, the back button, and the forward button act just as the user expects while enabling you to update only the part of the page that has changed."\parencite{urianchor}.   
-
-\paragraph{The main functionality}of the UriAnchor plugin is to stringify complex objects onto the fragment identifier part of the location string, that is to turn an object into a string representation, and vice versa to parse the location string back to a javaScript object. For instances, in relation to storing the mode state in the stateApp, the mode state can be put in an object and given to the setAnchor method of the uriAnchor plugin:
-
-\begin{lstlisting}[caption=Setting the location with the Uri Anchor plugin]
-	uriAnchor.setAnchor({mode: 'basic'}); 
-\end{lstlisting}
+\label{sec:uriAnchor}
+Using the fragment identifier as a place to store state has also been proposed by Mikowski et al.\parencite{mikowski}. In connection with their book "Single page web applications" they have developed a jQuery library, the URI anchor. The library authors state that the library will help you: "Make your application bookmarks, browser history, the back button, and the forward button act just as the user expects while enabling you to update only the part of the page that has changed."\parencite{urianchor}. The functionality of the uriAnchor is described in the results section (\ref{sec:results_uriAnchor}). 
 
 
-The uriAnchor will set the location.hash for you. This will be reflected in the address field of the browser like so: 
-%[caption=My Javascript Example]
-\begin{lstlisting}[caption=The browsers address field after using the setAnchor 
-method of the uriAnchor plugin]
-	"https://hyperbrowser.uio.no/state/#mode=basic"
-\end{lstlisting}
+\paragraph{To depend on the UriAnchor library} which add functionality already provided by other parts of the program might seem redundant. It leads to more complex code by adding extra variables to keep track of and it will also add to the download cost as it add to the amount of code needed to run the program on the client. For instance using the jQuery param method in combination with the default JavaScript encodeUriCompontent will cater for the stringification process. The only problem is that jQuery does not offer a method to parse a URI to an object. There exists other less official code on the World Wide Web that provides this functionality but this code is usually not maintained and might cause problems in the future. 
 
-If other state is needed to be recorded as well, the key/value pair will be separated with an ampersand (\&):
-
-\begin{lstlisting}[caption=Standard key/value separation of the URI parameters]
-	#mode=basic&otherState=testState
-\end{lstlisting}
-
-\paragraph{To depend on the UriAnchor plugin, which add functionality already provided by other parts of the program, might seem redundant.}It leads to more complex code by adding extra variables to keep track of and it will also add to the download cost as it add to the amount of code needed to run the program on the client. For instance using the jQuery param method in combination with the default JavaScript encodeUriCompontent will cater for the stringification process. The only problem is that jQuery does not offer a method to parse a URI to an object. There exists other less official code on the World Wide Web that provides this functionality but this code is usually not maintained and might cause problems in the future. 
-
-A more significant reason for using the UriAnhor plugin is that it provide the possibility to handle complex objects. By complex I here mean that the named properties of the object to be stringified can have dependent variables associated with them. These dependent variables will be encoded on the fragment part of the URI along with all the independent variables.
-
-\begin{lstlisting}[caption=The UriAnchor plugin. Parsed complex object.]
-	$.uriAnchor.setAnchor({
-  mode  : 'advanced',
-  tool  : 'Analyze genomic tracks',
-  _tool : {
-   serializedForm   : 'dbkey=blackrust',
-   currentSelection : 'galaxy_main'
-  },
-  otherFutureProperties : 'red'
-});
-\end{lstlisting}
-
-In listing 5.4 the "mode" and "tool" properties are what has been called named, independent variables. They are named in that they have strings as values and they do not depend on any other properties. The "\_tool" property on the other hand does not have an independent string value. The value is an object and the properties of that object are associated with the "tool" object through convention. The "\_tool" property has been called the dependent variable as it represents additional properties of the associated independent property. 
-
-\begin{lstlisting}[caption=Example of a stringified complex object.]
-#mode=advanced&tool=Analyze%20genomic%20tracks:serializedForm,dbkey%3Dblackrust
-\end{lstlisting}
+A more significant reason for using the UriAnhor library is that it provide the possibility to handle complex objects. By complex I here mean that the named properties of the object to be stringified can have dependent variables associated with them. These dependent variables will be encoded on the fragment part of the URI along with all the independent variables. 
 
 This is a good fit for the StateApp. It provides the ability to parse and stringify a state object. The mode state only needs a string representation whereas the tool state need more complex data structures representing it. 
 
@@ -527,23 +652,82 @@ A natural question to ask here is why couldn't the value of the independent vari
 
 The answer is that by introducing an explicit dependency relationship like the one explained above, the association between dependent and independent variables could be visible in the URI. As shown in listing 5.5 the relationship are indicated by a colon (:). Without the visible dependency relation, the colon, it would be hard to express the relationship in the URI. 
 
-\paragraph{The decision to use the UriAnchor as a means to stringify and encode state objects on to the address field of the browser turned out to be more troublesome than anticipated.} In early stages of developing the stateApp there existed a need to retrieve a tool from the server initiated by the stateApp. This had to be done by sending a predefined property, GALAXY\_URL, attached to the search part of the URI. The value of this property should contain the full URI:
+\paragraph{The decision to use the UriAnchor} as a means to stringify and encode state objects on to the address field of the browser turned out to be more troublesome than anticipated. In early stages of developing the stateApp there existed a need to retrieve a tool from the server initiated by the stateApp. This had to be done by sending a predefined property, GALAXY\_URL, attached to the search part of the URI. The value of this property should contain the full URI:
 
 \begin{lstlisting}[caption= The full URI to retrieve a hyperbrowser tool.]
 https://hyperbrowser.uio.no/state/hyper?GALAXY_URL=https%3A//hyperbrowser.uio.no/state/tool_runner&tool_id=hb_test_1
 \end{lstlisting}
 
-It turns out that the UriAnchor plugin decodes the URI before parsing it. This is problematic in relation to URI syntactics. The URI grammar restricts the use of the colon (:) as it is used to separate the protocol scheme from the rest of the URI. Two examples are http: and ftp:. Because the UriAnchor decodes the URI before parsing it and by that expose any percent-encoded characters, the colon indicating the relationship between dependent and independent variable breaks any web addresses stringified in the URI. 
+It turns out that the UriAnchor library decodes the URI before parsing it. This is problematic in relation to URI syntactics. The URI grammar restricts the use of the colon (:) as it is used to separate the protocol scheme from the rest of the URI. Two examples are http: and ftp:. Because the UriAnchor decodes the URI before parsing it and by that expose any percent-encoded characters, the colon indicating the relationship between dependent and independent variable breaks any web addresses stringified in the URI. 
 
-Percent-encoding enables the use of restricted characters in a URI. This is also called URL encoding. The percent sign is used as an escape character followed by a pair of hexadecimal digits representing the characters ASCII byte value\parencite{urlencode}. The colon is thus encoded \%3A as seen in listing 5.5.
+\paragraph{Percent-encoding} enables the use of restricted characters in a URI. This is also called URL encoding. The percent sign is used as an escape character followed by a pair of hexadecimal digits representing the characters ASCII byte value\parencite{urlencode}. The colon is thus encoded \%3A as seen in listing 5.5.
 
 When the UriAnchor parser meets the search part of the URI where the tool address is stored in the GALAXY\_URL parameter it takes the colon in https:// to be an indicator of the dependency relationship and thus breaks the address.
 
-To remedy this problem the default dependent/ independent relationship indicator, the colon, can be changed. Strangely enough the UriAnchor plugin provides the possibility to change the default delimiters but the code that does this is disabled.The documentation outlines the default delimiters and explains how to replace them but does not mention that they are disabled and thereby does not work. To enable replacing delimiters one needs to read and understand the whole code base of the plugin. It became a challenging hunt for fixing the bug. I chose to use a dash followed by a greater than sign "->" to indicate the dependency relationship.   
+To remedy this problem the default dependent/ independent relationship indicator, the colon, can be changed. Strangely enough the UriAnchor library provides the possibility to change the default delimiters but the code that does this is disabled.The documentation outlines the default delimiters and explains how to replace them but does not mention that they are disabled and thereby does not work. To enable replacing delimiters one needs to read and understand the whole code base of the library. It became a challenging hunt for fixing the bug. I chose to use a dash followed by a greater than sign "->" to indicate the dependency relationship.   
 
 %Follow up on the subsubsection heading prospecting history management.
 \paragraph{Adding state to the URI does not solve history management by it self.} 
-%What is it the plugin does to provide back, forward and bookmark functionality? In a custom app vs in an existing environment.  
+Remember the reason for storing state on the fragment identifier is to be able to restore that state and display that stored state to the user whenever a bookmark is called for or the back or forward buttons of the browser is clicked. As explained earlier this functionality is there by default when there is no state to store on the fragment part of the URI. The default behavior of the browser then adds every request coming from the server on to the list of history items. Parsing the state stored on the fragment identifier of the URI must be done by the client side program.This is not a trivial task and will be discussed in the following section.
+
+\subsection{Hijacking functionality or passively recording state?}
+When applying state management on an existing page one need to consider the pros and cons of hijacking existing functionality contra merely record the states passively as they emerge. When a user clicks a link on a web page the default browser behavior is to add the URI of the link to the location object, the browsers address field, and record an entry to the history object before requesting that page from the server. As the response returns the browsers caching engine stores the received data and sends the response to the browsers rendering engine who displays the page on screen. This is straight forward for static pages.
+
+Introducing client side states, like a basic and advanced mode, can make things more complicated. As proposed in the previous section such states can be stored on the fragment identifier and as they are, an additional history item is added to the history object. This means that for every new type of state to be recorded there will be an additional history item added. An example of this happens when opening the Hyperbrowser for the first time. The browser loads the page and adds a history item. Then the stateApp inspects the localStorage to see if any state is stored. If this is the first time the Hyperbrowser is opened with this browser, no state is stored on the localStorage. The site must be in either basic or advanced mode so the stateApp sets the mode to basic and the browser adds a new history item to the history object. To navigate to the previous site one now need to click the back button twice. This might not seem like a big problem but is nevertheless an unexpected behavior that might confuse the user. The goal for every web developer must be to confuse or irritate the user as little as possible.
+
+\subsubsection{Hijacking functionality}
+To be in full control of when information is sent to the server and also when the browser adds the item to the history object it would be necessary to interfere with the existing server communication. This includes preventing the default behavior of the web browser. Again, for a static page this wouldn't be much of a problem. An example of overriding the default behavior of the browser is to control the behavior of a link. After preventing the default behavior one could get hold of the value of the links source attribute, append the fragment identifier on to that and then add the state. After building the URI this way one could set the location with this new URI and thereby setting the history only once. 
+
+Hijacking the default behavior like this might not be as straight forward with an existing application. For instance when doing a selection in one of the HyperBrowser tools there is a lot of complex assessments, server communication and validation going on. To interfere with this kind of code the front end-developer should be familiar with the inner workings and expectations of the server. To tamper with it could lead to unknown behavior and unimaginable consequences. When dealing with complex functionality like this it might be better to let the existing code do its thing and focus on recording the state passively as it emerges.
+
+\subsubsection{Passively record state}
+Instead of overriding the existing handling of server communication one can record the different states as they are set. Every time a user does a selection or otherwise alter a tool form on the Hyperbrowser site, the server is consulted and a new state of the tool form is sent from the server. When the browser is done rendering the DOM it fires the documents "ready" event and then the stateApp serializes the form and saves the resulting string to the URI. This means that for every state change the server first adds a history object, then requests the new tool state from the server, renders the new tool state and then fires the documents "ready" event. The stateApp adds this new state to the URI and the browser adds another history item, resulting in the need to click the back button twice to get back to the previous state. 
+
+There is only one exception. When restoring state from the URI, for instance when a user opens a bookmark, the stateApp requests the server for a tool. This is done using jQuerys ajax method, passing the serializedForm part of the URI to the server. This will be discussed later when dealing with the problems of frames. NB! Remember to discuss later.
+
+\subsection{Conceal the double history entry by replacing the URI}
+The obvious solution to the problem of setting the history object twice is to use the replace method of the location object. This is a method present on the location object by default in most browsers. When setting the location, instead of adding a new history item on top of the existing history entries it deletes the previous entry before adding the new. This works fine for the scenario described in the previous section.  
+
+It does not render an adequate solution when opening a new tool from the tool menu. This literary adds to the problem by adding an extra event. Because the name of a tool is not present in the serialization of a tool form, the tool name must be recorded when clicking the tool link in the tool menu section. The scenario goes as follows: The user clicks a tool, either in the tool menu section or from the GSuite guides. This is recorded by the toolModel and then added to the URI and a history entry is recorded by the browser. At the same time a request is sent to the server and an other history item is added to the history object. The server responds with a tool in its initial state and as the browser finishes rendering the DOM the stateApp records the tool state and adds it to the URI causing yet an other entry being added to the history object. This results in three history items being added when opening a tool. 
+
+A simple replace will not work here. Even though the last two history items follow the same pattern as described over, the first recording, that of the tool name does not. This entry will replace the previous history item and thereby removing the previous state. That ruins the intentions of the back button. 
+
+The solution suggested by the stateApp is to set the tool name on the toolModel, but stop it from being added to the URI. When the tool state now is set after the browser has rendered the new tool state received from the server, the tool name is already recorded on the toolModel and is thereby added to the URI with the rest of the tool state. Following the pattern described over this last history entry will replace the entry made by the browser when the server was requested for the state change. 
+
+This is a good example of the benefits of having a central model on which to store state instead of depending on the fragment identifier as a state storage location. When depending on the fragment identifier for state storage every time state needs to be stored a history item is added to the history object. This is not something the programmer can control. Having a state model that does not influence the history object gives the developer more freedom. 
+
+There are also disadvantages of depending on a central model. Both state changes coming from user input and from "hashchange" events needs to be registered on the central model. User activity also needs to be added to the URI whereas changes to the URI should not float back up. How this question can be solved will be discussed in section \ref{sec:modelVSuri} 
+
+%GOOD EXAMPLE!!
+
+\subsection{Mode state changes can not replace the previous history entry}
+The pattern described over only works because the browser adds an extra history entry when the server is requested for state change. This entry is an empty entry when it comes to state. It is not visible in the main URI, that is the address field displayed on the top of the browser window. This is because this URI belongs to the main window. The empty entry is set on the location object of an iframe and is thus not visible to the user. More on iframe issues in section \ref{sec:iframes}. Replacing this entry restores the expected back button behavior when a tool updates its state, but does not do so when mode is set. 
+
+Mode only sets one history entry. Replacing the previous entry on the history object deletes the previous history and thereby destroy the expected back button behavior. One solution to the problem is to add a conditional statement deciding whether the entry comes from a mode change or a tool state change. If mode should be set use the assign method of the location object, otherwise use the replace method. 
+
+One way to discern whether the change is a mode change or a tool state change is to name the models. This is the solution used by the stateApp but introduces the problem of tight coupling between objects. Remember how all state change go through a model object before the specific state event is emitted. Naming the models for identification in other objects forces the receiving object to hard code the model names. This is not an ideal solution but the discussion belongs to the chapter of programming patterns (\ref{sec:patterns}) and will be continued there. 
+
+\subsubsection{The dual mode of the GSuite tools introduces an extra history entry}
+Because the tools contained in the GSuite project has different representations for the two modes, one basic and one advanced representation, they can not follow the same conditions as other mode changes. When a GSuite tool is open and the mode of the web site is toggled the server needs to be requested for the opposite representation of the tool. This results in the same flow as for a regular tool state change except that the mode is also set. This means that for every mode change on a GSuite tool tree history entries are set. First the mode causes a history entry, then the server causes another and then when the new tool state is set it causes a third history entry. The stateApp has chosen the solution where setting the mode state is delayed till after the tool state has replaced the history entry caused by the request for a new tool representation. The mode model is marked as a GSuite and added to the replace condition when setting the URI. For implementation details see the results chapter (\ref{sec:models})
+
+Which history entry comes first, the mode or the server requesting the server?
+
+This could have been done by sending a custom ajax request to the server and that way controlling when and where the tool should be displayed. State could have been added as the other new tool state had been set. This would have prevented the extra history entry but it would also involve quite a lot of extra work. 
+
+Since the tools were already equipped with a checkbox for changing mode before the work on managing state on the client side begun, and because the decision to interfere as little as possible with the existing functionality already had been made, the stateApp uses the functionality already available. 
+
+The challenges concerning iframes will be discussed in section \ref{sec:iframes}
+
+\subsection{The central unit of state}
+\label{sec:modelVSuri} 
+%Chapter 6. Where to store state, localStorage, URI or model?
+\subsection{How should a back button behave? (The back button should lead the user back to the GSuite guides)} Elaborate
+\label{sec:backButton}
+How should a back button behave? Should it display the previous tool state or go back to the GSuite guides? Nielsen? proposes to go back to the last perceived state. What is perceived is hard to establish without any user testing but my intuition says that the last perceived state is going back to the GSuite guides. This is because of the relative easiness of changing a selection or other form element. There is no need to move the cursor all the way up to the back button to go back, when it is as easy or even easier to undo the selection. 
+
+
+Why would one want to bookmark? To be able to share the research questions.
+%What is it the library does to provide back, forward and bookmark functionality? In a custom app vs in an existing environment.  
 
 
 
@@ -556,6 +740,7 @@ instances of web pages pointing to the same resources. i.e. the HyperBrowser ins
 %Bring to the table and elaborate in the design pattern section.
 
 \subsection{The hyperbrowsers extended use of iframes creates a challenge}
+\label{sec:iframes}
 The HTML inline frame element or iframe is a special kind of HTML element. It allows for embedding a whole HTML page within this one element. This means the iframe will be a unique window with its own document object model and its own unique unified resource identifier. It will have a separate head and body element and all the properties of the window element will be unique and separate from the containing window element. 
 
 FIG.
@@ -601,7 +786,7 @@ The load event of the second phase. Must be discussed to understand the problems
 
 Asynchronisity? 
 
-Cross-site Scripting is taken care of by the fact that everything that is sent to the server is done by the original page. Exception is the ajax call when loading a bookmark. This is actually not taken care of as of now. It is taken care of by the server hopefully. This should be checke out!!!
+Cross-site Scripting is taken care of by the fact that everything that is sent to the server is done by the functionality of the original page. Exception is the ajax call when loading a bookmark. This is actually not taken care of as of now. It is taken care of by the server hopefully. This should be checke out!!!
 
 
 Some hyper browser navigation reloads versions of the page without iframes and thereby does not provide the previously available functionality. Ex: Shared data.
@@ -613,8 +798,7 @@ Recreating all functionality does not adhere to the open/closed principal (Rober
 Time consuming.
 
 But it enables creation of better code. No need to hack the code like my solution when redesigning.
-\subsubsection{Hashchange events vs pushState events.}
- Server not ready for pushState. Parsing the url. 
+
 %%%%%%%%%%%%%%%%%%%%%%%%% P3 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Existing page:
 \subsection{p2P2: Maintaining state in the location.hash over requests is impossible}
@@ -622,14 +806,17 @@ But it enables creation of better code. No need to hack the code like my solutio
 \subsubsection{The main iframe is reloaded for every state change, thus clearing the location.hash}
 \subsubsection{Let the native history management remember state. That enables back and forward buttons. (Present the History API)}
 
-Native history management saves the url with post data, letting you go back and forward but does not save post data in bookmarks, and also only fires get requests when loading a bookmark, so state needs to be embedded in the url to be able to be bookmarked. All state change are post oriented with the Hyperbrowser.  Why would one want to bookmark? To be able to share the research questions.
+
+
+\subsubsection{Hashchange events vs pushState events.}
+ Server not ready for pushState. Parsing the url. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%% P4 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Server rendered page:
-\section{The state needs to be captured and saved on the client}
-\subsection{Every state change generates a new page reload by the server}
-\subsection{The server does not maintain state over requests}
-\subsubsection{The server acts as if it was RESTfull, Every post request gives a unique response}
+%\section{The state needs to be captured and saved on the client}
+%\subsection{Every state change generates a new page reload by the server}
+%\subsection{The server does not maintain state over requests}
+%\subsubsection{The server acts as if it was RESTfull, Every post request gives a unique response}
 
 %%%%%%%%%%%%%%%%%%%%%%%%% C1 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{The server can be rewritten for handling state}
@@ -663,6 +850,7 @@ Processor expensive, not a good solution for mobile.
 Disable the basic/advanced app, and present a new button in place of the old one providing a link back to the state management app.
 
 \chapter{On structuring complex code}
+\label{sec:patterns}
 "Structuring complex code using an unstructured, dynamic scripting language like java script can be challenging"
 %%%%%%%%%%%%%%%%%%%%%%%%% C1 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{C1: A plethora of frameworks to the rescue?}
@@ -735,7 +923,7 @@ ie differentiating between set and change events
  - More work. More mess.
  - Faster refactoring when new specifications
 \subsubsection{uriAnchor vs. own development} 
-\subsubsection{How to handle bugs in third party plugins?} 
+\subsubsection{How to handle bugs in third party librarys?} 
 \paragraph{Using framework or library vs creating from scratch}  
 (Introduced in the background).
 \paragraph{Local storage vs simple storage} 
