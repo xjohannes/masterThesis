@@ -47,7 +47,8 @@ defernumbers=true, style=authoryear, backref,sortcites]{biblatex}
    showtabs=false,
    captionpos=b
 }
-
+\usepackage{graphicx}
+\graphicspath{ {images/} }
 % må opplyse om bib-filen
 % ved flere bib-filer gjentas kommandoen
 \addbibresource{bibliography.bib}
@@ -165,27 +166,27 @@ The programatic contribution to the thesis has two parts:
 \end{itemize}
 
 \section{Overview}
-\subsection{Background}
+\paragraph{Background}
 
 
 The next few sections will discuss different aspects of the web client, the DOM and give a general overview of certain aspects of JavaScript necessary to follow the main part of this thesis, the discussion. 
 
 Lastly I give the reader a short introduction to design patterns. I do this to introduce an ongoing discussion of which I will join later.
 
-\subsection{Methodology}
+\paragraph{Methodology}
 How did I go about exploring the questions at hand?
 
 %The pre-project with Angularjs. State was explored as every page was a different state as in a state machine. The history object acts as a state machine.
 
 This section will concern explanations on behavior driven development and module based implementation provided by browserify. Why and how has behavior driven development made the implementation faster and easier.
-\subsection{Empirical - Development}
+\paragraph{Empirical - Development}
 The hyperbrowser is an interesting case.
 I will start this section with an explanation of what "the Genomic Hyperbrowser" is and discuss some of its reported problems concerning usability. The G-suite project addresses some of these problems but do so server side. 
 
 The State application has been integrated with the G-suite to address these problems on the client side. The aspects of the G-suite that relate to usability will be laid out before I give a short explanations on state, what it is and why it matters. 
 In this section I will discuss the important details of the implementation of the program under scrutiny. 
 
-\subsection{Discussion}
+\paragraph{Discussion}
 As a means to guide the discussion in the wanted direction I promote three overarching assertions (sub theses). These assertions will be followed by more fine grained statements supporting or contradicting the main assertions. 
 
 The three main assertions are:
@@ -211,22 +212,7 @@ How easy the problem could have been if I was to make the application from scrat
 
 \sout{Challenges of working with an unstructured programming language like JavaScript compared to Java.}
 
-\section{Requirement specifications}
-\begin{enumerate}
-\item A basic / advanced mode should be able to be set from one button placed in the main navigation, from a small triangle on the border between the tools and the main iframe, with tabs within the main iframe when available and from within certain G suite tools. When setting mode in one place, the mode should be updated all the other relevant places.
 
-\item Implement bookmarkable state.
-
-\end{enumerate}
-
-The first specification concern hiding information. The Hyperbrowser offers a vast amount of tools and every tool provide a lot of possible choices. From psychological experiments to web usability gurus such as Steve Kruge and Jakob Nielsen we have learned that to many choices makes us unhappy\parencite{schwartz2004paradox} \parencite{krug2005don} \parencite{nielsen1997user}. This well known web design / UX principle state that unexperienced users easily get confused when there is to much information to take in at on time.
-
-The proposed solution to help new and unexperienced users is to present two "versions" of the site, a basic and an advanced mode. The advanced version will display the page as it is today, that is it will stay unchanged. The basic user mode will conceal the tool list and only present a guide to some basic tools. The guide is contained within the G suite and will not be a part of the specification for this thesis. The G suite also offer tools with the basic/ advanced distinction where tools presented in basic mode will have less choices than those in advanced mode. 
-Relevant to this thesis is the integration of the G suite basic / advanced mode to the user interface of the Genomic Hyperbrowser. 
-
-The second specification will deal with the fact that users expect certain behavior from a web site \parencite{mikowski} \parencite{nielsen1997user}. The current implementation of the Hyperbrowser does not adhere to the expected feature of bookmarking the state. 
-
-The ability to save state will not only enable the researcher to come back and work with a research question at a later time, more importantly it promotes reproducibility. By letting researchers easily share their research questions and hypothesis the transparency of research can be increased. 
 
 
 \section{Problem statement}
@@ -248,10 +234,53 @@ URL - Uniform Recourse Locator.
 \subsection{the G-suite - A need to simplify the UI}
 
 \section{State management}
+Why is client side state management an interesting issue. What led up to the problems we have to day. Copy past from discussion? The world wide web as a tool to augment the human intellect.
 \subsection{What is state?}
 \label{sec:state}
 \subsection{Why is state important?}
+ [Bernstein, 1991]. He argues that
+the value of hypertext lies in its ability to create
+serendipitous connections between unexpected
+ideas.
 
+The use of tabs as a readily available history list
+
+Cockburn suggests a temporal back (ABCBAH) to avoid pruning of the navigation stack after loading a new page after navigating back thereby loosing the previous page.
+
+What implementation consequences has the back schemes i.e. going back one step or to the last "page"?
+
+Reluctance to use back can stem from form submission and that state is usually lost when going back.\parencite{obendorf}
+
+We compared
+the backtracking usage of the top third ‘form submitters’ of
+our participants with the remaining participants. The regular
+users of Web forms pressed the back button less frequently
+(9.2%) than the remaining participants (16.2%), a difference
+that is marginally significant (t=2.715, p=0.012). This
+result characterizes a major change of the Web: the move
+from a hypertext information system with primarily static
+documents into a combination of common information
+source and service-oriented interactive sites. The latter are
+more comparable to applications than to hypertext systems.
+Whereas hypertext navigation involves orienteering behavior
+with frequent backtracking, interactive applications are
+mainly used for completing certain tasks that consist of
+different workflow steps.\parencite{obendorf}
+
+Further, the back button is often unsupported by Web applications.
+
+ Furthermore, such pages cannot
+be bookmarked at all; they are volatile and no browser
+history mechanism allows for returning to them
+\parencite{obendorf}
+
+undo vs revisit - back vs tab(window)
+
+The DOM as a serve all utility for storing both application and data information.
+" The browser DOM must function as a
+“catch-all” container for application script, presentation
+elements, and non-visual application data."\parencite{castro}
+Baisc advanced spreadsheet\parencite{jafry}
 \subsection{The statelessness of REST}
 
 \section{The web client}
@@ -325,8 +354,25 @@ browserify
 
 \section{Subversion}
 
+\section{Requirement specifications}
+\begin{enumerate}
+\item A basic / advanced mode should be able to be set from one button placed in the main navigation, from a small triangle on the border between the tools and the main iframe, with tabs within the main iframe when available and from within certain G suite tools. When setting mode in one place, the mode should be updated all the other relevant places.
 
+\item Implement bookmarkable state.
 
+\end{enumerate}
+
+The first specification concern hiding information. The Hyperbrowser offers a vast amount of tools and every tool provide a lot of possible choices. From psychological experiments to web usability gurus such as Steve Kruge and Jakob Nielsen we have learned that to many choices makes us unhappy\parencite{schwartz2004paradox} \parencite{krug2005don} \parencite{nielsen1997user}. This well known web design / UX principle state that unexperienced users easily get confused when there is to much information to take in at on time.
+
+The proposed solution to help new and unexperienced users is to present two "versions" of the site, a basic and an advanced mode. The advanced version will display the page as it is today, that is it will stay unchanged. The basic user mode will conceal the tool list and only present a guide to some basic tools. The guide is contained within the G suite and will not be a part of the specification for this thesis. The G suite also offer tools with the basic/ advanced distinction where tools presented in basic mode will have less choices than those in advanced mode. 
+Relevant to this thesis is the integration of the G suite basic / advanced mode to the user interface of the Genomic Hyperbrowser. 
+
+The second specification will deal with the fact that users expect certain behavior from a web site \parencite{mikowski} \parencite{nielsen1997user}. The current implementation of the Hyperbrowser does not adhere to the expected feature of bookmarking the state. 
+
+The ability to save state will not only enable the researcher to come back and work with a research question at a later time, more importantly it promotes reproducibility. By letting researchers easily share their research questions and hypothesis the transparency of research can be increased. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Technical foundation %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Technical foundations}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Development %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Results}
 In this chapter I describe the result of the state investigations done on the specific case of the Genomic Hyperbrowser. The result is a working program that adds state management to a web site where such state does not exist originally. The intention is to add details relevant for the discussion and not be a thorough review of the whole code base.
@@ -335,6 +381,7 @@ I will start the chapter by describing the Graphical User Interface of the Genom
 
 Moved to discussion: \sout{I also try to reason why I have done as I have.}
 \section{Describing the Hyperbrowser GUI}
+\label{sec:hyperbrowserGUI}
 The Hyperbrowser GUI consists of four distinct parts. The logo and main navigation bar is located on top of the browser window. The rest of the page is split in three vertically aligned sections. The left most section consists of a list of links to genome specific tools. The next section, the middle one, is the main section of the Hyperbrowser. The right-most section consists of history elements. This thesis does not interfere with the history section and will not be discussing this any further. Clicking on one of the tools in the tool links section opens the corresponding tool in the main section. 
 
 A tool consists of a HTML form with several options to choose from and a button to send the form to the server. This button is often called execute or start analysis. The button is usually grayed out when the form is incorrect or not sufficiently filled out to be executed. When a tool is executed a confirmation notice is displayed in the main section of the site and a history element is added to the history section.
@@ -342,6 +389,8 @@ A tool consists of a HTML form with several options to choose from and a button 
 Some tools has a dual appearance. These tools are part of the GSuite project. They have both a basic and an advanced representation. Only one of these appearances are sent from the server depending on the mode of the web site at the time of requesting the tool. Changing the mode of the web site request the other representation of the tool.
 
 The main section also displays the welcome page when opening the Hyperbrowser. The welcome page is one of several tabs in the main section. The two other tabs important to this thesis is the basic and the advanced tab. These tabs display guides to how to use the tools provided by the G suite. The basic tab leads the user through a simplified workflow while the advanced tab gives the user full control of the analysis workflow. In the rest of this thesis I will be calling the over described tabs the gSuite guides. Important to mention is that these tabs are not present when displaying a tool in the main frame.
+
+%The hyperbrowser GUI is build using iframes to separate content. The main window object contains the main navigation bar. Underneath the navigation bar the rest of the content is distributed into three different iframes. The first iframe consists of a list of links to genome wide analysis tools. The next iframe contains the main portion of the site and the third iframe contains the history elements. When clicking an item in the tool list the tool, represented by a form, is displayed within the middle iframe. The form consists of several select options, check boxes, text fields and buttons. The last iframe displays all the results generated by the users of this particular browser instance on this computer.
 
 \section{Describing the stateApp}
 \subsection{The functionality}
@@ -423,6 +472,8 @@ In listing 4.4 the "mode" and "tool" properties are what has been called named, 
 #mode=advanced&tool=Analyze%20genomic%20tracks:serializedForm,dbkey%3Dblackrust
 \end{lstlisting}
 
+
+
 \subsubsection{Separating state change}
 Changing the URI trigger a browser hashchange event. This event is caught by the history object. One of the many task of the history object is to trigger separate events for each state that is changed. The uriAnchor library simplifies this process of separation. As the history object loops through the state object returned from the uriAnchors makeAnchorMap() method it triggers an event specific to each independent property. If there is a dependent object associated with the property at hand the history object passes this along with the event. 
 
@@ -446,7 +497,7 @@ The toolApp has many of the same responsibilities as the modeApp. It creates too
 On catching the "ready" event the toolApp records the tool state by finding the form of the iframes document and then serialize the form with the jQuery serialize method. The serialization is then set on the toolModel.
 
 After setting the toolModel the toolApp is responsible for deciding if the tool is a GSuite tool and if so hide the "isBasic" check box. All GSuite tools is delivered with a "isBasic" check box for retrieving the other representation of the tool from the server. Remember all GSuite tool has a basic and an advanced representation of the tool. This is done by checking if the "isBasic" id is present. Only GSuite tools has an "isBasic" id within the document. 
-
+\label{sec:gsuiteMode}
 To account for situations where the current mode of the page is not coherent with a newly loaded tool representation the sites mode needs to be adjusted accordingly. Since this is only possible to know as the tool is done loading and the toolApp already has a "ready" listener, this responsibility is given to the toolApp. The check to decide if the tool mode is coherent with the mode of the site is done by checking the isBasic checkbox against the modeModel. This is why the toolApp needs to be injected with a modeModel upon initialization. 
 
 The situation described over can occur when rerunning a tool from the history section of the site. The history objects for GSuite tools will be in the same mode as when the tool was originally run. If the mode of the Hyperbrowsers site has changed since running the tool, rerunning it will cause a mode discrepancy. The app is set to change the mode of the site such that it is coherent with the mode of the rerun tool. It could be argued that the tool should be sett according to the mode of the site. This is a discussion outside the scope of this thesis.
@@ -500,7 +551,7 @@ EXAMPLES OF USE?
 
 
 
-\label{sec:models}
+
 \subsubsection{Dispatcher prototype}
 At the core of the program lies two well known design patterns: "The Model View Controller" might better be described as an architecture than and design pattern as discussed in the previous chapter. "The Observer pattern" on the other hand is a fully fledged classical design pattern.
 
@@ -542,6 +593,8 @@ This discussion will follow three distinct paths as proposed in the claims secti
 \chapter{On applying state management}
 
 "A simple task like implementing a basic/advanced button, distingushing between a basic and advanced part of a web site, applied client side on top of an existing server rendered web page is not trivial"
+
+I will start the discussion with elaborating on the general challenges on developing client side applications before moving to specific problems relating the development of state management and the stateApp. It is important to understand the context of the development environment to get a tighter grip on the problems at hand.
 %%%%%%%%%%%%%%%%%%%%%%%%% P1 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Applied client side:
 \section{The nature of web clients create hurdles}
@@ -553,7 +606,7 @@ One of the challenges of writing nontrivial JavaScript client-side programs is t
 To accommodate for these differences the programmer need to write a lot of extra boilerplate code if the use of natively supported JavaScript is important. What many chooses to do in stead, is to use an external, third-party library to query the DOM. 
 
 \subsubsection{JQuery to the rescue}
-With the plethora of JavaScript libraries available, jQuery is the most widely used according to the libscore search engine\parencite{infoWorld}. The ease of use and the great amount of functionality besides querying the DOM, most significantly their handling of Ajax calls has been the leading reasons why I have chosen jQuery over other libraries such as Motools and Dojo. 
+With the plethora of JavaScript libraries available, jQuery is the most widely used according to the libscore search engine\parencite{infoWorld}. The ease of use and the great amount of functionality besides querying the DOM, most significantly their handling of Ajax calls has been the leading reasons why we have chosen jQuery over other libraries such as Motools and Dojo. 
 
 \subsubsection{The browser implementations of javaScript is not a big problem with modern browsers}
 Since the release of Internet Explorer 9, however, Microsoft finally decided to implement the decade old W3C standardizations and as a result most of the browser differences disappeared. 
@@ -563,7 +616,7 @@ One might think that this would be the end of the widespread use of JavaScript l
 Even though most of the implementation differences has disappeared there still exist discrepancies between the browsers as we shall see in the section \ref{sec:backButton} 
 
 \subsubsection{The need to support legacy browsers}
-A natural explanation for the continuing popularity of jQuery is the need for many web sites to provide satisfactory service to legacy browsers such as Microsofts Internet Explorer 8 and before. This also applies when developing new functionality to The HyperBrowser. The goal of being a service available to the public leaves no choice but to cater for the communities where replacing the computer for every third release of new software is unaffordable. 
+A natural explanation for the continuing popularity of jQuery is the need for many web sites to provide satisfactory service to legacy browsers such as Microsofts Internet Explorer 8 and before. This also applies when developing new functionality to the HyperBrowser. The goal of being a service available to the public leaves no choice but to cater for the communities where replacing the computer for every third release of new software is unaffordable. 
 
 
 
@@ -572,6 +625,7 @@ The vast amount of mobile and tablet browsers running on different software but 
 
 %NB!!! This must be discussed further later since it is not answered for here. Jquery does not remedy this problem.
 An other crucial functionality that is implemented differently in a wide variety of browsers is the browsers caching strategies in relation to retrieving bookmarks, back and forward buttons. Do they restore pages from cache or do they reload the page from the server? This problem is not remedied by jQuery or any of the other JavaScript frameworks. Related to the same issue is the difference in implementation of the location assign and location reload functionality. These problems are fundamental to state management and will be brought back to the discussion as it closes in on the difficulties experienced with the concrete implementation of the stateApp. 
+%All the browsers behave differently when going back on the Hyperbrowser.
 
 \subsection{The Uniform Resource Identifier, a source to headaches}
 \label{sec:URI}
@@ -630,7 +684,11 @@ Kannan et al. proposes to use the fragment identifier as a place to put page coo
 Using the fragment identifier as a place to store state has also been proposed by Mikowski et al.\parencite{mikowski}. In connection with their book "Single page web applications" they have developed a jQuery library, the URI anchor. The library authors state that the library will help you: "Make your application bookmarks, browser history, the back button, and the forward button act just as the user expects while enabling you to update only the part of the page that has changed."\parencite{urianchor}. The functionality of the uriAnchor is described in the results section (\ref{sec:results_uriAnchor}). 
 
 
-\paragraph{To depend on the UriAnchor library} which add functionality already provided by other parts of the program might seem redundant. It leads to more complex code by adding extra variables to keep track of and it will also add to the download cost as it add to the amount of code needed to run the program on the client. For instance using the jQuery param method in combination with the default JavaScript encodeUriCompontent will cater for the stringification process. The only problem is that jQuery does not offer a method to parse a URI to an object. There exists other less official code on the World Wide Web that provides this functionality but this code is usually not maintained and might cause problems in the future. 
+\paragraph{To depend on the UriAnchor library} which add functionality already provided by other parts of the program might seem redundant. It leads to more complex code by adding extra variables to keep track of and it will also add to the download cost as it add to the amount of code needed to run the program on the client. For instance using the jQuery param method in combination with the default JavaScript encodeUriCompontent will cater for the stringification process. The only problem is that jQuery does not offer a method to parse a URI to an object. 
+
+JSON is an alternative with JSON.parse. Elaborate.
+
+There exists other less official code on the World Wide Web that provides this functionality but this code is usually not maintained and might cause problems in the future. 
 
 A more significant reason for using the UriAnhor library is that it provide the possibility to handle complex objects. By complex I here mean that the named properties of the object to be stringified can have dependent variables associated with them. These dependent variables will be encoded on the fragment part of the URI along with all the independent variables. 
 
@@ -671,19 +729,28 @@ To remedy this problem the default dependent/ independent relationship indicator
 Remember the reason for storing state on the fragment identifier is to be able to restore that state and display that stored state to the user whenever a bookmark is called for or the back or forward buttons of the browser is clicked. As explained earlier this functionality is there by default when there is no state to store on the fragment part of the URI. The default behavior of the browser then adds every request coming from the server on to the list of history items. Parsing the state stored on the fragment identifier of the URI must be done by the client side program.This is not a trivial task and will be discussed in the following section.
 
 \subsection{Hijacking functionality or passively recording state?}
-When applying state management on an existing page one need to consider the pros and cons of hijacking existing functionality contra merely record the states passively as they emerge. When a user clicks a link on a web page the default browser behavior is to add the URI of the link to the location object, the browsers address field, and record an entry to the history object before requesting that page from the server. As the response returns the browsers caching engine stores the received data and sends the response to the browsers rendering engine who displays the page on screen. This is straight forward for static pages.
+When applying state management on an existing page one need to consider the pros and cons of hijacking existing functionality contra merely record the states passively as they emerge. This consideration needs to be investigated because of the way the browsers native history management works. Interfering with existing server communication can be a solution to the problem of double history entries when managing state. We start of by introducing the problem: 
 
-Introducing client side states, like a basic and advanced mode, can make things more complicated. As proposed in the previous section such states can be stored on the fragment identifier and as they are, an additional history item is added to the history object. This means that for every new type of state to be recorded there will be an additional history item added. An example of this happens when opening the Hyperbrowser for the first time. The browser loads the page and adds a history item. Then the stateApp inspects the localStorage to see if any state is stored. If this is the first time the Hyperbrowser is opened with this browser, no state is stored on the localStorage. The site must be in either basic or advanced mode so the stateApp sets the mode to basic and the browser adds a new history item to the history object. To navigate to the previous site one now need to click the back button twice. This might not seem like a big problem but is nevertheless an unexpected behavior that might confuse the user. The goal for every web developer must be to confuse or irritate the user as little as possible.
+When a user clicks a link on a web page the default browser behavior is to add the URI of the link to the location object, the browsers address field, and record an entry to the history object before requesting that page from the server. As the response returns the browsers caching engine stores the received data and sends the response to the browsers rendering engine who displays the page on screen. This is straight forward for static pages.
+
+Introducing client side states, like a basic and advanced mode, can make things more complicated. As proposed in the previous section such states can be stored on the fragment identifier and as they are, an additional history item is added to the history object. This means that for every new type of state to be recorded there will be an additional history item added. To navigate to the previous site one now need to click the back button twice. This might not seem like a big problem but is nevertheless an unexpected behavior that might confuse the user. 
+
+%The goal for every web developer must be to confuse or irritate the user as little as possible.
+
+An example of this happens when opening the Hyperbrowser for the first time. The browser loads the page and adds a history item. Then the stateApp consult the localStorage and sets the state stored there or if no state is stored initializes the application with the basic mode. 
 
 \subsubsection{Hijacking functionality}
-To be in full control of when information is sent to the server and also when the browser adds the item to the history object it would be necessary to interfere with the existing server communication. This includes preventing the default behavior of the web browser. Again, for a static page this wouldn't be much of a problem. An example of overriding the default behavior of the browser is to control the behavior of a link. After preventing the default behavior one could get hold of the value of the links source attribute, append the fragment identifier on to that and then add the state. After building the URI this way one could set the location with this new URI and thereby setting the history only once. 
+To be in full control of when the browser adds an item to the history object it will be necessary to interfere with the existing server communication. This includes preventing the default behavior of the web browser. Again, for a static page this wouldn't be much of a problem. An example of overriding the default behavior of the browser is to control the behavior of a link. After preventing the default behavior one could get hold of the value of the links source attribute, append the fragment identifier on to that and then add the state. After building the URI this way one could set the location with this new URI and thereby setting the history only once. 
 
 Hijacking the default behavior like this might not be as straight forward with an existing application. For instance when doing a selection in one of the HyperBrowser tools there is a lot of complex assessments, server communication and validation going on. To interfere with this kind of code the front end-developer should be familiar with the inner workings and expectations of the server. To tamper with it could lead to unknown behavior and unimaginable consequences. When dealing with complex functionality like this it might be better to let the existing code do its thing and focus on recording the state passively as it emerges.
 
-\subsubsection{Passively record state}
-Instead of overriding the existing handling of server communication one can record the different states as they are set. Every time a user does a selection or otherwise alter a tool form on the Hyperbrowser site, the server is consulted and a new state of the tool form is sent from the server. When the browser is done rendering the DOM it fires the documents "ready" event and then the stateApp serializes the form and saves the resulting string to the URI. This means that for every state change the server first adds a history object, then requests the new tool state from the server, renders the new tool state and then fires the documents "ready" event. The stateApp adds this new state to the URI and the browser adds another history item, resulting in the need to click the back button twice to get back to the previous state. 
+The most important objection of hijacking the existing functionality in the case of the Hyperbrowser is that the state of the tool can not be anticipated until the tool is received from the server and rendered readable on to the DOM. Only when the tool is present in the DOM the tool state can be recorded and added to the fragment identifier.
 
-There is only one exception. When restoring state from the URI, for instance when a user opens a bookmark, the stateApp requests the server for a tool. This is done using jQuerys ajax method, passing the serializedForm part of the URI to the server. This will be discussed later when dealing with the problems of frames. NB! Remember to discuss later.
+\subsubsection{Passively record state}
+Instead of overriding the existing handling of server communication one can record the different states as they are set. For instance, every time a user does a selection or otherwise alter a tool form on the Hyperbrowser site, the server is consulted and a new state of the tool form is sent from the server. When the browser is done rendering the DOM it fires the documents "ready" event. The stateApp can then serialize the form and save the resulting string to the URI. This means that for every state change the server first adds a history object, then requests the new tool state from the server, renders the new tool state and then fires the documents "ready" event. The stateApp adds this new state to the URI and the browser adds another history item, resulting in the need to click the back button twice to get back to the previous state. 
+
+\subsubsection{Avoid server communication}
+Taken these considerations into account the stateApp tries not to interfere with the existing server communication or the server at all. There is only one exception. When restoring state from the URI, for instance when a user opens a bookmark, the stateApp requests the server for a tool. This is done using jQuerys ajax method, passing the serializedForm part of the URI to the server. This caused some problems and will be discussed later when dealing with the problems of frames (\ref{sec:iframes}. NB! Remember to discuss later.
 
 \subsection{Conceal the double history entry by replacing the URI}
 The obvious solution to the problem of setting the history object twice is to use the replace method of the location object. This is a method present on the location object by default in most browsers. When setting the location, instead of adding a new history item on top of the existing history entries it deletes the previous entry before adding the new. This works fine for the scenario described in the previous section.  
@@ -692,15 +759,16 @@ It does not render an adequate solution when opening a new tool from the tool me
 
 A simple replace will not work here. Even though the last two history items follow the same pattern as described over, the first recording, that of the tool name does not. This entry will replace the previous history item and thereby removing the previous state. That ruins the intentions of the back button. 
 
-The solution suggested by the stateApp is to set the tool name on the toolModel, but stop it from being added to the URI. When the tool state now is set after the browser has rendered the new tool state received from the server, the tool name is already recorded on the toolModel and is thereby added to the URI with the rest of the tool state. Following the pattern described over this last history entry will replace the entry made by the browser when the server was requested for the state change. 
+The solution suggested by the stateApp is to add the name of the tool on the toolModel, but stop the name from being added to the URI. When the tool state is set after the browser has rendered the new tool representation received from the server, the tool name is already recorded on the toolModel and is thereby added to the URI with the rest of the tool state. Following the pattern described over this last history entry will replace the entry made by the browser when the server was requested for the state change. 
 
 This is a good example of the benefits of having a central model on which to store state instead of depending on the fragment identifier as a state storage location. When depending on the fragment identifier for state storage every time state needs to be stored a history item is added to the history object. This is not something the programmer can control. Having a state model that does not influence the history object gives the developer more freedom. 
 
+%Point
+
 There are also disadvantages of depending on a central model. Both state changes coming from user input and from "hashchange" events needs to be registered on the central model. User activity also needs to be added to the URI whereas changes to the URI should not float back up. How this question can be solved will be discussed in section \ref{sec:modelVSuri} 
 
-%GOOD EXAMPLE!!
 
-\subsection{Mode state changes can not replace the previous history entry}
+\subsubsection{Mode state changes can not replace the previous history entry}
 The pattern described over only works because the browser adds an extra history entry when the server is requested for state change. This entry is an empty entry when it comes to state. It is not visible in the main URI, that is the address field displayed on the top of the browser window. This is because this URI belongs to the main window. The empty entry is set on the location object of an iframe and is thus not visible to the user. More on iframe issues in section \ref{sec:iframes}. Replacing this entry restores the expected back button behavior when a tool updates its state, but does not do so when mode is set. 
 
 Mode only sets one history entry. Replacing the previous entry on the history object deletes the previous history and thereby destroy the expected back button behavior. One solution to the problem is to add a conditional statement deciding whether the entry comes from a mode change or a tool state change. If mode should be set use the assign method of the location object, otherwise use the replace method. 
@@ -708,90 +776,111 @@ Mode only sets one history entry. Replacing the previous entry on the history ob
 One way to discern whether the change is a mode change or a tool state change is to name the models. This is the solution used by the stateApp but introduces the problem of tight coupling between objects. Remember how all state change go through a model object before the specific state event is emitted. Naming the models for identification in other objects forces the receiving object to hard code the model names. This is not an ideal solution but the discussion belongs to the chapter of programming patterns (\ref{sec:patterns}) and will be continued there. 
 
 \subsubsection{The dual mode of the GSuite tools introduces an extra history entry}
-Because the tools contained in the GSuite project has different representations for the two modes, one basic and one advanced representation, they can not follow the same conditions as other mode changes. When a GSuite tool is open and the mode of the web site is toggled the server needs to be requested for the opposite representation of the tool. This results in the same flow as for a regular tool state change except that the mode is also set. This means that for every mode change on a GSuite tool tree history entries are set. First the mode causes a history entry, then the server causes another and then when the new tool state is set it causes a third history entry. The stateApp has chosen the solution where setting the mode state is delayed till after the tool state has replaced the history entry caused by the request for a new tool representation. The mode model is marked as a GSuite and added to the replace condition when setting the URI. For implementation details see the results chapter (\ref{sec:models})
+Because the tools contained in the GSuite project has different representations for the two modes, one basic and one advanced representation, they can not follow the same conditions as other mode changes. When a GSuite tool is open and the mode of the web site is toggled the server needs to be requested for the opposite representation of the tool. This results in the same flow as for a regular tool state change except that the mode is also set. This means that for every mode change on a GSuite tool tree history entries are set. First the mode causes a history entry, then the server causes another and then when the new tool state is set on the fragment identifier this causes a third history entry. 
 
-Which history entry comes first, the mode or the server requesting the server?
-
-This could have been done by sending a custom ajax request to the server and that way controlling when and where the tool should be displayed. State could have been added as the other new tool state had been set. This would have prevented the extra history entry but it would also involve quite a lot of extra work. 
-
-Since the tools were already equipped with a checkbox for changing mode before the work on managing state on the client side begun, and because the decision to interfere as little as possible with the existing functionality already had been made, the stateApp uses the functionality already available. 
+For the stateApp we have chosen a solution where setting the mode state is delayed till after the tool state has replaced the history entry caused by the request for a new tool representation. The mode model is marked, adding a property with the name GSuite, and added to the replace condition when setting the URI. For implementation details see the results chapter (\ref{sec:gsuiteMode}).
 
 The challenges concerning iframes will be discussed in section \ref{sec:iframes}
 
-\subsection{The central unit of state}
-\label{sec:modelVSuri} 
-%Chapter 6. Where to store state, localStorage, URI or model?
-\subsection{How should a back button behave? (The back button should lead the user back to the GSuite guides)} Elaborate
+
+\subsection{How should a back button behave anyway? (The back button should lead the user back to the GSuite guides)} Elaborate
 \label{sec:backButton}
 How should a back button behave? Should it display the previous tool state or go back to the GSuite guides? Nielsen? proposes to go back to the last perceived state. What is perceived is hard to establish without any user testing but my intuition says that the last perceived state is going back to the GSuite guides. This is because of the relative easiness of changing a selection or other form element. There is no need to move the cursor all the way up to the back button to go back, when it is as easy or even easier to undo the selection. 
 
-
-Why would one want to bookmark? To be able to share the research questions.
+%http://www.zuschlogin.com/?p=41
+To account for the problems of undoing small changes and going back to the previous content introducing a stepwise and going all the way back buttons like on a cd player could do the trick.
+%Why would one want to bookmark? To be able to share the research questions.
 %What is it the library does to provide back, forward and bookmark functionality? In a custom app vs in an existing environment.  
 
 
 
 
-instances of web pages pointing to the same resources. i.e. the HyperBrowser instances, state and dev2.
+%instances of web pages pointing to the same resources. i.e. the HyperBrowser instances, state and dev2.
 
 %\subsection{Storing state on localStorage}
 
 %\subsection{Using the model in an MVC architecture for storing state}
 %Bring to the table and elaborate in the design pattern section.
 
-\subsection{The hyperbrowsers extended use of iframes creates a challenge}
+\subsection{Using iframes as a means to separate content is troublesome}
 \label{sec:iframes}
-The HTML inline frame element or iframe is a special kind of HTML element. It allows for embedding a whole HTML page within this one element. This means the iframe will be a unique window with its own document object model and its own unique unified resource identifier. It will have a separate head and body element and all the properties of the window element will be unique and separate from the containing window element. 
+\subsubsection{What is an iframe}
+The HTML inline frame element or iframe is a special kind of HTML element. It allows for embedding a whole HTML page within this one element. This means the iframe will be a unique window with its own document object model (DOM) and its own unique unified resource identifier (URI). It will have a separate head and body element and all the properties of the window element will be unique and separate from the containing window element. This implicates several challenges for the developer. 
 
-FIG.
+Before going into these challenges it is important to remove any misconception regarding the use of iframes. Many people believe that iframes are bad. This might stem from the fact that the World Wide Web Consortiums (W3C) decided to remove the frame and frameset elements from their recommendations. The reason these items are now obsolete in browsers is that they represented an other document model which was not ideal for a lot of reasons. These reasons are the same reasons the iframe should not be used to separate content and will be discussed shortly.
 
-This implicates several challenges for the developer. 
+\subsubsection{Iframes are useful}
+Iframes are not all bad. The loading of content from different servers can be useful in many different contexts. For instance embedding video from third-party providers such as youtube or Vimeo, a Google map or a facebook feed in an iframe can enhance a web page. The iframe provides an easy way to create mashups of highly useful content and it is as easy as copy and pasting code. The code needed is often made available by the content providers. 
 
-First and most importantly it brakes with the fundamental idea behind the World Wide Web; that every web resource should have a unique identifier such that it can be reached, without ambiguity, from any other document. The merging of several web sites with different URI's naturally becomes troublesome; an accurate representation of state cannot possibly contain two states at the same time.
+In many cases using an iframe for displaying external content is not necessary. Content providers often offer data in other formats that do not require iframes. Formats like XML and JSON are popular and can be collected with ajax or comet technologies such as the HTML5 api Server-sent events. These technologies gives more control of the content for the developer but requires a lot more work.
 
-All dynamic pages brake with this principle.
-Why is this a goal to strive towards?
+An other benefit of loading third-party content using iframes is that it enables providers to apply fixes and future updates to the content without the local developer needing to know. This way users of content don't need to worry about compatibility issues when new technologies break current standards.
 
-Since the iframe represents a separate resource with its separate state (possibly) encoded in its own uniform resource identifier 
+Allowing third-party programs on to a site could however be a security risk. Programs running in an iframe can steal information from the containing site, but because of the strict rules of the Same-Origin policy in browsers and the sandboxing attribute of iframes such risks are minimal. These problems often occur because iframe users have eased the restrictions of the iframe and thereby allowed the third-party scripts to do their attacks. 
 
-The hyperbrowser GUI is build using iframes to separate content. The main window object contains the main navigation bar. Underneath the navigation bar the rest of the content is distributed into three different iframes. The first iframe consists of a list of links to genome wide analysis tools. The next iframe contains the main portion of the site and the third iframe contains the history elements. When clicking an item in the tool list the tool, represented by a form, is displayed within the middle iframe. The form consists of several select options, check boxes, text fields and buttons. The last iframe displays all the results generated by the users of this particular browser instance on this computer.
+Iframes can also be used to seamlessly add authentication with OAuth services and it can be used as a means to save state. The latter technique was often used for storing state with legacy browsers before the HTML5 history api. This technique is unfortunately not sufficient to enable bookmarkable state and sharing of URIs and is therefor not elaborated any further. 
 
-\subsubsection{Several iframes as bad as the obsolete frameset element}
-The hyperbrowser has used iframes the way frames with framesets were used before.
-\subsubsection{pEvery iframe is a separate window, with its separate DOM tree}
-Functionality put in an iframe is not reachable until the iframe is fully loaded.
-
-iframes brakes generic functions in the browser like:
-bookmarking
-printing the whole page
-
-Using the URI as state driver as suggested by Mikowski (SPA) the history object will still be set twice. First when the tool returns from the server and then when setting the toolState on the fragment.
-
-reloading the page: since the URL has generally not changed, you will often be taken back to the site's homepage or default frameset; manually reloading some frames is possible, but not obvious to the user
-
-back and forward buttons are ambiguous: undo/redo the last frame change, or take you to the last time the URL bar changed? What do users expect?
-
-Not possible to depend fully on functionality being present all the time.
-
-C: Different global object, and can be considered a different program when coming from different servers.
-
-P: In this case this is a solvable problem since the code for the different iframes reside on the same server. Same-Origin Policy. Also different ports and different protocol ie. http vs https. Not the script in it self, but the document from which the script is embedded.
+Gmail is an example of a big site that uses iframes extensively. On a regular gmail account Gmail uses 11 iframes, non of which are used to separate content.
 
 
-NB! Check out the use of javascript: in the hyperbrowser.
+%\paragraph{Lower SEO ranking with iframes}
+%Cloaking
+%Not necessarily bad for SEO ranking.
 
-Two phased execution of client side javaScript in addition to the two phased execution of regular javascript, ie hoisting variables, declaration and instantiation.
+%Same content as other sites will cause your page not to be indexed.
 
-The load event of the second phase. Must be discussed to understand the problems with finding elements within iframes.
+%\subsubsection{Every iframe is a separate window, with its separate DOM tree}
+\subsubsection{Every web resource should be reachable without ambiguity from any other web resource}
+\begin{quotation}
+\noindent "Given that social filtering is one of the most powerful mechanisms for information discovery on the Internet, it is an utter disaster to disable the URL as an addressing mechanism."\parencite{nielsenFrames}
+\end{quotation}
+Designing a web site using iframes to separate content brakes with one of the fundamental ideas behind the World Wide Web; every web resource should have a unique identifier such that it can be reached, without ambiguity, from any other document\parencite{wwwArchitectureW3C}. When resources have unique URI's they can form the basis of a stable and lasting web that facilitates the sharing of knowledge and ideas. An iframe represents a separate resource from its containing window. It has a separate URI possibly with its own separate state encoded on its fragment identifier. An accurate representation of the containing windows state must be merged from all the states of the iframes it contains to be reached unambiguously. There exists no such merging mechanism by default in browsers. 
 
-Asynchronisity? 
+A scenario pictured from the world of bio medical informatics might give a clearer understanding of what can be lost when a web site does not handle frame state: A researcher creates a hypothesis using the Hyperbrowser as it was before the stateApp. She wants to share her hypothesis in an online article and copies the URI of the Hyperbrowser and paste the URI into her article. When later researchers want to replicate her findings they follow the link from the article but the link leads them to the welcome page of the site. The hypothesis will be lost forever.
 
-Cross-site Scripting is taken care of by the fact that everything that is sent to the server is done by the functionality of the original page. Exception is the ajax call when loading a bookmark. This is actually not taken care of as of now. It is taken care of by the server hopefully. This should be checke out!!!
+The state of the hypothesis is lost because the Hyperbrowser GUI was build using iframes without considering to collect the state of the contained frames. The browser has no means to recreate the state from a URI if there is no state encoded on it. 
+
+This way of using several iframes to separate content mimics the obsolete HTML frameset element. The frameset element allowed for frames to divide content into sections thereby enabling scrolling and loading of content in one frame without affecting the other sections. This was a welcomed feature for web designers before the advent of Ajax technologies. Now the same effect is better handled with CSS and Ajax. 
+
+At the same time state still needs to be collected, stored, and saved somewhere when using ajax as a means to collect new data for a dynamic page. As is the case with iframes saving ajax collected state is not an automated feature of the browsers either. To be able to share information that information somehow needs to be encoded into a unit that is shareable. For the web this shareable unit has been the URI. By adding frame state to the fragment identifier the uniqueness of the page as an atomic unit of information is preserved. According to Jacob Nielse this was part of Tim Bernes-Lee's genius idea for the World Wide Web\parencite{nielsenFrames}. 
 
 
-Some hyper browser navigation reloads versions of the page without iframes and thereby does not provide the previously available functionality. Ex: Shared data.
+\subsection{Iframes represent separate browsing contexts}
+The problems described over relates to all uses of iframes as content separators. The next section will describe concrete problems encountered developing the stateApp.
 
-C: Do not relay on previously available functionality. Create the functionality from scratch.
+\subsubsection{No restriction on communication between iframes}
+The protocol, host and port portions of a URI defines the origin of a document\parencite{flanagan}. Since every iframe has its own URI it also has its own window object and its own DOM and it might have a different origin than the containing window. This means that iframes might be subjects to the "Same-Origin Policy". The Same-Origin Policy is a security measure to prevent third-party malicious code to steal information from or manipulate other parts of a program. Since all the iframes contained on the Hyperbrowser site has the same origin these restrictions does not apply to the Hyperbrowser. 
+
+Having said that, the fact that the iframes can contain their own scripts have consequences for the management of state in the case of the Hyperbrowser.
+
+\paragraph{Ajax calls from outside the document of the iframe} create problems. Every time a selection is done within a Hyperbrowser tool a new document is requested from the server. The received document contain all HTML markup for the tool along with several JavaScript functions. The markup consist mostly of a form element and all the select options contained within that tool. The JavaScript functions are global function that are added to the window object of the iframe the document is targeted for. These functions do a lot of server communication, for instance validating if the selections form valid hypothesis or otherwise are possible to evaluate. The communication with the server is done using the jQuery ajax method. The ajax method needs a location to address the request and provides the URL property for this. When the URL property of the ajax method has been provided with only a relative URL, as is the case for the tool forms of the Hyperbrowser, the URL property uses the base URL relative to the document on which the code is present. Every document returned from the server this way has gotten the name "hyper" which renders the base url "http://hyperbrowser.uio.no/path/hyper". 
+
+This works well when the code is called from within the document. When the code is received by other means, for instance after parsing the URI of a bookmark, the relative URL does not contain the name of the document. When parsing a URI coming from a bookmark, linked to from an external document or is pasted into the browsers address field the program parses the URI and at some point an ajax call is produced. In contrast to when HTML forms are submitted the ajax way of getting data from a server is not returned in the form of a named document. The information is returned in some other format, it could be XML, JSON or in this case, a regular string. This string is then written on to the correct iframes document. This iframe document has not gotten a name. The relative URL of this document will be "http://hyperbrowser.uio.no/path/". Since the document has no name the name section of the URI will be omitted. This brakes all the tool functionality.
+
+The solution has been to add the "hyper" name to all the ajax calls in the received string. This is a hack and will brake if the name of the document is changed. 
+
+
+\subsubsection{Loading}
+A minor challenge when dealing with iframes is the fact that the elements of the iframe DOM is not ready until the "ready" event is emited on the window object of the iframe. This means that any listeners must wait for the "ready" event before they can be attached to the elements. This also relate to functionality present on an iframes document. It is therefor not possible to depend fully on functionality being present all the time.
+
+For a developer not familiar with browsers loading issues this kind of thinking will be challenging. On the other side, with a little bit of planning and confidence in the event model for communication between objects one can label these kinds of challenges as trivial. 
+
+There has, however, been an issue with functionality not present. Some of the Hyperbrowser navigation reloads versions of the page without the stateApp code present in the DOM. This means that all state management functionality is lost. For instance when navigating to the "Shared data" section of the site it was not possible to handle state or bookmark state. The mode button did not work. When navigating back to the "Analyze data" section of the page, where the state management were active, the whole page was reloaded resulting in a restart of the program. 
+
+To avoid user frustration the mode button on the main navigation bar had to be removed when navigation to any of the "Shared data" pages.
+
+%Different global object, and can be considered a different program when coming from different servers.
+
+%In this case this is a solvable problem since the code for the different iframes reside on the same server. Same-Origin Policy. Also different ports and different protocol ie. http vs https. Not the script in it self, but the document from which the script is embedded.
+
+
+
+%Asynchronisity? 
+
+%Cross-site Scripting is taken care of by the fact that everything that is sent to the server is done by the functionality of the original page. Exception is the ajax call when loading a bookmark. This is actually not taken care of as of now. It is taken care of by the server hopefully. This should be checke out!!!
+
+
+\paragraph{Do not relay on previously available functionality.} Create the functionality from scratch.
 
 Recreating all functionality does not adhere to the open/closed principal (Robert Martin).
 
@@ -799,17 +888,22 @@ Time consuming.
 
 But it enables creation of better code. No need to hack the code like my solution when redesigning.
 
-%%%%%%%%%%%%%%%%%%%%%%%%% P3 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%Existing page:
-\subsection{p2P2: Maintaining state in the location.hash over requests is impossible}
-(Bring in the ideas from SPA book)
-\subsubsection{The main iframe is reloaded for every state change, thus clearing the location.hash}
-\subsubsection{Let the native history management remember state. That enables back and forward buttons. (Present the History API)}
+\subsubsection{Not possible to print pages that uses iframes for content separation}
+The last point to this section is that the print functionality of the browser has trouble printing pages that are made up of iframes. Inspecting a printout of the Hyperbrowser in figur \ref{fig:printEx} shows that the browser print each frame on top of each other leaving the page unintelligible. This is an obvious drawback of using iframes to separate content but can easily be remedied by providing an extra styles file, print.css, to the index.html file. 
 
+\begin{figure}
+\centering
+\includegraphics[width=12cm]{printEx}
+\caption{An example of a printout from a browser using iframes to separate content}
+\label{fig:printEx}
+\end{figure}
 
+%\subusbsection{Iframes are not supported by screen readers}
+\subsection{The HTML5 History api and pushState is not an alternative to using the fragment identifier to store state}
+The HTML5 History api offers a way to store state in objects. A custom state object can be delivered directly to the history objects pushState or replaceState methods. Every time the back or forward button is clicked a "popstate" event is fired on the window object. There is only one problem, it does not enable bookmarking or sharing URI's. The history object is by the W3C called the "session history" implying that the history will not survive the session. As mentioned earlier the state of a page needs to be encoded in the URI to be shared. This renders the History Api unfitted for external state management.
 
-\subsubsection{Hashchange events vs pushState events.}
- Server not ready for pushState. Parsing the url. 
+In the specific case of the Hyperbrowser the History object and the push and replace state methods are also unusable because the server is not wired to accept any URI's other than those configured on the server.
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%% P4 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Server rendered page:
@@ -845,7 +939,9 @@ The localStorage does not allow for emitting events when updated.
 Saving state in the localStorage forces every element of the page that needs the mode state to constantly call the localStorage to get synchronized with the current state.
 
 Processor expensive, not a good solution for mobile.
-
+\subsection{The central unit of state}
+\label{sec:modelVSuri} 
+%Chapter 6. Where to store state, localStorage, URI or model?
 \subsection{Solution to } 
 Disable the basic/advanced app, and present a new button in place of the old one providing a link back to the state management app.
 
@@ -948,10 +1044,10 @@ ie differentiating between set and change events
 \printbibheading
 \printbibliography[type=book, title={Books}]
 \printbibliography[type=article, title={Articles}]
-
+\printbibliography[type=inproceedings, title={In proceedings}]
 \printbibliography[type=report, title={Technical reports}]
 \printbibliography[nottype=book, nottype=article,%
-nottype=report, title={Web resources}]
+nottype=report, nottype=inproceedings, title={Web resources}]
 
 \end{document}
 
