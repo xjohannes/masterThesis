@@ -3,6 +3,15 @@
 @string{or    = "O'Reilly Media, Inc."}
 @string{orAdr = "Sebastopol, CA 95472"}
 %%%%%%%%%%%%%%%%%%%%%%%%% Books %%%%%%%%%%%%%%%%%%%%%%%%
+@Book{crockford,
+  author =   crock,
+  title =  {JavaScript:The good parts},
+  edition =  {First Edition},
+  publisher =    or,
+  address =      orAdr,
+  month =  dec,
+  year =   2008
+}
 @book{flanagan,
     Author = {David Flanagan},
     Title  = {JavaScript: The Definitive Guide},
@@ -13,7 +22,7 @@
 }
 
 @book{mikowski,
-    Author = {Michael S. Mikowski and Josh C. Powell},
+    Author = {Michael Mikowski and Josh Powell},
     Title  = {Single Page Web Applications},
     Publisher = { Manning Publications Co.},
     Year = 2014,
@@ -36,6 +45,30 @@
   Month =        sep,
   Year =   2010
 }
+
+@book{krug2005don,
+  title={Don't make me think: A common sense approach to web usability},
+  author={Krug, Steve},
+  year={2005},
+  publisher={Pearson Education India}
+}
+@Inbook{soeken2012,
+author="Soeken, Mathias
+and Wille, Robert
+and Drechsler, Rolf",
+editor="Furia, Carlo A.
+and Nanz, Sebastian",
+chapter="Assisted Behavior Driven Development Using Natural Language Processing",
+title="Objects, Models, Components, Patterns: 50th International Conference, TOOLS 2012, Prague, Czech Republic, May 29-31, 2012. Proceedings",
+year="2012",
+publisher="Springer Berlin Heidelberg",
+address="Berlin, Heidelberg",
+pages="269--287",
+isbn="978-3-642-30561-0",
+doi="10.1007/978-3-642-30561-0_19",
+
+%url="http://dx.doi.org/10.1007/978-3-642-30561-0_19"
+}
 @Inbook{Yule2013,
 author="Yule, Daniel
 and Blustein, Jamie",
@@ -48,16 +81,42 @@ address="Berlin, Heidelberg",
 pages="162--170",
 isbn="978-3-642-39229-0",
 doi="10.1007/978-3-642-39229-0_19",
-url="http://dx.doi.org/10.1007/978-3-642-39229-0_19"
-}
-@book{krug2005don,
-  title={Don't make me think: A common sense approach to web usability},
-  author={Krug, Steve},
-  year={2005},
-  publisher={Pearson Education India}
+%url="http://dx.doi.org/10.1007/978-3-642-39229-0_19"
 }
 
+
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%% Articles %%%%%%%%%%%%%%%%%%%%%%%%
+@article{sandve2013genomic,
+  title={The Genomic HyperBrowser: an analysis web server for genome-scale data},
+  author={Sandve, Geir K and Gundersen, Sveinung and Johansen, Morten and Glad, Ingrid K and Gunathasan, Krishanthi and Holden, Lars and Holden, Marit and Liest{\o}l, Knut and Nyg{\aa}rd, St{\aa}le and Nygaard, Vegard and others},
+  journal={Nucleic acids research},
+  volume={41},
+  number={W1},
+  pages={W133--W141},
+  year={2013},
+  publisher={Oxford Univ Press}
+}
+@article{barth,
+ author = {Barth, Adam and Jackson, Collin and Mitchell, John C.},
+ title = {Securing Frame Communication in Browsers},
+ journal = {Communications of the ACM},
+ issue_date = {June 2009},
+ volume = {52},
+ number = {6},
+ month = jun,
+ year = {2009},
+ issn = {0001-0782},
+ pages = {83--91},
+ numpages = {9},
+ %url = {http://doi.acm.org/10.1145/1516046.1516066},
+ doi = {10.1145/1516046.1516066},
+ acmid = {1516066},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+} 
+
 @article{maldjian2003automated,
   title={An automated method for neuroanatomic and cytoarchitectonic atlas-based interrogation of fMRI data sets},
   author={Maldjian, Joseph A and Laurienti, Paul J and Kraft, Robert A and Burdette, Jonathan H},
@@ -79,25 +138,24 @@ year = "1995",
 note = "Selected Papers from the Second World-Wide Web Conference ",
 issn = "0169-7552",
 doi = "http://dx.doi.org/10.1016/0169-7552(95)00089-4",
-url = "http://www.sciencedirect.com/science/article/pii/0169755295000894",
+%url = "http://www.sciencedirect.com/science/article/pii/0169755295000894",
 author = "Alberto Aimar and James Casey and Nikos Drakos and Ian Hannell and Arash Khodabandeh and Paolo Palazzi and Bertrand Rousseau and Mario Ruggier",
 keywords = "Logical naming scheme",
 keywords = "Automatic document converter",
 keywords = "Web traversal robot",
 keywords = "Web server extension "
 }
-@article{COCKBURN2002397,
+@article{cockburn,
 title = "Pushing back: evaluating a new behaviour for the back and forward buttons in web browsers ",
 journal = "International Journal of Human-Computer Studies ",
 volume = "57",
 number = "5",
 pages = "397 - 414",
 year = "2002",
-note = "",
 issn = "1071-5819",
 doi = "http://dx.doi.org/10.1006/ijhc.2002.1025",
-url = "http://www.sciencedirect.com/science/article/pii/S1071581902910256",
-author = "ANDY COCKBURN and BRUCE MCKENZIE and MICHAEL JASONSMITH",
+%url = "http://www.sciencedirect.com/science/article/pii/S1071581902910256",
+author = "Andy Cockburn and Bruce McKenzie and Michal Jasonsmith",
 keywords = "Web navigation",
 keywords = "World Wide Web",
 keywords = "revisitation",
@@ -105,7 +163,7 @@ keywords = "browser design",
 keywords = "hypertext "
 }
 
-@article{Catledge19951065,
+@article{catledge,
 title = "Characterizing browsing strategies in the World-Wide web ",
 journal = "Computer Networks and \{ISDN\} Systems ",
 volume = "27",
@@ -115,7 +173,7 @@ year = "1995",
 note = "Proceedings of the Third International World-Wide Web Conference ",
 issn = "0169-7552",
 doi = "http://dx.doi.org/10.1016/0169-7552(95)00043-7",
-url = "http://www.sciencedirect.com/science/article/pii/0169755295000437",
+%url = "http://www.sciencedirect.com/science/article/pii/0169755295000437",
 author = "Lara D. Catledge and James E. Pitkow",
 keywords = "Hypertext navigation",
 keywords = "Log files",
@@ -123,23 +181,160 @@ keywords = "User modeling "
 }
 
 
+@article{bernersLee,
+author = {Tim Berners-Lee and Robert Cailliau and Jean-François Groff and Bernd Pollermann},
+title = {World-wide web: the information universe},
+journal = {Internet Research},
+volume = {20},
+number = {4},
+pages = {461-471},
+year = {2010},
+doi = {10.1108/10662241011059471},
+%URL = { http://dx.doi.org/10.1108/10662241011059471},
+eprint = {  http://dx.doi.org/10.1108/10662241011059471}
+}
+@article{Pop20141172,
+title = "Designing an \{MVC\} Model for Rapid Web Application Development ",
+journal = "Procedia Engineering ",
+volume = "69",
+
+pages = "1172 - 1179",
+year = "2014",
+note = "24th \{DAAAM\} International Symposium on Intelligent Manufacturing and Automation, 2013 ",
+issn = "1877-7058",
+doi = "http://dx.doi.org/10.1016/j.proeng.2014.03.106",
+%url = "http://www.sciencedirect.com/science/article/pii/S187770581400352X",
+author = "Dragos-Paul Pop and Adam Altar",
+keywords = "model",
+keywords = "view",
+keywords = "controller",
+keywords = "MVC",
+keywords = "web application",
+keywords = "design pattern "
+}
+@article{chao,
+author = {Johaph T. Chao and Kevin R. Parker and Bill Davey},
+title = {Navigating the Framework Jungle for Teaching
+Web Application Development},
+journal = {Issues in Informing Science and Information Technology},
+volume = {10},
+year = {2013},
+pages = {95-109},
+%url = {http://iisit.org/Vol10/IISITv10p095-109Chao0092.pdf}
+}
+@article{foster,
+ author = {Foster, Ian and Parastatidis, Savas and Watson, Paul and Mckeown, Mark},
+ title = {How Do I Model State?: Let Me Count the Ways},
+ journal = {Communications of the ACM},
+ issue_date = {September 2008},
+ volume = {51},
+ number = {9},
+ month = sep,
+ year = {2008},
+ issn = {0001-0782},
+ pages = {34-41},
+ numpages = {8},
+ %url = {http://doi.acm.org/10.1145/1378727.1378739},
+ doi = {10.1145/1378727.1378739},
+ acmid = {1378739},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+} 
+
+@article{cockburn1996,
+title = "Which way now? Analysing and easing inadequacies in \{WWW\} navigation ",
+journal = "International Journal of Human-Computer Studies ",
+volume = "45",
+number = "1",
+pages = "105 - 129",
+year = "1996",
+issn = "1071-5819",
+doi = "http://dx.doi.org/10.1006/ijhc.1996.0044",
+%url = "http://www.sciencedirect.com/science/article/pii/S1071581996900440",
+author = "Andy Cockburn and Steve Jones"
+}
 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%% Unpublished %%%%%%%%%%%%%%%%%%%%%%%%
 @Unpublished{gsuite,
-  author =   {Borris Simovski},
-  title =  {GSuite {T}ools: web-based analysis of epigenome-wide data},
-  url =    {https://docs.google.com/document/d/18KisURXS6AwbcXhSsKUYu0koJAiU7RrXUs4Rij-b04g/edit?pref=2&pli=1#heading=h.4jqt3k7nrrqi},
-  urldate =  {2016-02-04}
+  author =   {Boris Simovski and Daniel Vodak and Sveinung Gundersen1 and Diana Domanska1 and Abdulrahman Azab1 and Lars Holden and Marit Holden and Ivar Grytten and Knut Rand and Finn Drabløs and Morten Johansen and Antonio Mora and Christin Lund-Andersen and Bastian Fromm and Ragnhild Eskeland and Odd Stokke Gabrielsen and Sigve Nakken and Mads Bengtsen and Lex Nederbragt and Hildur Sif Thorarensen and Johannes Andreas Akse and Ingrid Glad and Eivind Hovig and Geir Kjetil Sandve},
+  title =  {GSuite HyperBrowser: integrative analysis of dataset collections across the genome and epigenome},
+  %url =    {https://docs.google.com/document/d/18KisURXS6AwbcXhSsKUYu0koJAiU7RrXUs4Rij-b04g/edit?pref=2&pli=1#heading=h.4jqt3k7nrrqi},
+  %urldate =  {2016-02-04}
 }
 %%%%%%%%%%%%%%%%%%%%%%%%% In proceedings %%%%%%%%%%%%%%%%%%%%%%%%
+@INPROCEEDINGS{syromiatnikov, 
+author={Artem Syromiatnikov and Danny Weyns}, 
+booktitle={Software Architecture (WICSA), 2014 IEEE/IFIP Conference on}, 
+title={A Journey through the Land of Model-View-Design Patterns}, 
+year={2014}, 
+pages={21-30}, 
+organization={IEEE},
+location={Sydney, Australia},
+keywords={software engineering;user interfaces;MV patterns;MVC;MVP;MVVM;application domain logic;application state;model-view-controller;model-view-design patterns;model-view-presenter;model-view-view model;pattern selection;software program;user interaction control;user interface;Collaboration;Data models;Observers;Rendering (computer graphics);Software;Synchronization;User interfaces;Design pattern;MVC;MVP;MVVM;User interface;controller;model;view}, 
+doi={10.1109/WICSA.2014.13}, 
+month={April},}
+@inproceedings{jackson,
+ author = {Jackson, Collin and Wang, Helen J.},
+ title = {Subspace: Secure Cross-domain Communication for Web Mashups},
+ booktitle = {Proceedings of the 16th International Conference on World Wide Web},
+ series = {WWW '07},
+ year = {2007},
+ isbn = {978-1-59593-654-7},
+ location = {Banff, Alberta, Canada},
+ pages = {611--620},
+ numpages = {10},
+ %url = {http://doi.acm.org/10.1145/1242572.1242655},
+ doi = {10.1145/1242572.1242655},
+ acmid = {1242655},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+ keywords = {access control, same origin policy, trust, web services},
+} 
+
+@inproceedings{zhang,
+ author = {Zhang, Haimo and Zhao, Shengdong},
+ title = {Measuring Web Page Revisitation in Tabbed Browsing},
+ booktitle = {Proceedings of the SIGCHI Conference on Human Factors in Computing Systems},
+ series = {CHI '11},
+ year = {2011},
+ isbn = {978-1-4503-0228-9},
+ location = {Vancouver, BC, Canada},
+ pages = {1831--1834},
+ numpages = {4},
+ %url = {http://doi.acm.org/10.1145/1978942.1979207},
+ doi = {10.1145/1978942.1979207},
+ acmid = {1979207},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+ keywords = {effective revisitation, tabbed browsing, web revisitation},
+}
+@inproceedings{kanakalata,
+ author = {Kanakalata, Narayanan  and Banerjee, Udayan and Kumar, Shantha},
+ title = {Performance Optimization of SOA Based AJAX Application},
+ booktitle = {Proceedings of the 2Nd India Software Engineering Conference},
+ series = {ISEC '09},
+ year = {2009},
+ isbn = {978-1-60558-426-3},
+ location = {Pune, India},
+ pages = {89--94},
+ numpages = {6},
+ %url = {http://doi.acm.org/10.1145/1506216.1506233},
+ doi = {10.1145/1506216.1506233},
+ acmid = {1506233},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+ keywords = {AJAX, SOA, performance testing, performance tuning},
+} 
 @INPROCEEDINGS{castro, 
-author={P. Castro and F. Giraud and R. Konuru and J. Ponzo and J. White}, 
+author={Paul Castro and Frederique Giraud and Ravi Konuru and John Ponzo and Jerome White}, 
 booktitle={2006 1st IEEE Workshop on Hot Topics in Web Systems and Technologies}, 
 title={Before-Commit Client State Management Services for AJAX Applications}, 
 year={2006}, 
 pages={1-12}, 
+organization={IEEE},
+location={Boston, MA, USA},
 keywords={Internet;client-server systems;hypermedia markup languages;online front-ends;AJAX applications;ATOM-RSS data update;HTML pages;Web applications;Web browsers;application-controlled persistence;before-commit client state management service;browser-based services;data handling;data management;operation logging;operational replay;property binding;script-based browser applications;state checkpointing;Checkpointing;Data handling;Delay;Distributed computing;Environmental management;File systems;HTML;Java;Mobile computing;User interfaces;Data Handling;Data Management;Programming Environments;Scripting;Web Applications}, 
 doi={10.1109/HOTWEB.2006.355269}, 
 month={Nov},}
@@ -153,7 +348,7 @@ month={Nov},}
  location = {San Jose, California, USA},
  pages = {597--606},
  numpages = {10},
- url = {http://doi.acm.org/10.1145/1240624.1240719},
+ %url = {http://doi.acm.org/10.1145/1240624.1240719},
  doi = {10.1145/1240624.1240719},
  acmid = {1240719},
  publisher = {ACM},
@@ -170,7 +365,7 @@ month={Nov},}
  location = {Edinburgh, Scotland},
  pages = {879--880},
  numpages = {2},
- url = {http://doi.acm.org/10.1145/1135777.1135924},
+ %url = {http://doi.acm.org/10.1145/1135777.1135924},
  doi = {10.1145/1135777.1135924},
  acmid = {1135924},
  publisher = {ACM},
@@ -186,12 +381,7 @@ month={Nov},}
   year={1997},
   organization={ACM}
 }
-@inproceedings{schwartz2004paradox,
-  title={The paradox of choice},
-  author={Schwartz, Barry},
-  year={2004},
-  organization={Ecco New York}
-}
+
 @Inproceedings{gross,
   title={A reference architecture for web browsers},
   author={Grosskurth, Alan and Godfrey, Michael W},
@@ -201,7 +391,7 @@ month={Nov},}
   organization={IEEE}
 }
 @Inproceedings{anand, 
-author={Anand, V. and Saxena, D.}, 
+author={Anand, Vishal. and Saxena, Deepanker.}, 
 booktitle={Computational Intelligence and Computing Research (ICCIC), 2013 IEEE International Conference on}, 
 title={Comparative study of modern web browsers based on their performance and evolution}, 
 year={2013}, 
@@ -209,14 +399,31 @@ pages={1-5},
 keywords={Internet;Web sites;Google Chrome;Internet;Internet Explorer;Mozilla Firefox;Opera;Websites;modern Web browsers;Browsers;Conferences;Engines;Google;Internet;Time factors;Web pages;Browsers;CPU Utilization;Disk Usage;Users Response Time}, 
 doi={10.1109/ICCIC.2013.6724273}, 
 month={Dec}}
+@INPROCEEDINGS{leff, 
+author={Avraham. Leff and James. T. Rayfield}, 
+booktitle={Enterprise Distributed Object Computing Conference, 2001. EDOC '01. Proceedings. Fifth IEEE International}, 
+title={Web-application development using the Model/View/Controller design pattern}, 
+year={2001}, 
+pages={118-127}, 
+keywords={Internet;Java;client-server systems;distributed object management;information resources;address space;client/server architectures;design pattern;flexible web-application partitioning;interactive application;interactive software systems;model/view controller design pattern;partitioning decisions;programming model;Displays;Environmental factors;HTML;Java;Network servers;Security}, 
+doi={10.1109/EDOC.2001.950428} 
+}
+@inproceedings{helland2005data,
+  title={Data on the Outside Versus Data on the Inside.},
+  author={Helland, Pat},
+  booktitle={CIDR},
+  pages={144--153},
+  year={2005}
+}
+
 %%%%%%%%%%%%%%%%%%%%%%%%% Techreport %%%%%%%%%%%%%%%%%%%%%%%%
 @techreport{rfc_URL,
-   author = "Masinter, L. and Alvestrand, H. and Zigmond, D. and Petke. R",
+   author = "Masinter, Larry and Alvestrand, Harald and Zigmond, Dan and Petke, Rich",
    title = "{Guidelines for new URL Schemes}",
    howpublished = {Internet Requests for Comments},
    type="{RFC}",
    number=2718,
-   pages = {1-10},
+   
    year = {1999},
    month = {November},
    
@@ -224,13 +431,24 @@ month={Dec}}
    institution = "{RFC Editor}",
    URL={http://www.ietf.org/rfc/rfc2718.txt}
    }
+   @techreport{stateTAG,
+   author = "David Orchard",
+   title = "{State in Web application design}",
+   howpublished = {Internet Requests for Comments},
+   year = {2006},
+   month = {April},
+   
+   publisher = "{The W3C technical architecture group}",
+   institution = "{The W3C technical architecture group}",
+   URL={https://www.w3.org/2001/tag/doc/state.html}
+   }
    @techreport{rfc_URI,
-   author = "Berners-Lee, T. and Fielding, R. and Masinter, L",
+   author = "Berners-Lee, Tim and Fielding, Roy T. and Masinter, Larry",
    title = "{Uniform Resource Identifiers (URI): Generic Syntax}",
    howpublished = {Internet Requests for Comments},
    type="{RFC}",
    number=2396,
-   pages = {1-40},
+   
    year = {1998},
    month = {August},
    publisher = "{RFC Editor}",
@@ -238,14 +456,23 @@ month={Dec}}
    URL={http://www.ietf.org/rfc/rfc2396.txt}
    }
 %%%%%%%%%%%%%%%%%%%%%%%%% Misc %%%%%%%%%%%%%%%%%%%%%%%% 
-
 @Misc{nielsenFrames,
    title =   {Why Frames Suck (Most of the Time)},
+   author = {Jacob Nielsen},
    howpublished = {Webpage},
    year =  1996,
    url = {https://www.nngroup.com/articles/why-frames-suck-most-of-the-time/},
    urldate =   {2016-04-10}
  }
+@Misc{holst,
+   title =   {4 Design Patterns That Violate Back-Button Expectations},
+   author = {Christian Holst},
+   howpublished = {Webpage},
+   year =  2014,
+   url = {http://baymard.com/blog/back-button-expectations},
+   urldate =   {2016-04-30}
+ }
+ 
 @Misc{wwwArchitectureW3C,
    title =   {Architecture of the World Wide Web, Volume One},
    howpublished = {Webpage},
@@ -269,7 +496,8 @@ month={Dec}}
    urldate =   {2016-03-29}
  }
  @Misc{urianchor,
-   title =   {uriAnchor},
+   title =   {UriAnchor},
+   author = {Mike Mikowski},
    howpublished = {Webpage},
    year =  2016,
    url = {https://github.com/mmikowski/urianchor},
@@ -354,5 +582,77 @@ month={Dec}}
   urldate =  {2016-02-13},
   year =   2016
 }
+@Misc{backbone,
+  title =  {Backbone.js},
+  howpublished = {Webpage},
+  url =          {http://backbonejs.org/},
+  urldate =  {2016-04-18},
+  year =   2016
+}
+@Misc{angular,
+  title =  {Angularjs},
+  howpublished = {Webpage},
+  url =          {https://angularjs.org/},
+  urldate =  {2016-04-25},
+  year =   2016
+}
+@Misc{node,
+  title =  {nodejs},
+  howpublished = {Webpage},
+  url =          {https://nodejs.org/en/},
+  urldate =  {2016-04-21},
+  year =   2016
+}
+@Misc{npm,
+  title =  {npm},
+  howpublished = {Webpage},
+  url =          {https://www.npmjs.com/},
+  urldate =  {2016-04-21},
+  year =   2016
+}
+@Misc{browserify,
+  title =  {browserify},
+  howpublished = {Webpage},
+  url =          {http://browserify.org/},
+  urldate =  {2016-04-21},
+  year =   2016
+}
+@Misc{gulp,
+  title =  {gulp.js},
+  howpublished = {Webpage},
+  url =          {http://gulpjs.com/},
+  urldate =  {2016-04-21},
+  year =   2016
+}
+@Misc{rheingold,
+  author = {Howard Rheingold},
+  title =  {Tools for thought},
+  howpublished = {Webpage},
+  url =          {http://www.rheingold.com/texts/tft/},
+  urldate =  {2016-04-21},
+  year =   1985
+}
+@Misc{HyperBrowser,
+  title =  {The Genomic HyperBrowser},
+  howpublished = {Webpage},
+  url =          {https://hyperbrowser.uio.no/},
+  urldate =  {2016-04-25},
+  year =   2016
+}
 
-
+@Misc{sessionHistory,
+  title =  {Session history and navigation},
+  howpublished = {Webpage},
+  url =          {https://www.w3.org/TR/2011/WD-html5-20110113/history.html},
+  urldate =  {2016-04-30},
+  year =   2010
+}
+@misc{schwartz2004paradox,
+  title={The paradox of choice},
+  author={Schwartz, Barry},
+  year={2004},
+  organization={Ecco New York},
+  howpublished = {Webpage},
+  url="http://experiencelife.com/wp-content/uploads/2013/04/The-Paradox-of-Choice.pdf"
+  
+}
